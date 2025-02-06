@@ -31,7 +31,7 @@ Hörby_rain              = 'Hörby_rain.csv'
 Vavihill_O3             = 'Vavihill_O3.csv'
 Örja_rain               = 'Örja_rain.csv'
 
-
+"hej"
 
 PM_Vavihill = read.get_pm_data(Vavihill_PM25)
 PM_Hallahus = read.get_pm_data(Hallahus_PM25)
