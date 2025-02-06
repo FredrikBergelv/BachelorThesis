@@ -5,6 +5,7 @@ Created on Mon Feb  3 11:34:04 2025
 
 @author: fredrik
 """
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np 
