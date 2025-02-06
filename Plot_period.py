@@ -31,12 +31,9 @@ Hörby_rain              = 'Hörby_rain.csv'
 Vavihill_O3             = 'Vavihill_O3.csv'
 Örja_rain               = 'Örja_rain.csv'
 
-"hej"
-
 PM_Vavihill = read.get_pm_data(Vavihill_PM25)
 PM_Hallahus = read.get_pm_data(Hallahus_PM25)
 PM_data = pd.concat([PM_Vavihill, PM_Hallahus])
-
 
 wind_data = read.get_wind_data(Hörby_wind)
 temp_data = read.get_temp_data(Hörby_temperature)

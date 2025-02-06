@@ -32,6 +32,7 @@ Hörby_rain              = 'Hörby_rain.csv'
 Vavihill_O3             = 'Vavihill_O3.csv'
 
 
+
 def array_extra_blocking_list(PM_data, wind_data, temp_data, rain_data, SMHI_block_list, 
                               only_titles=False, info=False):
     """
