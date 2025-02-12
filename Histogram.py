@@ -31,7 +31,7 @@ Hörby_temperature       = 'Hörby_temperature.csv'
 Hörby_rain              = 'Hörby_rain.csv'
 Örja_rain               = 'Örja_rain.csv'
 
-def histogram(block_list, season):
+def histogram(block_list, season, save=False):
     """We want to show the number of blockings per year"""
     
     years = [] 
@@ -86,7 +86,7 @@ def histogram(block_list, season):
     years = list(blocking.keys())  # Years list
     
     # Plotting
-    plt.figure(figsize=(10, 6))  # Set a wider figure size for clarity
+    plt.figure(figsize=(5, 5))  # Set a wider figure size for clarity
 
     plt.bar(years, total, label="Total", color='#D3D3D3', edgecolor='black', alpha=0.5)
     
@@ -111,15 +111,16 @@ def histogram(block_list, season):
     # Labels and title with improved font sizes
     plt.xlabel("Year")
     plt.ylabel("Days of Blocking")
-    plt.title("Number of Days Under High-Pressure Blocking Per Year")
-    plt.xticks(years, rotation=45)
+    plt.title("Number of Days Under Blocking Per Year")
+    plt.xticks(years[::4], rotation=45)  # Show only every fourth year
     
     # Add grid lines for better readability
     plt.grid(axis='y', linestyle='--', alpha=0.6)
     plt.legend()
     plt.tight_layout()  
+    if save == True:
+        plt.savefig(f"BachelorThesis/Figures/Histogram_{season}.pdf")
     plt.show()
-
 
 
 
@@ -137,6 +138,12 @@ block_list = read.find_blocking(pres_data, rain_data,
                                      duration_limit = 5, 
                                      rain_limit = 0.2,
                                      info=True)
+"""
+histogram(block_list, 'summer', save=True)
+histogram(block_list, 'autumn', save=True)
+histogram(block_list, 'winter', save=True)
+histogram(block_list, 'spring', save=True)
+"""
 
 histogram(block_list, 'summer')
 
