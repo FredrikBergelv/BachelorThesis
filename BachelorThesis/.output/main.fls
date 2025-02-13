@@ -417,6 +417,11 @@ INPUT Textfiles/2.Method.tex
 INPUT ./Textfiles/3.Result.tex
 INPUT ./Textfiles/3.Result.tex
 INPUT Textfiles/3.Result.tex
+INPUT ./Figures/Meanplot.pdf
+INPUT ./Figures/Meanplot.pdf
+INPUT ./Figures/Meanplot.pdf
+INPUT ./Figures/Meanplot.pdf
+INPUT ./Figures/Meanplot.pdf
 INPUT ./Figures/Histogram_spring.pdf
 INPUT ./Figures/Histogram_spring.pdf
 INPUT ./Figures/Histogram_spring.pdf

@@ -32,12 +32,93 @@ Hörby_rain              = 'Hörby_rain.csv'
 Vavihill_O3             = 'Vavihill_O3.csv'
 
 
+"This funtion make arrays of PM2.5 and the pressure stored in lists"
+def array_blocking_list(PM_data, SMHI_block_list, 
+                              only_titles=False, info=False):
+    """
+    This function takes in the particle data and the pressure blocking data
+    It returns a list of arrays for each blocking period, pressure, PM2.5
+    To get the array do list[i]=array"
+    array[0]=hours, 
+    array[1]=pressure, 
+    array[2]=pm2.5, 
+    """
+    totdata_list = []
+    title_list = []
+    counter = 0  #Counts number of plots we remove
 
+    # Loop through each blocking period
+    for i in range(len(SMHI_block_list)):
+        block_data = SMHI_block_list[i]
+        
+        # Plotting the pressure data against the datetime for different locations
+        start_time = block_data['datetime'].min()
+        end_time = block_data['datetime'].max()
+        
+        # Filter all datasets to the overlapping time range
+        PM_data_trimmed = PM_data[(PM_data['datetime_start'] >= start_time) & (PM_data['datetime_end'] <= end_time)]
+
+        # Drop rows with NaN in the PM2.5 column
+        PM_data_trimmed = PM_data_trimmed.dropna(subset=['pm2.5'])
+        
+        # If PM_data is empty skip
+        if PM_data_trimmed.empty:
+            counter = counter + 1 
+            continue
+        
+        # Since data is taken every hour, ensure that we have enough data
+        expected_data = (end_time - start_time).total_seconds() / 3600  # Blocking duration in hours
+        actual_data = len(PM_data_trimmed) # Data coverge of PM_data in hours
+        coverage = actual_data/expected_data
+        if coverage < 0.9:
+            counter = counter + 1 
+            continue
+         
+         # Store the dates if we want later on
+        if only_titles == True:
+                 title_list.append(f'Data from {start_time} to {end_time}') 
+                 
+                 
+        # Merge PM_data_trimmed with block_data
+        combined_data = pd.merge_asof(
+            PM_data_trimmed,
+            block_data,
+            left_on='datetime_start',
+            right_on='datetime',
+            direction='nearest'
+        )[['datetime', 'pressure', 'pm2.5' ]]
+          
+        totdata_list.append(combined_data)
+                
+    # Store all blocking values in arrays
+    array_list = []
+     
+    # loop trhrough entire list. 
+    for i in range(len(totdata_list)):
+             datafile = totdata_list[i]
+             
+             # convert everything to arrays
+             array = np.zeros((7,len(datafile)))
+            
+            # Since the data is for every hour the index is the hour since start
+             for hour in range(len(datafile)):
+                    array[0,hour], array[1,hour], array[2,hour] = hour, datafile['pressure'][hour], datafile['pm2.5'][hour]
+             array_list.append(array)
+        
+    if only_titles == True:
+        return title_list  
+    if info == True:
+        print(f'From a total of {len(SMHI_block_list)} high pressure bocking periods, {counter} plots were removed due to lack of PM2.5 data')
+        print(f'resuting in {len(SMHI_block_list)-counter} relevant blocking periods')
+    
+    return array_list # Return list of all the datafiles
+
+"These funtions make arrays of PM2.5 and the pressure, wind, rain, temp stored in lists"
 def array_extra_blocking_list(PM_data, wind_data, temp_data, rain_data, SMHI_block_list, 
                               only_titles=False, info=False):
     """
-    This function takes in the particle data, wind data and the pressure blocking data
-    It returns a list of arrays for each blocking period with wind, pressure, PM2.5
+    This function takes in the particle data, wind, rain, temp data and the pressure blocking data
+    It returns a list of arrays for each blocking period with wind, rain, temp, pressure, PM2.5
     To get the array do list[i]=array"
     array[0]=hours, 
     array[1]=pressure, 
@@ -228,6 +309,7 @@ def plot_extra_blocking_array(array, array_title, extrainfo=True):
         
         plt.show()
 
+"These funtions make datafiles of PM2.5 and the pressure, wind, rain, temp stored in lists"
 def extra_blocking_list(PM_data, wind_data, temp_data, rain_data, SMHI_block_list, 
                         info=False):
     """
