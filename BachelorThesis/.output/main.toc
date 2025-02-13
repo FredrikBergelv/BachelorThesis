@@ -2,8 +2,8 @@
 \contentsline {section}{\numberline {2}Theory}{1}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Anticyclones}{1}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}PM\textsubscript {2.5}}{2}{subsection.2.2}%
-\contentsline {section}{\numberline {3}Method}{2}{section.3}%
-\contentsline {section}{\numberline {4}Result}{2}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Histogram}{3}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Discussion}{3}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{3}{section.6}%
+\contentsline {section}{\numberline {3}Method}{3}{section.3}%
+\contentsline {section}{\numberline {4}Result}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Histogram}{5}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Discussion}{5}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{5}{section.6}%

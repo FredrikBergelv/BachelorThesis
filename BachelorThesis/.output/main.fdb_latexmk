@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex .output/main"] 1739453156.70969 ".output/main.aux" ".output/main.bbl" ".output/main" 1739453157.75273 0
+["bibtex .output/main"] 1739465465.09471 ".output/main.aux" ".output/main.bbl" ".output/main" 1739466079.15959 0
   "./Textfiles/References.bib" 1738834367.41103 11948 a5730ea5f79622b4d46a0245665b9df4 ""
-  ".output/Textfiles/Appendix.aux" 1739453157.52949 1031 ef6560dcf8c1ef69e8c1243d98739f5d "pdflatex"
-  ".output/main.aux" 1739453157.52949 3053 7b13f52bc9bfc024214d0a80642c9f4a "pdflatex"
+  ".output/Textfiles/Appendix.aux" 1739466078.9385 1031 77ceaa6449e2e53dcc786c146f6ab990 "pdflatex"
+  ".output/main.aux" 1739466078.9395 3252 fdaac09cf52629cab52abc873025502e "pdflatex"
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
   (generated)
   ".output/main.bbl"
   ".output/main.blg"
   (rewritten before read)
-["pdflatex"] 1739453156.80817 "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" ".output/main.pdf" "main" 1739453157.75291 0
-  ".output/Textfiles/Appendix.aux" 1739453157.52949 1031 ef6560dcf8c1ef69e8c1243d98739f5d "pdflatex"
-  ".output/main.aux" 1739453157.52949 3053 7b13f52bc9bfc024214d0a80642c9f4a "pdflatex"
-  ".output/main.bbl" 1739453156.80049 1932 93635d2470a92de1c621a385228ffc28 "bibtex .output/main"
-  ".output/main.out" 1739453157.53049 809 cb15224f923763051b90ea1aa660b39f "pdflatex"
-  ".output/main.toc" 1739453157.53049 627 0e60e1893169a07eadb59a69bd30a43a "pdflatex"
+["pdflatex"] 1739466078.25102 "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" ".output/main.pdf" "main" 1739466079.15975 0
+  ".output/Textfiles/Appendix.aux" 1739466078.9385 1031 77ceaa6449e2e53dcc786c146f6ab990 "pdflatex"
+  ".output/main.aux" 1739466078.9395 3252 fdaac09cf52629cab52abc873025502e "pdflatex"
+  ".output/main.bbl" 1739465465.18063 1932 93635d2470a92de1c621a385228ffc28 "bibtex .output/main"
+  ".output/main.out" 1739466078.9405 809 cb15224f923763051b90ea1aa660b39f "pdflatex"
+  ".output/main.toc" 1739466078.9405 627 11f3b43194ee5dc9175b2ce3b62b659a "pdflatex"
   "/etc/texmf/web2c/texmf.cnf" 1732548902.53758 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" 1738780778 554 f6aa7925f5bbfa34c58c1ba1b0e9f620 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -243,11 +243,12 @@
   "Figures/Histogram_summer.pdf" 1739366427.62179 17019 99e8cda0b1b8258f29aba763c5a571a2 ""
   "Figures/Histogram_winter.pdf" 1739366428.13479 16793 a65d0e3620413109c23c18b8a47d57ed ""
   "Figures/Meanplot.pdf" 1739453140.06342 20292 3d5a2124a87c128b86054e8fd9317460 ""
+  "Figures/plot_20010101_20011231.pdf" 1739466077.80249 172578 4bc0de943ee2cf7e4aa8168acc8bf52a ""
   "Other/Premable.tex" 1738780778 1717 53d696f780477de6298fbf747ba1a578 ""
   "Other/titlepage.pdf" 1738780778 1828138 fce811ece54460f1a01b276fbb9835dd ""
   "Textfiles/1.Introduction.tex" 1739365681.61125 5386 4b30fb8078d7a635d2cb8ed77ab77950 ""
   "Textfiles/2.Method.tex" 1738780778 17 9641892728e42bb68f6ef131318d8774 ""
-  "Textfiles/3.Result.tex" 1739453155.48048 827 c7d3e036dfacebdd6f82a70bef95f534 ""
+  "Textfiles/3.Result.tex" 1739465515.57744 1000 533c0b8a2857f82916ad3830f3c3b889 ""
   "Textfiles/4.Discussion.tex" 1738780778 21 bc2321953236e49c0a923bd0e83c84e8 ""
   "Textfiles/5.Conclusion.tex" 1738780778 21 5263826852d7c88eadf74b948137ff83 ""
   "Textfiles/Appendix.tex" 1738780778 0 d41d8cd98f00b204e9800998ecf8427e ""

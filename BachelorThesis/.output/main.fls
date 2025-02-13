@@ -417,6 +417,12 @@ INPUT Textfiles/2.Method.tex
 INPUT ./Textfiles/3.Result.tex
 INPUT ./Textfiles/3.Result.tex
 INPUT Textfiles/3.Result.tex
+INPUT ./Figures/plot_20010101_20011231.pdf
+INPUT ./Figures/plot_20010101_20011231.pdf
+INPUT ./Figures/plot_20010101_20011231.pdf
+INPUT ./Figures/plot_20010101_20011231.pdf
+INPUT ./Figures/plot_20010101_20011231.pdf
+INPUT /usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT ./Figures/Meanplot.pdf
 INPUT ./Figures/Meanplot.pdf
 INPUT ./Figures/Meanplot.pdf
@@ -446,7 +452,6 @@ INPUT ./Figures/Histogram_winter.pdf
 INPUT ./Textfiles/4.Discussion.tex
 INPUT ./Textfiles/4.Discussion.tex
 INPUT Textfiles/4.Discussion.tex
-INPUT /usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT ./Textfiles/5.Conclusion.tex
 INPUT ./Textfiles/5.Conclusion.tex
 INPUT Textfiles/5.Conclusion.tex
