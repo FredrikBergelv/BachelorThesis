@@ -10,6 +10,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np 
 import Read_datafiles as read
+import time
+from collections import defaultdict
+from datetime import datetime
+
 
 
 #Stockholm_pressure     = 'smhi-Stockholm_pressure.csv'
@@ -122,7 +126,59 @@ def histogram(block_list, season, save=False):
         plt.savefig(f"BachelorThesis/Figures/Histogram_{season}.pdf")
     plt.show()
 
+def plot_blockings_by_year(block_list, lim, save=False):
+    """
+    This function plots the number of blockings per year and the number of blockings 
+    longer than 7 days for each year.
+    """
+    
+    # Dictionary to store the number of blockings per year
+    blockings_per_year = defaultdict(int)
+    long_blockings_per_year = defaultdict(int)
+    
+    # Loop through the block list to count blockings per year and blockings > 7 days
+    for data in block_list:
+        start, end = min(data['datetime']), max(data['datetime'])  # Get start and end times
+        year = start.year  # Extract the year from the start date
+        duration = (end - start).days  # Calculate duration in days
+        
+        blockings_per_year[year] += 1  # Increment count of blockings for that year
+        
+        if duration > lim:
+            long_blockings_per_year[year] += 1  # Increment count for long blockings (over 7 days)
+    
+    # Prepare data for plotting
+    years = sorted(blockings_per_year.keys())  # Sorted list of years
+    total_blockings = [blockings_per_year[year] for year in years]
+    long_blockings = [long_blockings_per_year.get(year, 0) for year in years]  # Handle years with no long blockings
+    
+    # Plotting
+    fig, ax = plt.subplots(figsize=(7, 5))
+    t = range(len(years))
+    
+    # Bar plots for total blockings and long blockings
+    ax.bar(t, total_blockings, label='Total Blockings', color='#D3D3D3', edgecolor='black', alpha=0.6)
+    ax.bar(t, long_blockings, label=f'Blockings > {lim} Days', color='red', edgecolor='black', alpha=0.9)
 
+    
+    # Labels and title
+    ax.set_xlabel('Year', fontsize=12)
+    ax.set_ylabel('Number of Blockings', fontsize=12)
+    ax.set_title(f'Number of Blockings Per Year and Blockings > {lim} Days', fontsize=14)
+
+    # Set x-ticks every 4 years and rotate labels
+    ax.set_xticks([i for i in range(0, len(years), 3)])  # Set ticks every 4th year
+    ax.set_xticklabels(years[::3], rotation=45)  # Rotate the labels by 45 degrees
+    
+    plt.grid(axis='y', linestyle='--', alpha=0.6)
+    ax.legend()
+    plt.tight_layout()
+    if save:
+        plt.savefig("BachelorThesis/Figures/BlockingsPerYear.pdf")
+    plt.show()
+
+
+start_time = time.time()
 
 Hörby_data = read.get_rain_data(Hörby_rain)
 Örja_data =  read.get_rain_data(Örja_rain)
@@ -137,7 +193,9 @@ block_list = read.find_blocking(pres_data, rain_data,
                                      pressure_limit = 1015, 
                                      duration_limit = 5, 
                                      rain_limit = 0.2,
-                                     info=True)
+                                     info=False)
+
+
 """
 histogram(block_list, 'summer', save=True)
 histogram(block_list, 'autumn', save=True)
@@ -145,6 +203,12 @@ histogram(block_list, 'winter', save=True)
 histogram(block_list, 'spring', save=True)
 """
 
-histogram(block_list, 'summer')
+plot_blockings_by_year(block_list, lim=7, save=False)
+
+
+
+histogram(block_list, 'all')
+
+print(f"Elapsed time: {time.time() - start_time:.2f} seconds")
 
 

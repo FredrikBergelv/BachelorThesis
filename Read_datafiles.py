@@ -9,6 +9,8 @@ Created on Thu Jan 23 18:04:20 2025
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np 
+import matplotlib.colors as mcolors
+
 
 
 """
@@ -540,6 +542,82 @@ def array_blocking_list(PM_data, SMHI_block_list, cover=0.9,
     
     return array_list # Return list of all the datafiles
 
+"""
+This function sorts the list of arrays into three catagories. Or if yu give it a 
+interval it will give you one list with the dtata for that interval. 
+"""
+
+def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, 
+                  pie=False, save=False):
+    """
+    This function filters a list of blocking arrays by wind direction.
+    It returns three lists:
+        sort_wind_dir[0] between 315° and 45
+        sort_wind_dir[1] between 45° and 135° 
+        sort_wind_dir[2] between 135° and 225°
+        sort_wind_dir[3] between 225° and 315°
+    """
+    N_totdata_list = []
+    E_totdata_list = []
+    S_totdata_list = []
+    W_totdata_list = []
+
+    personalized_totdata_list = []
+    
+    # Loop through the arrays to sort by wind direction
+    for array in totdata_list:
+        wind_dir = np.mean(array[3])  # Compute mean wind direction
+        
+        if upperlim:
+            if lowerlim < wind_dir < upperlim:
+                personalized_totdata_list.append(array)
+        
+        elif wind_dir > 315 or wind_dir < 45:
+            N_totdata_list.append(array)
+        elif 45 < wind_dir < 135:
+            E_totdata_list.append(array)
+        elif 135 < wind_dir < 225:
+            S_totdata_list.append(array)
+        elif 225 < wind_dir < 315:
+            W_totdata_list.append(array)
+            
+    if pie:
+        
+        lenN = len(N_totdata_list)
+        lenE = len(E_totdata_list)
+        lenS = len(S_totdata_list)
+        lenW = len(W_totdata_list)
+
+        
+        # Prepare data for the pie chart
+        sizes = [lenN, lenE, lenS,lenW]
+        colors = ["royalblue", "tomato", "seagreen", "gold"]
+        colors = [mcolors.to_rgba(c, alpha=0.7) for c in colors]
+    
+        # Plot the pie chart
+        plt.figure(figsize=(5, 5))
+        wedges, _, _ = plt.pie(sizes, colors=colors, autopct='%1.1f%%', startangle=140,
+                               wedgeprops={'edgecolor': 'black', 'linewidth': 1.5})
+        
+        # Equal aspect ratio ensures that pie chart is drawn as a circle
+        plt.axis('equal')
+        
+        # Title
+        plt.title('Distribution of Wind Directions', fontsize=14)
+
+        # Create a custom legend with the wind direction colors
+        plt.legend(wedges, ['North', 'East', 'South', 'West'],
+                   title="Wind Directions")
+        
+        if save:
+            plt.savefig("BachelorThesis/Figures/PieChart.pdf", bbox_inches="tight")
+        plt.show()
+        
+    if upperlim:
+        return personalized_totdata_list
+
+    return N_totdata_list, E_totdata_list, S_totdata_list, W_totdata_list  # Return all three categories
+
 
 """
 This funtion make arrays of PM2.5 and the pressure, wind, temp, rain from the 
@@ -661,7 +739,7 @@ def array_extra_blocking_list(PM_data, wind_data, temp_data, rain_data, SMHI_blo
     
     return array_list # Return list of all the datafiles
 
-def plot_extra_blocking_array(array, array_title, extrainfo=True, save=False):
+def plot_extra_blocking_array(array, array_title=False, extrainfo=True, save=False):
     """
     Plots the blocking data with four subplots: Pressure, PM2.5, Wind Direction, and Wind Speed.
     """
@@ -673,6 +751,9 @@ def plot_extra_blocking_array(array, array_title, extrainfo=True, save=False):
     wind_speed = array[4]
     temp = array[5]
     rain = array[6]
+    
+    if not array_title:
+        array_title = 'Plot Showing Data During a High Pressure Blocking'
     
     # Create the figure and subplots    
     if extrainfo == False: 
@@ -845,9 +926,6 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
     if save:
         plt.savefig(f'BachelorThesis/Figures/plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.pdf')
     plt.show()        
-
-
-
 
 
 

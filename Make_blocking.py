@@ -50,16 +50,6 @@ SMHI_block_list = read.find_blocking(pres_data, rain_data,
 
 
 #%%
-totdata_list = read.extra_blocking_list(PM_data, wind_data, temp_data, rain_data, 
-                                         SMHI_block_list, info=True)
-
-for i in range(len(totdata_list)):
-    data = totdata_list[i]
-    read.plot_extra_blocking(data)
-    if i > 30:
-        raise ValueError(f"Showing {len(totdata_list)} graphs is too many!")
-
-#%%
 
 totdata_list = read.array_extra_blocking_list(PM_data, wind_data, temp_data, rain_data, 
                                          SMHI_block_list, info=True)
@@ -67,9 +57,10 @@ totdata_list = read.array_extra_blocking_list(PM_data, wind_data, temp_data, rai
 titles = read.array_extra_blocking_list(PM_data, wind_data, temp_data, rain_data, 
                                    SMHI_block_list, only_titles=True)
 
-for i in range(len(totdata_list)):
-    array = totdata_list[i]
-    array_tiltle = titles[i]
-    #plot_extra_blocking_array(array, array_tiltle, extrainfo=True)
+for i, array in enumerate(totdata_list):
+    array_title = titles[i]
+    read.plot_extra_blocking_array(array, array_title, extrainfo=True)
+    if i > 30:
+        raise ValueError(f"Showing {len(totdata_list)} graphs is too many!")
     
 

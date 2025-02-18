@@ -4,6 +4,7 @@
 \contentsline {subsection}{\numberline {2.2}PM\textsubscript {2.5}}{2}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Method}{3}{section.3}%
 \contentsline {section}{\numberline {4}Result}{3}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Histogram}{5}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Discussion}{5}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{5}{section.6}%
+\contentsline {subsection}{\numberline {4.1}Data sets sorted by wind direction}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Histogram}{6}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Discussion}{7}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{7}{section.6}%

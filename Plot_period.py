@@ -50,8 +50,8 @@ SMHI_block_list = read.find_blocking(pressure_data, rain_data,
 
 read.plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
                   SMHI_block_list,
-                  start_time='2001-01-01', 
-                  end_time='2001-12-31',
-                  save=True)
+                  start_time='2018-01-01', 
+                  end_time='2018-12-31',
+                  save=False)
 
 print(f"Elapsed time: {time.time() - start_time:.2f} seconds")
