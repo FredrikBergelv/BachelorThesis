@@ -5,6 +5,8 @@
 \contentsline {section}{\numberline {3}Method}{3}{section.3}%
 \contentsline {section}{\numberline {4}Result}{3}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Data sets sorted by wind direction}{4}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Histogram}{6}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Discussion}{7}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{7}{section.6}%
+\contentsline {subsection}{\numberline {4.2}Vavihill}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Malmö}{6}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Histogram}{8}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Discussion}{9}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{9}{section.6}%

@@ -20,11 +20,13 @@ Helsingborg_pressure = 'Helsingborg_pressure.csv'
 Hörby_rain = 'Hörby_rain.csv'
 Hörby_wind = 'Hörby_wind.csv'
 Hörby_temperature = 'Hörby_temperature.csv'
+Malmö_PM25 = 'Malmö_PM25.csv'
 
     
 
-def plot_mean(totdata_list, daystoplot, title=False, minpoints=5, 
-              info=False, save=False):
+def plot_mean(totdata_list, daystoplot, wind=False, minpoints=5, 
+              info=False, save=False, place='',
+              pm_mean=False, pm_sigma=False):
     """
     This function takes the mean of the PM2.5 concentration for each hour.
     """
@@ -49,7 +51,7 @@ def plot_mean(totdata_list, daystoplot, title=False, minpoints=5,
     if info: 
         plt.figure(figsize=(7, 4))
         plt.plot(t,valid_counts_per_hour, label='Number of datasets')
-        plt.title(f'Number of datasets for {daystoplot} days')
+        plt.title(f'Number of datasets for {daystoplot} days at {place}')
         plt.xlabel('Time from start of blocking (days)')
         plt.ylabel('Number of datasets')
         plt.axhline(y=minpoints, color='red', linestyle='--', linewidth=1.5, label='Minimum number of datasets allowed')
@@ -65,27 +67,34 @@ def plot_mean(totdata_list, daystoplot, title=False, minpoints=5,
 
     # Plot everything
     plt.figure(figsize=(8, 5))
-    if title:
-        plt.title(f'Mean concentration of PM2.5 between {title} during first {daystoplot} days')
+    if wind:
+        plt.title(f'Mean concentration of PM2.5 with wind between {wind} during first {daystoplot} days, {place}')
     else:
-        plt.title(f'Mean concentration of PM2.5 during first {daystoplot} days')
-    plt.plot(t, mean, label='Mean Data')
-    plt.fill_between(t, mean + sigma, mean - sigma, alpha=0.4)
+        plt.title(f'Mean concentration of PM2.5 during first {daystoplot} days, {place}')
+    
+    if pm_mean:
+        plt.plot(t, pm_mean+t*0, label='Standard Mean', c='gray')
+        plt.fill_between(t,  pm_mean+t*0 +  pm_sigma+t*0,  pm_mean+t*0 - pm_sigma, alpha=0.4, color='gray')
+
+    plt.plot(t, mean, label='Mean Blocking Data', c='C0')
+    plt.fill_between(t, mean + sigma, mean - sigma, alpha=0.4, color='C0')
+    
     plt.xlabel('Time from start of blocking (days)')
     plt.ylabel('Mean Concentration [PM2.5 (µg/m³)]')
     plt.grid(True)
-    plt.ylim(0,30)
+    plt.ylim(0,40)
     plt.tight_layout()
     plt.legend()
     
     if save:
-        plt.savefig("BachelorThesis/Figures/Meanplot.pdf")
+        plt.savefig(f"BachelorThesis/Figures/Meanplot_{place}.pdf")
     plt.show()
 
 
 
-def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=5,
-                  labels=["North", "East", "South", "West"], save=False):
+def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=5, place='',
+                  labels=["North", "East", "South", "West"], 
+                  pm_mean=False, pm_sigma=False, save=False):
     """
     This function takes the mean of the PM2.5 concentration for each hour 
     and plots it separately for each wind direction category in subplots.
@@ -105,7 +114,7 @@ def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=5,
     # Create dynamic subplots based on available data
     fig, axes = plt.subplots(len(valid_data), 1, figsize=(8, 3 * len(valid_data)), sharex=True, sharey=True)
     fig.tight_layout(pad=5.0)
-    fig.suptitle(f'Mean Concentration of PM2.5 During First {daystoplot} Days')
+    fig.suptitle(f'Mean Concentration of PM2.5 During First {daystoplot} Days, {place}')
 
     if len(valid_data) == 1:
         axes = [axes]  # Ensure axes is always iterable
@@ -136,11 +145,16 @@ def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=5,
             hmax = np.max(non_nan_indices)
         else:
             hmax = valid_indices[-1]
+            
+        if pm_mean:
+          ax.plot(t, pm_mean+t*0, label='Standard Mean', c='gray')
+          ax.fill_between(t,  pm_mean+t*0 +  pm_sigma+t*0,  pm_mean+t*0 - pm_sigma, alpha=0.4, color='gray') 
 
         # Plot the mean and confidence interval
-        ax.plot(t[:hmax + 1], mean[:hmax + 1], label=f'{label} Mean', color=color)
+        ax.plot(t[:hmax + 1], mean[:hmax + 1], label=f'{label} Blocking Mean', color=color)
         ax.fill_between(t[:hmax + 1], mean[:hmax + 1] + sigma[:hmax + 1], 
                         mean[:hmax + 1] - sigma[:hmax + 1], alpha=0.3, color=color)
+        
 
         # Set y-axis integer ticks and grid lines
         ax.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
@@ -154,7 +168,7 @@ def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=5,
     axes[-1].set_xlabel('Time from start of blocking (days)')
 
     if save:
-        plt.savefig("BachelorThesis/Figures/Meanplot_dir.pdf")
+        plt.savefig(f"BachelorThesis/Figures/Meanplot_dir_{place}.pdf")
     plt.show()
 
 
@@ -163,19 +177,22 @@ start_time = time.time()
 
 PM_Vavihill = read.get_pm_data(Vavihill_PM25)
 PM_Hallahus = read.get_pm_data(Hallahus_PM25)
-PM_data = pd.concat([PM_Vavihill, PM_Hallahus], axis=0)
+PM_Vavihill = pd.concat([PM_Vavihill, PM_Hallahus], axis=0)
+PM_Malmö = read.get_pm_data(Malmö_PM25)
+PM_datas = {'Malmö':PM_Malmö, 'Vavihill':PM_Vavihill}
 
+location = 'Vavihill'
+
+PM_data = PM_datas[location]
 
 wind_data = read.get_wind_data(Hörby_wind)
 temp_data = read.get_temp_data(Hörby_temperature)
 rain_data = read.get_rain_data(Hörby_rain)
 pres_data = read.get_pressure_data(Helsingborg_pressure)
 
-days = 5
-
 SMHI_block_list = read.find_blocking(pres_data, rain_data, 
                                      pressure_limit=1015, 
-                                     duration_limit=days, 
+                                     duration_limit=5, 
                                      rain_limit=0.5,
                                      info=False)
 
@@ -184,35 +201,52 @@ totdata_list = read.array_extra_blocking_list(PM_data, wind_data,
                                               SMHI_block_list, 
                                               cover=1, info=True)
 
+
+pm_mean = np.nanmean(np.array(PM_data['pm2.5']))
+pm_sigma = np.nanstd(np.array(PM_data['pm2.5']))
+
+print(f'mean particle concentration is {np.round(pm_mean,1)} ± {np.round(pm_sigma,1)} µg/m³')
+
 print(f"Elapsed time: {time.time() - start_time:.2f} seconds")
 
 
 #%%
 
-dir_totdata_list = read.sort_wind_dir(totdata_list, pie=True, save=False)
+
+plot_mean(totdata_list, daystoplot=7, minpoints=12, 
+          place=location, save=False,
+          pm_mean=pm_mean, pm_sigma=pm_sigma)
 
 
-plot_dir_mean(dir_totdata_list, daystoplot=8, minpoints=10, save=False)
+
+#%%
+
+dir_totdata_list = read.sort_wind_dir(totdata_list, pie=False, save=False)
+
+
+plot_dir_mean(dir_totdata_list, daystoplot=10, minpoints=8, 
+              place=location, save=False,
+              pm_mean=pm_mean, pm_sigma=pm_sigma)
 
 
 
 
 #%%
 
-dir_lower_lim = 140
-dir_upper_lim = 180
-daystoplot = 9
-minum_allowed_datatsets = 8
+dir_lower_lim = 125
+dir_upper_lim = 140
+daystoplot = 7
+minum_allowed_datatsets = 6
 
 
 dir_totdata_list = read.sort_wind_dir(totdata_list,
                                       lowerlim=dir_lower_lim,
                                       upperlim=dir_upper_lim) 
 
-title = f'{dir_lower_lim}° to {dir_upper_lim}°'
+wind = f'{dir_lower_lim}° to {dir_upper_lim}°'
 
 plot_mean(dir_totdata_list, daystoplot=daystoplot, minpoints=minum_allowed_datatsets, 
-          title=title, save=True)
+          wind=wind, place=location, pm_mean=pm_mean, save=False)
 
 
 print(f'The number of blocking filtered between {dir_lower_lim}° to {dir_upper_lim} are now {len(dir_totdata_list)} datasets!')
