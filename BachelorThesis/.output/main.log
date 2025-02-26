@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  19 FEB 2025 14:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  26 FEB 2025 11:28
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -877,7 +877,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
 
 pdfTeX warning: pdflatex (file ./Other/titlepage.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Other/titlepage.pdf, id=55, 597.53635pt x 845.07529pt>
+<Other/titlepage.pdf, id=51, 597.53635pt x 845.07529pt>
 File: Other/titlepage.pdf Graphic file (type pdf)
 <use Other/titlepage.pdf>
 Package pdftex.def Info: Other/titlepage.pdf  used on input line 7.
@@ -895,7 +895,7 @@ pdfTeX warning: pdflatex (file ./Other/titlepage.pdf): PDF inclusion: found PDF 
 
 
 pdfTeX warning: pdflatex (file ./Other/titlepage.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Other/titlepage.pdf, id=58, page=1, 597.53635pt x 845.07529pt>
+<Other/titlepage.pdf, id=54, page=1, 597.53635pt x 845.07529pt>
 File: Other/titlepage.pdf Graphic file (type pdf)
 <use Other/titlepage.pdf, page 1>
 Package pdftex.def Info: Other/titlepage.pdf , page1 used on input line 7.
@@ -935,98 +935,95 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.18 \subsection
+l.19 \subsection
                 {PM\textsubscript{2.5}} [1]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mathsurround' on input line 18.
+(hyperref)                removing `\mathsurround' on input line 19.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 18.
+(hyperref)                removing `\z@' on input line 19.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 18.
+(hyperref)                removing `subscript' on input line 19.
 
 ) (./Textfiles/2.Method.tex) (./Textfiles/3.Result.tex
-<Figures/plot_20010101_20011231.pdf, id=130, 505.89pt x 578.16pt>
+<Figures/plot_20010101_20011231.pdf, id=126, 505.89pt x 578.16pt>
 File: Figures/plot_20010101_20011231.pdf Graphic file (type pdf)
 <use Figures/plot_20010101_20011231.pdf>
-Package pdftex.def Info: Figures/plot_20010101_20011231.pdf  used on input line 4.
-(pdftex.def)             Requested size: 455.24411pt x 520.28625pt.
+Package pdftex.def Info: Figures/plot_20010101_20011231.pdf  used on input line 7.
+(pdftex.def)             Requested size: 318.66948pt x 364.19861pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.8 
-     [2{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<Figures/Meanplot_Vavihill.pdf, id=138, 578.16pt x 361.35pt>
+l.11 
+      [2{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<Figures/Meanplot_Vavihill.pdf, id=136, 361.35pt x 361.35pt>
 File: Figures/Meanplot_Vavihill.pdf Graphic file (type pdf)
 <use Figures/Meanplot_Vavihill.pdf>
-Package pdftex.def Info: Figures/Meanplot_Vavihill.pdf  used on input line 13.
-(pdftex.def)             Requested size: 409.71692pt x 256.06956pt.
+Package pdftex.def Info: Figures/Meanplot_Vavihill.pdf  used on input line 23.
+(pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
+<Figures/Meanplot_Malmö.pdf, id=137, 361.35pt x 361.35pt>
+File: Figures/Meanplot_Malmö.pdf Graphic file (type pdf)
+<use Figures/Meanplot_Malmö.pdf>
+Package pdftex.def Info: Figures/Meanplot_Malmö.pdf  used on input line 30.
+(pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
+<Figures/Meanplotinfo_Vavihill.pdf, id=138, 361.35pt x 216.81pt>
+File: Figures/Meanplotinfo_Vavihill.pdf Graphic file (type pdf)
+<use Figures/Meanplotinfo_Vavihill.pdf>
+Package pdftex.def Info: Figures/Meanplotinfo_Vavihill.pdf  used on input line 36.
+(pdftex.def)             Requested size: 223.07211pt x 133.84517pt.
+<Figures/Meanplotinfo_Malmö.pdf, id=139, 361.35pt x 216.81pt>
+File: Figures/Meanplotinfo_Malmö.pdf Graphic file (type pdf)
+<use Figures/Meanplotinfo_Malmö.pdf>
+Package pdftex.def Info: Figures/Meanplotinfo_Malmö.pdf  used on input line 43.
+(pdftex.def)             Requested size: 223.07211pt x 133.84517pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.17 
+l.50 
       [3 <./Figures/plot_20010101_20011231.pdf>]
-<Figures/PieChart_Vavihill.pdf, id=195, 294.50024pt x 309.39653pt>
-File: Figures/PieChart_Vavihill.pdf Graphic file (type pdf)
-<use Figures/PieChart_Vavihill.pdf>
-Package pdftex.def Info: Figures/PieChart_Vavihill.pdf  used on input line 19.
-(pdftex.def)             Requested size: 182.09486pt x 191.314pt.
-<Figures/Meanplot_dir_Vavihill.pdf, id=196, 578.16pt x 650.43pt>
+<Figures/Meanplot_dir_Vavihill.pdf, id=197, 361.35pt x 903.375pt>
 File: Figures/Meanplot_dir_Vavihill.pdf Graphic file (type pdf)
 <use Figures/Meanplot_dir_Vavihill.pdf>
-Package pdftex.def Info: Figures/Meanplot_dir_Vavihill.pdf  used on input line 25.
-(pdftex.def)             Requested size: 455.24411pt x 512.14687pt.
- [4 <./Figures/Meanplot_Vavihill.pdf> <./Figures/PieChart_Vavihill.pdf>]
-<Figures/Meanplot_Malmö.pdf, id=290, 578.16pt x 361.35pt>
-File: Figures/Meanplot_Malmö.pdf Graphic file (type pdf)
-<use Figures/Meanplot_Malmö.pdf>
-Package pdftex.def Info: Figures/Meanplot_Malmö.pdf  used on input line 34.
-(pdftex.def)             Requested size: 409.71692pt x 256.06956pt.
- [5 <./Figures/Meanplot_dir_Vavihill.pdf>]
-<Figures/PieChart_Malmö.pdf, id=353, 294.50024pt x 309.39653pt>
-File: Figures/PieChart_Malmö.pdf Graphic file (type pdf)
-<use Figures/PieChart_Malmö.pdf>
-Package pdftex.def Info: Figures/PieChart_Malmö.pdf  used on input line 40.
-(pdftex.def)             Requested size: 182.09486pt x 191.314pt.
-<Figures/Meanplot_dir_Malmö.pdf, id=354, 578.16pt x 650.43pt>
+Package pdftex.def Info: Figures/Meanplot_dir_Vavihill.pdf  used on input line 60.
+(pdftex.def)             Requested size: 223.07211pt x 557.68823pt.
+<Figures/Meanplot_dir_Malmö.pdf, id=198, 361.35pt x 903.375pt>
 File: Figures/Meanplot_dir_Malmö.pdf Graphic file (type pdf)
 <use Figures/Meanplot_dir_Malmö.pdf>
-Package pdftex.def Info: Figures/Meanplot_dir_Malmö.pdf  used on input line 46.
-(pdftex.def)             Requested size: 455.24411pt x 512.14687pt.
- [6 <./Figures/Meanplot_Malmö.pdf> <./Figures/PieChart_Malmö.pdf>]
-<Figures/Histogram_spring.pdf, id=443, 361.35pt x 361.35pt>
+Package pdftex.def Info: Figures/Meanplot_dir_Malmö.pdf  used on input line 67.
+(pdftex.def)             Requested size: 223.07211pt x 557.68823pt.
+ [4 <./Figures/Meanplot_Vavihill.pdf> <./Figures/Meanplot_Malmö.pdf> <./Figures/Meanplotinfo_Vavihill.pdf> <./Figures/Meanplotinfo_Malmö.pdf>] [5 <./Figures/Meanplot_dir_Vavihill.pdf> <./Figures/Meanplot_dir_Malmö.pdf>]
+<Figures/Histogram_spring.pdf, id=503, 361.35pt x 361.35pt>
 File: Figures/Histogram_spring.pdf Graphic file (type pdf)
 <use Figures/Histogram_spring.pdf>
-Package pdftex.def Info: Figures/Histogram_spring.pdf  used on input line 56.
+Package pdftex.def Info: Figures/Histogram_spring.pdf  used on input line 82.
 (pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
-<Figures/Histogram_summer.pdf, id=444, 361.35pt x 361.35pt>
+<Figures/Histogram_summer.pdf, id=504, 361.35pt x 361.35pt>
 File: Figures/Histogram_summer.pdf Graphic file (type pdf)
 <use Figures/Histogram_summer.pdf>
-Package pdftex.def Info: Figures/Histogram_summer.pdf  used on input line 58.
+Package pdftex.def Info: Figures/Histogram_summer.pdf  used on input line 84.
 (pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
-<Figures/Histogram_autumn.pdf, id=445, 361.35pt x 361.35pt>
+<Figures/Histogram_autumn.pdf, id=505, 361.35pt x 361.35pt>
 File: Figures/Histogram_autumn.pdf Graphic file (type pdf)
 <use Figures/Histogram_autumn.pdf>
-Package pdftex.def Info: Figures/Histogram_autumn.pdf  used on input line 62.
+Package pdftex.def Info: Figures/Histogram_autumn.pdf  used on input line 88.
 (pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
-<Figures/Histogram_winter.pdf, id=446, 361.35pt x 361.35pt>
+<Figures/Histogram_winter.pdf, id=506, 361.35pt x 361.35pt>
 File: Figures/Histogram_winter.pdf Graphic file (type pdf)
 <use Figures/Histogram_winter.pdf>
-Package pdftex.def Info: Figures/Histogram_winter.pdf  used on input line 64.
+Package pdftex.def Info: Figures/Histogram_winter.pdf  used on input line 90.
 (pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
- [7 <./Figures/Meanplot_dir_Malmö.pdf>]
-<Figures/BlockingsPerYear.pdf, id=506, 505.89pt x 361.35pt>
+<Figures/BlockingsPerYear.pdf, id=508, 650.43pt x 433.62pt>
 File: Figures/BlockingsPerYear.pdf Graphic file (type pdf)
 <use Figures/BlockingsPerYear.pdf>
-Package pdftex.def Info: Figures/BlockingsPerYear.pdf  used on input line 71.
-(pdftex.def)             Requested size: 318.66948pt x 227.62413pt.
-) (./Textfiles/4.Discussion.tex [8 <./Figures/Histogram_spring.pdf> <./Figures/Histogram_summer.pdf> <./Figures/Histogram_autumn.pdf> <./Figures/Histogram_winter.pdf>]) (./Textfiles/5.Conclusion.tex) [9 <./Figures/BlockingsPerYear.pdf>] (.output/main.bbl) [10]
+Package pdftex.def Info: Figures/BlockingsPerYear.pdf  used on input line 99.
+(pdftex.def)             Requested size: 318.66948pt x 212.44919pt.
+ [6 <./Figures/Histogram_spring.pdf> <./Figures/Histogram_summer.pdf> <./Figures/Histogram_autumn.pdf> <./Figures/Histogram_winter.pdf>]) (./Textfiles/4.Discussion.tex) (./Textfiles/5.Conclusion.tex) [7 <./Figures/BlockingsPerYear.pdf>] (.output/main.bbl) [8]
 \openout2 = `Textfiles/Appendix.aux'.
 
  (./Textfiles/Appendix.tex) 
@@ -1037,21 +1034,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: AC0D1A78B7697FBC7D21569CA6FEF5D2;1236.
+(rerunfilecheck)             Checksum: 34C7D8E58BEBA4FB7AD95641E1DB6BFD;987.
  ) 
 Here is how much of TeX's memory you used:
- 32768 strings out of 474222
- 643772 string characters out of 5748732
+ 32782 strings out of 474222
+ 644117 string characters out of 5748732
  1933975 words of memory out of 5000000
- 54421 multiletter control sequences out of 15000+600000
- 574143 words of font info for 76 fonts, out of 8000000 for 9000
+ 54437 multiletter control sequences out of 15000+600000
+ 576454 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,96p,2421b,1065s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on .output/main.pdf (13 pages, 2392940 bytes).
+</usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on .output/main.pdf (11 pages, 2464212 bytes).
 PDF statistics:
- 793 PDF objects out of 1000 (max. 8388607)
- 251 compressed objects within 3 object streams
- 42 named destinations out of 1000 (max. 500000)
- 189 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 794 PDF objects out of 1000 (max. 8388607)
+ 240 compressed objects within 3 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 181 words of extra memory for PDF output out of 10000 (max. 10000000)
 
