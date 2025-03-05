@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import matplotlib.colors as mcolors
 from collections import defaultdict
-
+import re
 
 
 """
@@ -838,57 +838,57 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
     plt.show()        
 
 """
-This function sorts the list of arrays into three catagories. Or if yu give it a 
-interval it will give you one list with the dtata for that interval. 
+These functions sort the totdatalists into catatgories. 
 """
-
-
 def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=False,
                   pieinfo=False, sort=0.5):
     """
-    This function filters a list of blocking arrays by wind direction based on a 60% threshold.
+    This function filters a list of blocking arrays by wind direction based on a 50% threshold.
     It returns five lists:
-        sort_wind_dir[0] -> North (315° to 45°)
-        sort_wind_dir[1] -> East (45° to 135°)
-        sort_wind_dir[2] -> South (135° to 225°)
-        sort_wind_dir[3] -> West (225° to 315°)
-        sort_wind_dir[4] -> Non-directional (if no category reaches 50%)
+        sort_wind_dir[0] -> NE (310° to 70°)
+        sort_wind_dir[1] -> SE (70° to 190°)
+        sort_wind_dir[2] -> W (190° to 310°)
+        sort_wind_dir[3] -> Non-directional (if no category reaches 50%)
     """
-    N_totdata_list = []
-    E_totdata_list = []
-    S_totdata_list = []
+    NE_totdata_list = []
+    SE_totdata_list = []
     W_totdata_list = []
+    Turning_totdata_list = []
     Non_totdata_list = []
+    
     personalized_totdata_list = []
 
     # Loop through the arrays to sort by wind direction percentage
     for array in totdata_list:
         wind_dir_values = array[3]  # Extract wind direction values
+        wind_speed_values = array[4]
+        
         total_values = len(wind_dir_values)
+        mean_windspeed=np.nanmean(wind_speed_values)            
 
         # Count how many values fall into each category
-        N_count = np.sum((wind_dir_values > 315) | (wind_dir_values < 45))
-        E_count = np.sum((wind_dir_values > 45) & (wind_dir_values < 135))
-        S_count = np.sum((wind_dir_values > 135) & (wind_dir_values < 225))
-        W_count = np.sum((wind_dir_values > 225) & (wind_dir_values < 315))
+        NE_count = np.sum((wind_dir_values > 310) | (wind_dir_values < 70))
+        SE_count = np.sum((wind_dir_values > 70) & (wind_dir_values < 190))
+        W_count = np.sum((wind_dir_values > 190) & (wind_dir_values < 310))
 
         # Compute percentage of values in each category
-        N_ratio = N_count / total_values
-        E_ratio = E_count / total_values
-        S_ratio = S_count / total_values
+        NE_ratio = NE_count / total_values
+        SE_ratio = SE_count / total_values
         W_ratio = W_count / total_values
-
-        # Check if any category reaches the 50% threshold
-        if N_ratio >= sort:
-            N_totdata_list.append(array)
-        elif E_ratio >= sort:
-            E_totdata_list.append(array)
-        elif S_ratio >= sort:
-            S_totdata_list.append(array)
-        elif W_ratio >= sort:
-            W_totdata_list.append(array)
+        
+        #Check if there is any wind
+        if mean_windspeed <= 1.5:
+            Non_totdata_list.append(array)
         else:
-            Non_totdata_list.append(array)  # If none reach 50%, add to non-directional
+            # Check if any category reaches the 50% threshold
+            if NE_ratio >= sort:
+                NE_totdata_list.append(array)
+            elif SE_ratio >= sort:
+                SE_totdata_list.append(array)
+            elif W_ratio >= sort:
+                W_totdata_list.append(array)
+            else:
+                Turning_totdata_list.append(array)  # If none reach 50%, add to non-directional
 
         # If upper and lower limits are provided, filter based on them
         if upperlim is not False and lowerlim is not False:
@@ -896,27 +896,27 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
             valid_ratio = valid_count / total_values
             if valid_ratio >= sort:
                 personalized_totdata_list.append(array)
-                              
-        lenN = len(N_totdata_list) 
-        lenE = len(E_totdata_list)
-        lenS = len(S_totdata_list)
+            
+    # Pie Chart Visualization
+        lenNE = len(NE_totdata_list) 
+        lenSE = len(SE_totdata_list)
         lenW = len(W_totdata_list)
+        lenTurning = len(Turning_totdata_list)
         lenNon = len(Non_totdata_list)
         
-        totlen = lenN + lenE + lenS + lenW + lenNon        
+        totlen = lenNE + lenSE + lenW + lenNon + lenTurning
         
-        partN = len(N_totdata_list) / totlen
-        partE = len(E_totdata_list) / totlen
-        partS = len(S_totdata_list) / totlen
+        partNE = len(NE_totdata_list) / totlen
+        partSE = len(SE_totdata_list) / totlen
         partW = len(W_totdata_list) / totlen
+        partTurning = len(Turning_totdata_list) / totlen
         partNon = len(Non_totdata_list) / totlen
- 
-    # Pie Chart Visualization
-    if pie:            
+        
+    if pie:
         # Prepare data for the pie chart
-        sizes = [partN, partE, partS, partW, partNon]
-        labels = ["North", "East", "South", "West", "No direction"]
-        colors = ["royalblue", "tomato", "seagreen", "gold", "gray"]
+        sizes = [partNE, partSE, partW, partTurning, partNon]
+        labels = ["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "Turning direction", "No wind"]
+        colors = ["royalblue", "tomato", "seagreen", "gold", "gray", "lightgray"]
         colors = [mcolors.to_rgba(c, alpha=0.7) for c in colors]
 
         # Plot the pie chart
@@ -933,15 +933,154 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
         if save:
             plt.savefig("BachelorThesis/Figures/PieChart.pdf", bbox_inches="tight")
         plt.show()
-   
+        
     # Print Summary
     if pieinfo:
-        print(f'It is important to note that {round(100*partN,1)}\% of the winds came from the north, {round(100 * partE,1)}\% from the east, {round(100 * partS,1)}\% from the south, {round(100 * partW,1)}\% from the west, and {round(100 * partNon,1)}\% from no specific direction.')        
+        print(f'It is important to note that {round(100 * partNE,1)}\% of the winds came from the Northeast (310° to 70°), {round(100 * partSE,1)}\% from the Southeast (70° to 190°), {round(100 * partW,1)}\% from the West (190° to 310°), {round(100 * partTurning,1)}\% from no specific direction and during {round(100 * partNon,1)}\% there was no wind.')        
+        
     
     if upperlim:
         return personalized_totdata_list
 
-    return N_totdata_list, E_totdata_list, S_totdata_list, W_totdata_list, Non_totdata_list  
+    return NE_totdata_list, SE_totdata_list, W_totdata_list, Turning_totdata_list, Non_totdata_list 
+
+def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
+                  pieinfo=False, uppermonthlim=False, lowermonthlim=False):
+    """
+    This function filters a list of blocking arrays by season.
+    It returns five lists:
+        sort_season[0] -> winter
+        sort_season[1] -> spring
+        sort_season[2] -> summer
+        sort_season[3] -> autumn
+    """
+    winter_totdata_list = []
+    spring_totdata_list = []
+    summer_totdata_list = []
+    autumn_totdata_list = []
+    personalized_totdata_list = []
+    
+    # Loop through the ziped arraylists to sort by season d
+    for array, date_str in zip(totdata_list, totdata_list_dates):
+        
+        matches = re.findall(r"(\d{4})-(\d{2})-(\d{2})", date_str)
+        start_month = int(matches[0][1])  # Extract the month from the first date
+        end_month = int(matches[1][1])    # Extract the month from the second date
+        month = (start_month + end_month) / 2
+        
+        if month in [12, 1, 2]:
+          winter_totdata_list.append(array)  # Winter
+        elif month in [3, 4, 5]:
+           spring_totdata_list.append(array)  # Spring
+        elif month in [6, 7, 8]:
+           summer_totdata_list.append(array)  # Summer
+        elif month in [9, 10, 11]:
+           autumn_totdata_list.append(array)  # Autumn
+           
+        # If upper and lower limits are provided, filter based on them
+        if uppermonthlim is not False and lowermonthlim is not False:
+            if month >= lowermonthlim and month <= uppermonthlim:
+                personalized_totdata_list.append(array)
+            
+    # Pie Chart Visualization
+        lenWinter = len(winter_totdata_list) 
+        lenSpring = len(spring_totdata_list)
+        lenSummer = len(summer_totdata_list)
+        lenAutumn = len(autumn_totdata_list)
+        
+        totlen = lenWinter + lenSpring + lenSummer + lenAutumn 
+        
+        partWinter = (lenWinter) / totlen
+        partSpring= (lenSpring) / totlen
+        partSummer = (lenSummer) / totlen
+        partAutumn = (lenAutumn) / totlen
+        
+    if pie:
+        # Prepare data for the pie chart
+        sizes = [partWinter, partSpring, partSummer, partAutumn]
+        labels = ["Winter", "Spring", "Summer", "Autumn"]
+        colors = ["royalblue", "seagreen", "tomato", "gold"]
+        colors = [mcolors.to_rgba(c, alpha=0.7) for c in colors]
+
+        # Plot the pie chart
+        plt.figure(figsize=(5, 5))
+        wedges, _, _ = plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%',
+                               startangle=140, wedgeprops={'edgecolor': 'black', 'linewidth': 1.5})
+        
+        # Equal aspect ratio ensures that pie chart is drawn as a circle
+        plt.axis('equal')
+        
+        # Title
+        plt.title('Distribution of Wind Directions', fontsize=14)
+
+        if save:
+            plt.savefig("BachelorThesis/Figures/PieChart.pdf", bbox_inches="tight")
+        plt.show()
+        
+    # Print Summary
+    if pieinfo:
+        print(f'It is important to note that {round(100 * partWinter,1)}\% of the blockings occurred during the winter, {round(100 * partSpring,1)}\% during the spring, {round(100 * partSummer,1)}\% during the summer and {round(100 * partAutumn,1)}\% during the autumn.')        
+    if uppermonthlim is not False and lowermonthlim is not False:
+        return personalized_totdata_list
+
+    return winter_totdata_list,spring_totdata_list, summer_totdata_list, autumn_totdata_list
+
+def sort_pressure(totdata_list, pie=False, save=False, pieinfo=False, limits=[1020, 1025, 1030]):
+    """This function sorts the list of arrays into three blocking categories based on mean pressure."""
+    
+    low_totdata_list = []
+    medium_totdata_list = []
+    high_totdata_list = []
+        
+    # Loop through the array list and classify by pressure
+    for array in totdata_list:
+        pressure = array[1]  # Assuming pressure is stored in index 1
+        mean_pressure = np.mean(pressure)
+        
+        if mean_pressure <= limits[0]:
+            low_totdata_list.append(array)  # Low blocking
+        elif limits[0] < mean_pressure <= limits[1]:
+            medium_totdata_list.append(array)  # Medium blocking
+        elif limits[1] < mean_pressure <= limits[2]:
+            high_totdata_list.append(array)  # High blocking
+
+    # Compute blocking category distribution
+    lenLow, lenMedium, lenHigh = len(low_totdata_list), len(medium_totdata_list), len(high_totdata_list)
+    totlen = lenLow + lenMedium + lenHigh
+
+    if totlen > 0:
+        partLow, partMedium, partHigh = lenLow / totlen, lenMedium / totlen, lenHigh / totlen
+    else:
+        partLow = partMedium = partHigh = 0  # Prevent division by zero
+
+    # Pie Chart Visualization
+    if pie:
+        sizes = [partLow, partMedium, partHigh]
+        labels = [
+            f"Low Blocking (< {limits[0]} hPa)", 
+            f"Medium Blocking ({limits[0]} - {limits[1]} hPa)", 
+            f"High Blocking ({limits[1]} - {limits[2]} hPa)"
+        ]
+        colors = ["seagreen", "gold", "tomato"]
+        colors = [mcolors.to_rgba(c, alpha=0.7) for c in colors]
+
+        plt.figure(figsize=(5, 5))
+        plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%',
+                startangle=140, wedgeprops={'edgecolor': 'black', 'linewidth': 1.5})
+        plt.axis('equal')
+        plt.title('Distribution of Blocking Categories', fontsize=14)
+
+        if save:
+            plt.savefig("BachelorThesis/Figures/BlockingPieChart.pdf", bbox_inches="tight")
+        plt.show()
+        
+    # Print summary in a single line with explicit pressure thresholds
+    if pieinfo:
+        print(f'It is important to note that {round(100 * partLow,1)}\% of the blockings occurred with a mean pressure below {limits[0]} hPa {round(100 * partMedium,1)}\% occurred between {limits[0]} and {limits[1]} hPa and {round(100 * partHigh,1)}\% occurred between {limits[1]} and {limits[2]} hPa.')
+
+
+    return low_totdata_list, medium_totdata_list, high_totdata_list
+
 
 """
 These functions use statistics to evaluate PM25 during periods of high
@@ -1023,25 +1162,26 @@ def plot_mean(totdata_list, daystoplot, wind=False, minpoints=8,
     plt.show() 
 
 def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=8, place='',
-                  labels=["North", "East", "South", "West", "No direction"], 
+                  labels=["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "Rotating wind", "No wind"], 
                   pm_mean=False, pm_sigma=False, save=False):
+    
     """
     This function takes the mean of the PM2.5 concentration for each hour 
     and plots it separately for each wind direction category in subplots.
     Only non-empty wind directions are plotted dynamically.
     """
     timelen = int(24 * daystoplot) 
-    colors = ["royalblue", "tomato", "seagreen", "gold", "green"]  # Colors mapped to N, E, S, W, non
+    colors = ["royalblue", "tomato", "seagreen", "gold", "orange"]  # Colors mapped to NE, SE, W, Turning, non
 
     # Filter out empty wind directions
     valid_data = [(totdata_list, label, color) for totdata_list, label, color in 
                   zip(dir_totdata_list, labels, colors) if len(totdata_list) > 0]
     
     # Create dynamic subplots based on available data
-    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5, 2.5* len(valid_data)), sharex=True, sharey=True)
-    fig.tight_layout()
+    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5.5, 3* len(valid_data)), sharex=True, sharey=True)
+    #fig.tight_layout()
     fig.suptitle(f'Mean Concentration of PM2.5, {place}')
-    fig.subplots_adjust(top=0.94)
+    #fig.subplots_adjust(top=0.94)
 
     if len(valid_data) == 1:
         axes = [axes]  # Ensure axes is always iterable
@@ -1108,6 +1248,182 @@ def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=8, place='',
         plt.savefig(f"BachelorThesis/Figures/Meanplot_dir_{place}.pdf")
     plt.show()
 
+def plot_seasonal_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
+                  labels=["Winter", "Spring", "Summer", "Autumn"], 
+                  pm_mean=False, pm_sigma=False, save=False):
+    
+    """
+    This function takes the mean of the PM2.5 concentration for each hour 
+    and plots it separately for each season in subplots.
+    """
+    timelen = int(24 * daystoplot) 
+    colors = ["royalblue", "seagreen", "tomato", "gold"]  # Colors mapped 
+
+    # Filter out empty wind directions
+    valid_data = [(seasonal_totdata_list, label, color) for seasonal_totdata_list, label, color in 
+                  zip(seasonal_totdata_list, labels, colors) if len(seasonal_totdata_list) > 0]
+    
+    # Create dynamic subplots based on available data
+    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5.5, 3* len(valid_data)), sharex=True, sharey=True)
+    #fig.tight_layout()
+    fig.suptitle(f'Mean Concentration of PM2.5, {place}')
+    #fig.subplots_adjust(top=0.94)
+
+    if len(valid_data) == 1:
+        axes = [axes]  # Ensure axes is always iterable
+
+    for ax, (seasonal_totdata_list, label, color) in zip(axes, valid_data):
+        
+        # Create an array to store all PM2.5 values
+        PM_array = np.full((len(seasonal_totdata_list), timelen), np.nan)
+
+        # Populate PM_array with available data
+        for i, array in enumerate(seasonal_totdata_list):
+            valid_len = min(len(array[2]), timelen)  # Avoid indexing errors
+            PM_array[i, :valid_len] = array[2][:valid_len]
+
+        # Compute mean and standard deviation, ignoring NaNs
+        if PM_array.shape[0] == 0 or np.isnan(PM_array).all():
+            mean = np.full(timelen, np.nan)
+            sigma = np.full(timelen, np.nan)
+        else:
+            with np.errstate(all='ignore'):
+                mean = np.nanmean(PM_array, axis=0)
+                sigma = np.nanstd(PM_array, axis=0, ddof=0)
+        t = np.arange(timelen)/24  # Convert time to days
+
+        # Check if we have enough valid data points at the end
+        valid_counts_per_hour = np.sum(~np.isnan(PM_array), axis=0)
+        valid_indices = np.where(valid_counts_per_hour >= minpoints)[0]
+
+        # We are looking for the maximal hour for which we have the minimum allowed datasets
+        if len(valid_indices) == 0:
+            non_nan_indices = np.where(~np.isnan(PM_array))[0]
+            if len(non_nan_indices) == 0:
+                continue  # Skip if no valid data
+            hmax = np.max(non_nan_indices)
+        else:
+            hmax = valid_indices[-1]
+            
+        # You can also plot the Mean Standard, if wanted to
+        if pm_mean:
+          ax.plot(t, pm_mean+t*0, label='Mean during no blocking', c='gray')
+          ax.fill_between(t,  pm_mean+t*0 +  pm_sigma+t*0,  pm_mean+t*0 - pm_sigma, alpha=0.4, color='gray') 
+
+        # Plot the mean and confidence interval
+        ax.plot(t[:hmax + 1], mean[:hmax + 1], label=f'Mean during {label} blocking', color=color)
+        ax.fill_between(t[:hmax + 1], mean[:hmax + 1] + sigma[:hmax + 1], 
+                        mean[:hmax + 1] - sigma[:hmax + 1], alpha=0.3, color=color)
+        ax.plot(t, t*0+25, label='EU annual mean limit', c='r', linestyle='--')
+
+        
+
+        # Set y-axis integer ticks and grid lines
+        ax.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
+        ax.grid(axis='y', linestyle='--', alpha=0.6)
+
+        ax.set_title(f'{label}')
+        ax.set_ylabel('PM2.5 [µg/m³]')
+        ax.set_yticks(np.arange(0, 41, 5))  
+        ax.set_ylim(0,41)
+        ax.legend()
+
+    axes[-1].set_xlabel('Time from start of blocking (days)')
+
+    if save:
+        plt.savefig(f"BachelorThesis/Figures/Meanplot_seasonal_{place}.pdf")
+    plt.show()
+
+def plot_pressure_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
+                  labels=["weaker pressure blocking", "medium pressure blocking", "stronger pressure blocking"], 
+                  pm_mean=False, pm_sigma=False, save=False):
+    
+    """
+    This function computes and plots the mean PM2.5 concentration for each hour 
+    over a specified number of days, categorized by pressure-based blocking levels.
+    The data is visualized in separate subplots for each blocking category.
+    """
+    
+    timelen = int(24 * daystoplot)  # Convert days to hours
+    colors = ["royalblue", "seagreen", "tomato"]  # Colors for each blocking category
+
+    # Filter out empty categories to avoid empty subplots
+    valid_data = [(seasonal_totdata_list, label, color) for seasonal_totdata_list, label, color in 
+                  zip(seasonal_totdata_list, labels, colors) if len(seasonal_totdata_list) > 0]
+    
+    # Create subplots dynamically based on the available data categories
+    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5.5, 3 * len(valid_data)), sharex=True, sharey=True)
+    fig.suptitle(f'Mean Concentration of PM2.5, {place}')
+
+    # Ensure axes is always iterable even if there's only one subplot
+    if len(valid_data) == 1:
+        axes = [axes]  
+
+    for ax, (seasonal_totdata_list, label, color) in zip(axes, valid_data):
+        
+        # Initialize an array to store PM2.5 values
+        PM_array = np.full((len(seasonal_totdata_list), timelen), np.nan)
+
+        # Populate PM_array with available PM2.5 data, avoiding indexing errors
+        for i, array in enumerate(seasonal_totdata_list):
+            valid_len = min(len(array[2]), timelen)  
+            PM_array[i, :valid_len] = array[2][:valid_len]
+
+        # Compute mean and standard deviation while handling NaN values
+        if PM_array.shape[0] == 0 or np.isnan(PM_array).all():
+            mean = np.full(timelen, np.nan)
+            sigma = np.full(timelen, np.nan)
+        else:
+            with np.errstate(all='ignore'):  # Suppress warnings for NaNs
+                mean = np.nanmean(PM_array, axis=0)
+                sigma = np.nanstd(PM_array, axis=0, ddof=0)
+
+        t = np.arange(timelen) / 24  # Convert hours to days
+
+        # Determine valid time indices with at least the minimum required data points
+        valid_counts_per_hour = np.sum(~np.isnan(PM_array), axis=0)
+        valid_indices = np.where(valid_counts_per_hour >= minpoints)[0]
+
+        # Find the last valid time index (hmax) ensuring sufficient data points
+        if len(valid_indices) == 0:
+            non_nan_indices = np.where(~np.isnan(PM_array))[0]
+            if len(non_nan_indices) == 0:
+                continue  # Skip subplot if no valid data
+            hmax = np.max(non_nan_indices)
+        else:
+            hmax = valid_indices[-1]
+            
+        # Plot mean PM2.5 concentration for non-blocking conditions if provided
+        if pm_mean:
+            ax.plot(t, pm_mean + t * 0, label='Mean during no blocking', c='gray')
+            ax.fill_between(t, pm_mean + pm_sigma, pm_mean - pm_sigma, alpha=0.4, color='gray') 
+
+        # Plot the mean PM2.5 concentration and standard deviation for each blocking category
+        ax.plot(t[:hmax + 1], mean[:hmax + 1], label=f'Mean during {label}', color=color)
+        ax.fill_between(t[:hmax + 1], mean[:hmax + 1] + sigma[:hmax + 1], 
+                        mean[:hmax + 1] - sigma[:hmax + 1], alpha=0.3, color=color)
+
+        # Add a horizontal line for the EU air quality standard (25 µg/m³)
+        ax.plot(t, t * 0 + 25, label='EU annual mean limit', c='r', linestyle='--')
+
+        # Configure y-axis with integer ticks and grid lines
+        ax.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
+        ax.grid(axis='y', linestyle='--', alpha=0.6)
+
+        ax.set_title(f'{label}')
+        ax.set_ylabel('PM2.5 [µg/m³]')
+        ax.set_yticks(np.arange(0, 41, 5))  
+        ax.set_ylim(0, 41)
+        ax.legend()
+
+    # Label the x-axis only on the last subplot
+    axes[-1].set_xlabel('Time from start of blocking (days)')
+
+    # Save the figure if requested
+    if save:
+        plt.savefig(f"BachelorThesis/Figures/Meanplot_pressure_{place}.pdf")
+        
+    plt.show()
 
 
 
@@ -1240,5 +1556,3 @@ def plot_blockings_by_year(block_list, lim, save=False):
     if save:
         plt.savefig("BachelorThesis/Figures/BlockingsPerYear.pdf")
     plt.show()
-
-
