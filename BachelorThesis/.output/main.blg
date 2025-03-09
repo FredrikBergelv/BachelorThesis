@@ -3,47 +3,54 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: unsrt.bst
 A level-1 auxiliary file: Textfiles/Appendix.aux
-Database file #1: Textfiles/References.bib
-Warning--empty journal in EEA2024
-You've used 8 entries,
+Database file #1: Other/Bachelor_Thesis_Sources.bib
+Warning--I didn't find a database entry for "nasa2003"
+Warning--I didn't find a database entry for "Mitchell2006"
+Warning--I didn't find a database entry for "Lupo2020"
+Warning--I didn't find a database entry for "Cai2020"
+Warning--I didn't find a database entry for "SpiridonovCuric2021"
+Warning--I didn't find a database entry for "Bartholy2006"
+Warning--I didn't find a database entry for "Otero2022"
+Warning--I didn't find a database entry for "EEA2024"
+You've used 0 entries,
             1791 wiz_defined-function locations,
-            505 strings with 5129 characters,
-and the built_in function-call counts, 1702 in all, are:
-= -- 147
-> -- 79
+            461 strings with 3717 characters,
+and the built_in function-call counts, 18 in all, are:
+= -- 0
+> -- 0
 < -- 0
-+ -- 30
-- -- 22
-* -- 120
-:= -- 286
-add.period$ -- 26
-call.type$ -- 8
-change.case$ -- 7
++ -- 0
+- -- 0
+* -- 2
+:= -- 7
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
 chr.to.int$ -- 0
-cite$ -- 9
-duplicate$ -- 67
-empty$ -- 166
-format.name$ -- 22
-if$ -- 364
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 1
 int.to.chr$ -- 0
-int.to.str$ -- 8
-missing$ -- 8
-newline$ -- 45
-num.names$ -- 8
-pop$ -- 23
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 3
+num.names$ -- 0
+pop$ -- 0
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 23
+skip$ -- 1
 stack$ -- 0
-substring$ -- 111
-swap$ -- 7
+substring$ -- 0
+swap$ -- 0
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 15
-width$ -- 9
-write$ -- 90
-(There was 1 warning)
+warning$ -- 0
+while$ -- 0
+width$ -- 0
+write$ -- 2
+(There were 8 warnings)
