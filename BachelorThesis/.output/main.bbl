@@ -1,3 +1,37 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{HazeEurope2003}
+Haze over {{Europe}}.
+
+\bibitem{mitchellExtremeEventsDue2006}
+John F.~B. Mitchell, Jason Lowe, Richard~A. Wood, and Michael Vellinga.
+\newblock Extreme events due to human-induced climate change.
+\newblock 364(1845):2117--2133.
+
+\bibitem{lupoAtmosphericBlockingEvents2020}
+Anthony~R. Lupo.
+\newblock Atmospheric blocking events: A review.
+
+\bibitem{caiImpactBlockingStructure2020}
+Wenyue Cai, Xiangde Xu, Xinghong Cheng, Fengying Wei, Xinfa Qiu, and Wenhui Zhu.
+\newblock Impact of “blocking” structure in the troposphere on the wintertime persistent heavy air pollution in northern {{China}}.
+\newblock 741:140325.
+
+\bibitem{spiridonovCyclonesAnticyclonesSpringerLink2020}
+Vlado Spiridonov and Ćurić Mladjen.
+\newblock Cyclones and {{Anticyclones}} | {{SpringerLink}}.
+
+\bibitem{bartholyEuropeanCycloneTrack2006}
+Judit Bartholy, Rita Pongracz, and Margit Pattantyús-Ábrahám.
+\newblock European {{Cyclone Track Analysis Based}} on {{ECMWF ERA-40 Data Sets}}.
+\newblock 26(11):1517--1527.
+
+\bibitem{oteroImpactAtmosphericBlocking2022}
+Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
+\newblock The impact of atmospheric blocking on the compounding effect of ozone pollution and temperature: A copula-based approach.
+\newblock 22(3):1905--1919.
+
+\bibitem{EuropesAirQuality}
+Europe’s air quality status 2024 — {{European Environment Agency}}.
 
 \end{thebibliography}

@@ -58,6 +58,7 @@ data = {
     }
 }
 
+
 # Reading data using read_datafiles.py
 
 PM_Malmö = read.get_pm_data(data["PM25"]["Malmö"])

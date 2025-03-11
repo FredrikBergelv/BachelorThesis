@@ -854,7 +854,6 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
     SE_totdata_list = []
     W_totdata_list = []
     Turning_totdata_list = []
-    Non_totdata_list = []
     
     personalized_totdata_list = []
 
@@ -863,8 +862,11 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
         wind_dir_values = array[3]  # Extract wind direction values
         wind_speed_values = array[4]
         
+        for i, speed in enumerate(wind_speed_values):
+            if speed == 0:
+                wind_dir_values[i] = np.nan
+         
         total_values = len(wind_dir_values)
-        mean_windspeed=np.nanmean(wind_speed_values)            
 
         # Count how many values fall into each category
         NE_count = np.sum((wind_dir_values > 310) | (wind_dir_values < 70))
@@ -876,19 +878,15 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
         SE_ratio = SE_count / total_values
         W_ratio = W_count / total_values
         
-        #Check if there is any wind
-        if mean_windspeed <= 1.5:
-            Non_totdata_list.append(array)
+        # Check if any category reaches the 50% threshold
+        if NE_ratio >= sort:
+            NE_totdata_list.append(array)
+        elif SE_ratio >= sort:
+            SE_totdata_list.append(array)
+        elif W_ratio >= sort:
+            W_totdata_list.append(array)
         else:
-            # Check if any category reaches the 50% threshold
-            if NE_ratio >= sort:
-                NE_totdata_list.append(array)
-            elif SE_ratio >= sort:
-                SE_totdata_list.append(array)
-            elif W_ratio >= sort:
-                W_totdata_list.append(array)
-            else:
-                Turning_totdata_list.append(array)  # If none reach 50%, add to non-directional
+            Turning_totdata_list.append(array)  # If none reach 50%, add to non-directional
 
         # If upper and lower limits are provided, filter based on them
         if upperlim is not False and lowerlim is not False:
@@ -901,22 +899,19 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
         lenNE = len(NE_totdata_list) 
         lenSE = len(SE_totdata_list)
         lenW = len(W_totdata_list)
-        lenTurning = len(Turning_totdata_list)
-        lenNon = len(Non_totdata_list)
-        
-        totlen = lenNE + lenSE + lenW + lenNon + lenTurning
+        lenTurning = len(Turning_totdata_list)        
+        totlen = lenNE + lenSE + lenW + lenTurning
         
         partNE = len(NE_totdata_list) / totlen
         partSE = len(SE_totdata_list) / totlen
         partW = len(W_totdata_list) / totlen
         partTurning = len(Turning_totdata_list) / totlen
-        partNon = len(Non_totdata_list) / totlen
         
     if pie:
         # Prepare data for the pie chart
-        sizes = [partNE, partSE, partW, partTurning, partNon]
-        labels = ["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "Turning direction", "No wind"]
-        colors = ["royalblue", "tomato", "seagreen", "gold", "gray", "lightgray"]
+        sizes = [partNE, partSE, partW, partTurning]
+        labels = ["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "Turning direction"]
+        colors = ["royalblue", "tomato", "seagreen", "gold", "lightgray"]
         colors = [mcolors.to_rgba(c, alpha=0.7) for c in colors]
 
         # Plot the pie chart
@@ -936,13 +931,13 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
         
     # Print Summary
     if pieinfo:
-        print(f'It is important to note that {round(100 * partNE,1)}\% of the winds came from the Northeast (310° to 70°), {round(100 * partSE,1)}\% from the Southeast (70° to 190°), {round(100 * partW,1)}\% from the West (190° to 310°), {round(100 * partTurning,1)}\% from no specific direction and during {round(100 * partNon,1)}\% there was no wind.')        
+        print(f'It is important to note that {round(100 * partNE,1)}\% of the winds came from the Northeast (310° to 70°), {round(100 * partSE,1)}\% from the Southeast (70° to 190°), {round(100 * partW,1)}\% from the West (190° to 310°) and {round(100 * partTurning,1)}\% from no specific direction.')        
         
     
     if upperlim:
         return personalized_totdata_list
 
-    return NE_totdata_list, SE_totdata_list, W_totdata_list, Turning_totdata_list, Non_totdata_list 
+    return NE_totdata_list, SE_totdata_list, W_totdata_list, Turning_totdata_list 
 
 def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
                   pieinfo=False, uppermonthlim=False, lowermonthlim=False):
@@ -1025,7 +1020,7 @@ def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
 
     return winter_totdata_list,spring_totdata_list, summer_totdata_list, autumn_totdata_list
 
-def sort_pressure(totdata_list, pie=False, save=False, pieinfo=False, limits=[1020, 1025, 1030]):
+def sort_pressure(totdata_list, pie=False, save=False, pieinfo=False, limits=[1020, 1025]):
     """This function sorts the list of arrays into three blocking categories based on mean pressure."""
     
     low_totdata_list = []
@@ -1041,7 +1036,7 @@ def sort_pressure(totdata_list, pie=False, save=False, pieinfo=False, limits=[10
             low_totdata_list.append(array)  # Low blocking
         elif limits[0] < mean_pressure <= limits[1]:
             medium_totdata_list.append(array)  # Medium blocking
-        elif limits[1] < mean_pressure <= limits[2]:
+        elif limits[1] < mean_pressure:
             high_totdata_list.append(array)  # High blocking
 
     # Compute blocking category distribution
@@ -1076,7 +1071,7 @@ def sort_pressure(totdata_list, pie=False, save=False, pieinfo=False, limits=[10
         
     # Print summary in a single line with explicit pressure thresholds
     if pieinfo:
-        print(f'It is important to note that {round(100 * partLow,1)}\% of the blockings occurred with a mean pressure below {limits[0]} hPa {round(100 * partMedium,1)}\% occurred between {limits[0]} and {limits[1]} hPa and {round(100 * partHigh,1)}\% occurred between {limits[1]} and {limits[2]} hPa.')
+        print(f'It is important to note that {round(100 * partLow,1)}\% of the blockings occurred with a mean pressure below {limits[0]} hPa {round(100 * partMedium,1)}\% occurred between {limits[0]} and {limits[1]} hPa and {round(100 * partHigh,1)}\% occurred with a mean pressure over {limits[1]}hPa.')
 
 
     return low_totdata_list, medium_totdata_list, high_totdata_list
@@ -1162,7 +1157,7 @@ def plot_mean(totdata_list, daystoplot, wind=False, minpoints=8,
     plt.show() 
 
 def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=8, place='',
-                  labels=["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "Rotating wind", "No wind"], 
+                  labels=["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "No Specific", "No wind"], 
                   pm_mean=False, pm_sigma=False, save=False):
     
     """
@@ -1335,7 +1330,7 @@ def plot_seasonal_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
     plt.show()
 
 def plot_pressure_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
-                  labels=["weaker pressure blocking", "medium pressure blocking", "stronger pressure blocking"], 
+                  labels=["Weaker Pressure Blocking", "Medium Pressure Blocking", "Stronger Pressure Blocking"], 
                   pm_mean=False, pm_sigma=False, save=False):
     
     """

@@ -2,55 +2,65 @@ This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: unsrt.bst
+A level-1 auxiliary file: Other/firstpage.aux
+A level-1 auxiliary file: Textfiles/0.Abstract.aux
 A level-1 auxiliary file: Textfiles/Appendix.aux
 Database file #1: Other/Bachelor_Thesis_Sources.bib
-Warning--I didn't find a database entry for "nasa2003"
-Warning--I didn't find a database entry for "Mitchell2006"
-Warning--I didn't find a database entry for "Lupo2020"
-Warning--I didn't find a database entry for "Cai2020"
-Warning--I didn't find a database entry for "SpiridonovCuric2021"
-Warning--I didn't find a database entry for "Bartholy2006"
-Warning--I didn't find a database entry for "Otero2022"
-Warning--I didn't find a database entry for "EEA2024"
-You've used 0 entries,
+Warning--entry type for "EuropesAirQuality" isn't style-file defined
+--line 59 of file Other/Bachelor_Thesis_Sources.bib
+Warning--entry type for "HazeEurope2003" isn't style-file defined
+--line 66 of file Other/Bachelor_Thesis_Sources.bib
+Warning--entry type for "lupoAtmosphericBlockingEvents2020" isn't style-file defined
+--line 77 of file Other/Bachelor_Thesis_Sources.bib
+Warning--entry type for "spiridonovCyclonesAnticyclonesSpringerLink2020" isn't style-file defined
+--line 146 of file Other/Bachelor_Thesis_Sources.bib
+Warning--empty journal in mitchellExtremeEventsDue2006
+Warning--empty year in mitchellExtremeEventsDue2006
+Warning--empty journal in caiImpactBlockingStructure2020
+Warning--empty year in caiImpactBlockingStructure2020
+Warning--empty journal in bartholyEuropeanCycloneTrack2006
+Warning--empty year in bartholyEuropeanCycloneTrack2006
+Warning--empty journal in oteroImpactAtmosphericBlocking2022
+Warning--empty year in oteroImpactAtmosphericBlocking2022
+You've used 8 entries,
             1791 wiz_defined-function locations,
-            461 strings with 3717 characters,
-and the built_in function-call counts, 18 in all, are:
-= -- 0
-> -- 0
+            492 strings with 5086 characters,
+and the built_in function-call counts, 1548 in all, are:
+= -- 114
+> -- 73
 < -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
++ -- 28
+- -- 20
+* -- 111
+:= -- 227
+add.period$ -- 18
+call.type$ -- 8
+change.case$ -- 8
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 16
+duplicate$ -- 56
+empty$ -- 173
+format.name$ -- 20
+if$ -- 332
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 8
+missing$ -- 4
+newline$ -- 37
+num.names$ -- 6
+pop$ -- 38
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 1
+skip$ -- 43
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 111
+swap$ -- 4
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
-(There were 8 warnings)
+warning$ -- 8
+while$ -- 13
+width$ -- 9
+write$ -- 62
+(There were 12 warnings)

@@ -16,7 +16,7 @@ import warnings
 warnings.simplefilter("ignore", category=RuntimeWarning)
 
 
-info        = False #<-------- CHANGE IF YOU WANT
+info        = True  #<-------- CHANGE IF YOU WANT
 press_lim   = 1015 
 dur_lim     = 5 
 rain_lim    = 0.5
