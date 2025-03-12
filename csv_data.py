@@ -55,8 +55,7 @@ data = {
     "other": {
         "Vavihill_blackC": "csv_files/Vavihill_blackC.csv",
         "Vavihill_O3": "csv_files/Vavihill_O3.csv"
-    }
-}
+    }}
 
 
 # Reading data using read_datafiles.py

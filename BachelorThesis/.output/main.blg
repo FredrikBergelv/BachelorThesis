@@ -5,62 +5,45 @@ The style file: unsrt.bst
 A level-1 auxiliary file: Other/firstpage.aux
 A level-1 auxiliary file: Textfiles/0.Abstract.aux
 A level-1 auxiliary file: Textfiles/Appendix.aux
-Database file #1: Other/Bachelor_Thesis_Sources.bib
-Warning--entry type for "EuropesAirQuality" isn't style-file defined
---line 59 of file Other/Bachelor_Thesis_Sources.bib
-Warning--entry type for "HazeEurope2003" isn't style-file defined
---line 66 of file Other/Bachelor_Thesis_Sources.bib
-Warning--entry type for "lupoAtmosphericBlockingEvents2020" isn't style-file defined
---line 77 of file Other/Bachelor_Thesis_Sources.bib
-Warning--entry type for "spiridonovCyclonesAnticyclonesSpringerLink2020" isn't style-file defined
---line 146 of file Other/Bachelor_Thesis_Sources.bib
-Warning--empty journal in mitchellExtremeEventsDue2006
-Warning--empty year in mitchellExtremeEventsDue2006
-Warning--empty journal in caiImpactBlockingStructure2020
-Warning--empty year in caiImpactBlockingStructure2020
-Warning--empty journal in bartholyEuropeanCycloneTrack2006
-Warning--empty year in bartholyEuropeanCycloneTrack2006
-Warning--empty journal in oteroImpactAtmosphericBlocking2022
-Warning--empty year in oteroImpactAtmosphericBlocking2022
+Database file #1: Other/References.bib
 You've used 8 entries,
             1791 wiz_defined-function locations,
-            492 strings with 5086 characters,
-and the built_in function-call counts, 1548 in all, are:
-= -- 114
-> -- 73
+            506 strings with 5603 characters,
+and the built_in function-call counts, 1639 in all, are:
+= -- 140
+> -- 76
 < -- 0
-+ -- 28
-- -- 20
-* -- 111
-:= -- 227
-add.period$ -- 18
++ -- 29
+- -- 21
+* -- 113
+:= -- 261
+add.period$ -- 23
 call.type$ -- 8
 change.case$ -- 8
 chr.to.int$ -- 0
-cite$ -- 16
+cite$ -- 8
 duplicate$ -- 56
 empty$ -- 173
-format.name$ -- 20
-if$ -- 332
+format.name$ -- 21
+if$ -- 359
 int.to.chr$ -- 0
 int.to.str$ -- 8
 missing$ -- 4
-newline$ -- 37
-num.names$ -- 6
-pop$ -- 38
+newline$ -- 42
+num.names$ -- 7
+pop$ -- 29
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 43
+skip$ -- 26
 stack$ -- 0
 substring$ -- 111
-swap$ -- 4
+swap$ -- 8
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 8
-while$ -- 13
+warning$ -- 0
+while$ -- 14
 width$ -- 9
-write$ -- 62
-(There were 12 warnings)
+write$ -- 84

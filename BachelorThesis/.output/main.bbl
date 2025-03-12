@@ -1,37 +1,42 @@
 \begin{thebibliography}{1}
 
-\bibitem{HazeEurope2003}
-Haze over {{Europe}}.
+\bibitem{nasaHazeEurope2003}
+{NASA}.
+\newblock Haze over {{Europe}}.
+\newblock https://earthobservatory.nasa.gov/images/11219/haze-over-europe, March 2003.
 
 \bibitem{mitchellExtremeEventsDue2006}
 John F.~B. Mitchell, Jason Lowe, Richard~A. Wood, and Michael Vellinga.
 \newblock Extreme events due to human-induced climate change.
-\newblock 364(1845):2117--2133.
+\newblock {\em Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences}, 364(1845):2117--2133, 2006.
 
 \bibitem{lupoAtmosphericBlockingEvents2020}
 Anthony~R. Lupo.
 \newblock Atmospheric blocking events: A review.
+\newblock https://nyaspubs.onlinelibrary.wiley.com/doi/abs/10.1111/nyas.14557, December 2020.
 
 \bibitem{caiImpactBlockingStructure2020}
 Wenyue Cai, Xiangde Xu, Xinghong Cheng, Fengying Wei, Xinfa Qiu, and Wenhui Zhu.
-\newblock Impact of “blocking” structure in the troposphere on the wintertime persistent heavy air pollution in northern {{China}}.
-\newblock 741:140325.
+\newblock Impact of ``blocking'' structure in the troposphere on the wintertime persistent heavy air pollution in northern {{China}}.
+\newblock {\em Science of The Total Environment}, 741:140325, 2020.
 
 \bibitem{spiridonovCyclonesAnticyclonesSpringerLink2020}
-Vlado Spiridonov and Ćurić Mladjen.
-\newblock Cyclones and {{Anticyclones}} | {{SpringerLink}}.
+Vlado Spiridonov and {\'C}uri{\'c} Mladjen.
+\newblock Cyclones and {{Anticyclones}} {\textbar} {{SpringerLink}}.
+\newblock https://link.springer.com/chapter/10.1007/978-3-030-52655-9\_17, November 2020.
 
 \bibitem{bartholyEuropeanCycloneTrack2006}
-Judit Bartholy, Rita Pongracz, and Margit Pattantyús-Ábrahám.
+Judit Bartholy, Rita Pongracz, and Margit {Pattanty{\'u}s-{\'A}brah{\'a}m}.
 \newblock European {{Cyclone Track Analysis Based}} on {{ECMWF ERA-40 Data Sets}}.
-\newblock 26(11):1517--1527.
+\newblock {\em International Journal of Climatology}, 26(11):1517--1527, 2006.
 
 \bibitem{oteroImpactAtmosphericBlocking2022}
 Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
 \newblock The impact of atmospheric blocking on the compounding effect of ozone pollution and temperature: A copula-based approach.
-\newblock 22(3):1905--1919.
+\newblock {\em Atmospheric Chemistry and Physics}, 22(3):1905--1919, 2022.
 
-\bibitem{EuropesAirQuality}
-Europe’s air quality status 2024 — {{European Environment Agency}}.
+\bibitem{EuropesAirQuality2024}
+Europe's air quality status 2024 --- {{European Environment Agency}}.
+\newblock https://www.eea.europa.eu/publications/europes-air-quality-status-2024, 2024.
 
 \end{thebibliography}
