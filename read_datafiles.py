@@ -1157,7 +1157,7 @@ def plot_mean(totdata_list, daystoplot, wind=False, minpoints=8,
     plt.show() 
 
 def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=8, place='',
-                  labels=["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "No Specific", "No wind"], 
+                  labels=["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "No Specific"], 
                   pm_mean=False, pm_sigma=False, save=False):
     
     """
