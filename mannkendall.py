@@ -16,7 +16,7 @@ dur_lim     = 5
 rain_lim    = 0.5
 mindatasets = 8
 
-location = 'Vavihill'
+location = 'Malmö'
 
 
 pressure_data = csv.main['pressure']

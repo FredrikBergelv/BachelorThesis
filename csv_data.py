@@ -6,18 +6,6 @@ Created on Tue Feb 25 14:31:19 2025
 @author: fredrik
 """
 
-import os
-import pandas as pd
-import read_datafiles as read
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 25 14:31:19 2025
-
-@author: fredrik
-"""
-
 import pandas as pd
 import read_datafiles as read
 
@@ -78,25 +66,30 @@ pres_data = pres_data.sort_values(by='datetime', ascending=False).drop_duplicate
 ).sort_values(by='datetime').reset_index(drop=True)  # Reset index
 
 # Read Rain Data
-Örja_data = read.get_rain_data(data["rain"]["Örja"])
-Hörby_data = read.get_rain_data(data["rain"]["Hörby"])
-rain_data = pd.concat([Hörby_data, Örja_data], axis=0)
+Örja_rain_data = read.get_rain_data(data["rain"]["Örja"], True)
+Hörby_rain_data = read.get_rain_data(data["rain"]["Hörby"])
+rain_data = pd.concat([Hörby_rain_data, Örja_rain_data], axis=0)
 rain_data = rain_data.sort_values(by='datetime', ascending=False).drop_duplicates(
     subset=['datetime'], keep='first'
 ).sort_values(by='datetime').reset_index(drop=True)  # Reset index
+
+Helsingborg_rain_data = read.get_rain_data(data["rain"]["Helsingborg"])
+
 
 # Read Wind & Temperature Data
 wind_data = read.get_wind_data(data["wind"]["Hörby"])
 temp_data = read.get_temp_data(data["temperature"]["Hörby"])
 
-# Store all processed data in `main` dictionary
+# Store all processed data in 'main' dictionary
 main = {
-    "PM25": {
-        "Vavihill": PM_Vavihill,
-        "Malmö": PM_Malmö
-    },
-    "pressure": pres_data,
+    "PM25": { "Vavihill": PM_Vavihill,
+              "Malmö": PM_Malmö },
+    "pressure": Helsingborg_data,
     "wind": wind_data,
-    "rain": rain_data,
-    "temperature": temp_data
-}
+    "rain": Hörby_rain_data,
+    "temperature": temp_data }
+
+histogram_main = {
+    "pressure": pres_data,
+    "rain": rain_data}
+

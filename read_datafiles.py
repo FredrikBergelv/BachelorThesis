@@ -1465,12 +1465,12 @@ def plot_blockingsdays_by_year(block_list, season, save=False):
     # Remove the first and last years since they are not full years
     blocking.pop(min(blocking))  # Remove the first year
     blocking.pop(max(blocking))  # Remove the last year
-   
     # Extract the data as lists
     winter = [values[0] for values in blocking.values()]  # Winter blocking
     spring = [values[1] for values in blocking.values()]  # Spring blocking
     summer = [values[2] for values in blocking.values()]  # Summer blocking
     autumn = [values[3] for values in blocking.values()]  # Autumn blocking
+    
 
     total = [values[0] + values[1] + values[2] + values[3] for values in blocking.values()]  # Total blocking days
     years = list(blocking.keys())  # Years list
@@ -1481,12 +1481,26 @@ def plot_blockingsdays_by_year(block_list, season, save=False):
     # Create a bar for the total blocking days (optional)
     plt.bar(years, total, label="Total", color='#D3D3D3', edgecolor='black', alpha=0.5)
 
-    # Plot individual seasons stacked on top of each other
-    plt.bar(years, winter, label="Winter", color='b', edgecolor='black', alpha=0.9)
-    plt.bar(years, spring, bottom=winter, label="Spring", color='g', edgecolor='black', alpha=0.9)
-    plt.bar(years, summer, bottom=[winter[i] + spring[i] for i in range(len(winter))], label="Summer", color='r', edgecolor='black', alpha=0.9)
-    plt.bar(years, autumn, bottom=[winter[i] + spring[i] + summer[i] for i in range(len(winter))], label="Autumn", color='orange', edgecolor='black', alpha=0.9)
-
+    if season == 'all':
+        # Plot individual seasons stacked on top of each other
+        plt.bar(years, winter, label="Winter", color='b', edgecolor='black', alpha=0.9)
+        plt.bar(years, spring, bottom=winter, label="Spring", color='g', edgecolor='black', alpha=0.9)
+        plt.bar(years, summer, bottom=[winter[i] + spring[i] for i in range(len(winter))], label="Summer", color='r', edgecolor='black', alpha=0.9)
+        plt.bar(years, autumn, bottom=[winter[i] + spring[i] + summer[i] for i in range(len(winter))], label="Autumn", color='orange', edgecolor='black', alpha=0.9)
+    
+    if season == "autumn":    
+        plt.bar(years, autumn, label="Autumn", color='orange', edgecolor='black', alpha=0.9)
+    
+    if season == "spring":    
+        plt.bar(years, spring, label="Spring", color='g', edgecolor='black', alpha=0.9)
+        
+    if season == "summer":    
+        plt.bar(years, summer, label="Summer", color='r', edgecolor='black', alpha=0.9)
+        
+    if season == "winter":    
+        plt.bar(years, winter, label="Winter", color='b', edgecolor='black', alpha=0.9)
+        
+        
     # Labels and title with improved font sizes
     plt.xlabel("Year")
     plt.ylabel("Days of Blocking")
@@ -1530,6 +1544,11 @@ def plot_blockings_by_year(block_list, lim, save=False):
     # Plotting
     fig, ax = plt.subplots(figsize=(8, 5))
     t = range(len(years))
+    
+    # Remove first and last year
+    t=t[1:-1]
+    total_blockings=total_blockings[1:-1]
+    long_blockings=long_blockings[1:-1]
     
     # Bar plots for total blockings and long blockings
     ax.bar(t, total_blockings, label='Total Blockings', color='#D3D3D3', edgecolor='black', alpha=0.6)
