@@ -1,23 +1,23 @@
 # Fdb version 4
-["bibtex .output/main"] 1742825120.94127 ".output/main.aux" ".output/main.bbl" ".output/main" 1742825460.69883 0
-  "./Other/References.bib" 1741770826.95388 8190 afddbe564fcc7ed9dff0853b8b3121e6 ""
-  ".output/Other/firstpage.aux" 1742825460.39244 1058 62ecb9229cc1e59eaf83d9e0fd6c3c53 "pdflatex"
-  ".output/Textfiles/0.Abstract.aux" 1742825460.39544 1033 0c7baab0cc6e14158506f984c19b93a5 "pdflatex"
-  ".output/Textfiles/Appendix.aux" 1742825460.48944 1033 71331a8a67e9162f70a526d6699e88d6 "pdflatex"
-  ".output/main.aux" 1742825460.49044 12566 e56f77242bdacbe69c8a416c7c8876ac "pdflatex"
+["bibtex .output/main"] 1742917421.21247 ".output/main.aux" ".output/main.bbl" ".output/main" 1742917766.57566 0
+  "./Other/References.bib" 1742913642.63303 9908 f81ae516cd3d13e6687580039d746a33 ""
+  ".output/Other/firstpage.aux" 1742917766.21386 1058 62ecb9229cc1e59eaf83d9e0fd6c3c53 "pdflatex"
+  ".output/Textfiles/0.Abstract.aux" 1742917766.21786 1033 0c7baab0cc6e14158506f984c19b93a5 "pdflatex"
+  ".output/Textfiles/Appendix.aux" 1742917766.33086 1033 db8abcd427741535b6370630206df037 "pdflatex"
+  ".output/main.aux" 1742917766.33086 12824 c6b4a1e789f96c590806fb4874bb5ccf "pdflatex"
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
   (generated)
   ".output/main.bbl"
   ".output/main.blg"
   (rewritten before read)
-["pdflatex"] 1742825459.79938 "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" ".output/main.pdf" "main" 1742825460.69904 0
-  ".output/Other/firstpage.aux" 1742825460.39244 1058 62ecb9229cc1e59eaf83d9e0fd6c3c53 "pdflatex"
-  ".output/Textfiles/0.Abstract.aux" 1742825460.39544 1033 0c7baab0cc6e14158506f984c19b93a5 "pdflatex"
-  ".output/Textfiles/Appendix.aux" 1742825460.48944 1033 71331a8a67e9162f70a526d6699e88d6 "pdflatex"
-  ".output/main.aux" 1742825460.49044 12566 e56f77242bdacbe69c8a416c7c8876ac "pdflatex"
-  ".output/main.bbl" 1742825121.01441 2106 77bc89025eb7aba5e51e757a97289be6 "bibtex .output/main"
-  ".output/main.out" 1742825460.49144 921 0d466b57ddb31ce5393cbdd7ff780a94 "pdflatex"
-  ".output/main.toc" 1742825460.49144 693 04d9d2eaf8be521825a977b4c3bd9610 "pdflatex"
+["pdflatex"] 1742917765.59002 "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" ".output/main.pdf" "main" 1742917766.57588 0
+  ".output/Other/firstpage.aux" 1742917766.21386 1058 62ecb9229cc1e59eaf83d9e0fd6c3c53 "pdflatex"
+  ".output/Textfiles/0.Abstract.aux" 1742917766.21786 1033 0c7baab0cc6e14158506f984c19b93a5 "pdflatex"
+  ".output/Textfiles/Appendix.aux" 1742917766.33086 1033 db8abcd427741535b6370630206df037 "pdflatex"
+  ".output/main.aux" 1742917766.33086 12824 c6b4a1e789f96c590806fb4874bb5ccf "pdflatex"
+  ".output/main.bbl" 1742917421.28493 2300 b2d3b6dceb95636ab84c9cdbaab834c3 "bibtex .output/main"
+  ".output/main.out" 1742917766.33286 1168 e9b5a43a9b7e5045419f86a91e7fcf7b "pdflatex"
+  ".output/main.toc" 1742917766.33286 795 95b4ac8a7cd71e6a0e37c080b8907074 "pdflatex"
   "/etc/texmf/web2c/texmf.cnf" 1732548902.53758 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" 1742477642.73433 603 86a68aa85161af4e40ce236c99278d92 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -253,7 +253,7 @@
   "Textfiles/0.Abstract.tex" 1741706123.74885 47 1d3705a1436c3d69c4536df3d0c2285e ""
   "Textfiles/1.Introduction.tex" 1742477650.7634 1328 91a93f67479c98c13dd238b6070f5ed8 ""
   "Textfiles/2.Theory.tex" 1741707941.22988 4343 bdb5207280d53b9d167f1e09b3854caa ""
-  "Textfiles/3.Method.tex" 1742825459.67143 767 e3784e6faa724ccf94bcae52fdaa3047 ""
+  "Textfiles/3.Method.tex" 1742917765.45486 3786 289b1f926e920f5f6eb44b1f25e630cf ""
   "Textfiles/4.Result.tex" 1741612635.8369 9104 2630bd8c61e8a654670e614d09886f10 ""
   "Textfiles/5.Discussion.tex" 1741541451.8216 21 bc2321953236e49c0a923bd0e83c84e8 ""
   "Textfiles/6.Conclusion.tex" 1741705353.99662 21 5263826852d7c88eadf74b948137ff83 ""
