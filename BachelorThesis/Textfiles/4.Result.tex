@@ -1,15 +1,14 @@
 \section{Result}
 
-\subsection{Task 1 }
+\subsection{The evolution of PM 2.5 over time}
 The first part of the goals mentioned above has been achieved using Pandas in Python by extracting periods of high-pressure blocking based on a pressure limit and a rainfall limit. The pressure limit was chosen to be \SI{1015}{\hecto\pascal}, meaning that a high-pressure blocking event must maintain at least \SI{1015}{\hecto\pascal} throughout the entire period. The rainfall limit was set to \SI{0.5}{\milli\meter}, meaning the period can have a maximum of \SI{0.5}{\milli\meter} rainfall during the entire period. The minimum period length was set to 5 days. The result during the year 2001 can be seen in \autoref{fig:2001}.
 
 \begin{figure}[H]
     \centering    \includegraphics[width=0.79\textwidth]{Figures/plot_20010101_20011231.pdf}
-    \caption{This plot displays the air pressure, PM\textsubscript{2.5} concentrations, wind direction, wind speed, temperature and rainfall during the year 2001. The periods which was filtered as periods of high pressure blocking are shown in gray. }
+    \caption{This example plot displays the air pressure, PM\textsubscript{2.5} concentrations, wind direction, wind speed, temperature and rainfall during the year 2001. The periods which was filtered as periods of high pressure blocking are shown in gray. }
     \label{fig:2001}
 \end{figure}
 
-\subsection{Task 2}
 The second task was to evaluate the PM\textsubscript{2.5} concentrations during periods of high pressure blocking using statistics. This was done by taking the mean of all the different blockings displaying this together with the standard deviation. This can be seen in \autoref{fig:Meanplot_Comparison}. The data is compared with the overall mean taken from the data. A slight increase in the normal concentrations of PM\textsubscript{2.5} can be seen in Malmö, while the same is hard to say about Vavihill. 
 
 
@@ -111,7 +110,7 @@ The second task was to evaluate the PM\textsubscript{2.5} concentrations during 
     \label{fig:PM25_blocking_strength}
 \end{figure}
 
-\subsection{Task 3}
+\subsection{The frequency of high pressure blocking events}
 The last task was to determine if the number of days under high-pressure blockings has increased, in \autoref{fig:histograms}, it can be seen that this is not the case. The seasonal dependency was also accounted for, which can be observed in the plots.
 
 

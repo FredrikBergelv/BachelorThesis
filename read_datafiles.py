@@ -325,9 +325,9 @@ def find_blocking(pres_data, rain_data, pressure_limit, duration_limit,
     data.dropna(subset=['rain'])
     
     # Identify where we have high pressure and no rain, add new column
-    data['highp'] = (data['pressure'] > pressure_limit) & (data['rain'] < rain_limit) & data['rain'].notna()
+    data['highp'] = (data['pressure'] > pressure_limit) & (data['rain'] < rain_limit) 
     
-    # Identify if next value is not high pressure or not (shift)(data['rain'] < rain_limit) & (data['rain'] not == np.Nan)
+    # Identify if next value is not high pressure or not (shift)(data['rain'] < rain_limit) 
     # If the next value is not the same, add the value of True(1) cumulative 
     # This gives a unique streak_id for each streak depending on the limit
     data['streak_id'] = (data['highp'] != data['highp'].shift()).cumsum()
