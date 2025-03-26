@@ -32,6 +32,7 @@ data = {
     },
     "rain": {
         "Helsingborg": "csv_files/Helsingborg_rain.csv",
+        "Malmö": "csv_files/Malmö_rain.csv",
         "Hörby": "csv_files/Hörby_rain.csv",
         "Örja": "csv_files/Örja_rain.csv"
     },
@@ -51,6 +52,8 @@ data = {
 PM_Malmö = read.get_pm_data(data["PM25"]["Malmö"])
 
 PM_Vavihill = read.get_pm_data(data["PM25"]["Vavihill"])
+print(PM_Vavihill)
+
 PM_Hallahus = read.get_pm_data(data["PM25"]["Hallahus"])
 PM_Vavihill = pd.concat([PM_Vavihill, PM_Hallahus], axis=0)
 PM_Vavihill = PM_Vavihill.sort_values(by='datetime_start', ascending=False).drop_duplicates(
@@ -66,7 +69,7 @@ pres_data = pres_data.sort_values(by='datetime', ascending=False).drop_duplicate
 ).sort_values(by='datetime').reset_index(drop=True)  # Reset index
 
 # Read Rain Data
-Örja_rain_data = read.get_rain_data(data["rain"]["Örja"], True)
+Örja_rain_data = read.get_rain_data(data["rain"]["Örja"])
 Hörby_rain_data = read.get_rain_data(data["rain"]["Hörby"])
 rain_data = pd.concat([Hörby_rain_data, Örja_rain_data], axis=0)
 rain_data = rain_data.sort_values(by='datetime', ascending=False).drop_duplicates(
@@ -74,7 +77,7 @@ rain_data = rain_data.sort_values(by='datetime', ascending=False).drop_duplicate
 ).sort_values(by='datetime').reset_index(drop=True)  # Reset index
 
 Helsingborg_rain_data = read.get_rain_data(data["rain"]["Helsingborg"])
-
+Malmö_rain_data = read.get_rain_data(data["rain"]["Malmö"])
 
 # Read Wind & Temperature Data
 wind_data = read.get_wind_data(data["wind"]["Hörby"])
@@ -86,7 +89,8 @@ main = {
               "Malmö": PM_Malmö },
     "pressure": Helsingborg_data,
     "wind": wind_data,
-    "rain": Hörby_rain_data,
+    "rain": {"Hörby": Hörby_rain_data,
+             "Malmö": Malmö_rain_data},
     "temperature": temp_data }
 
 histogram_main = {

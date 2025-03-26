@@ -741,7 +741,7 @@ and plotting all the data: pres, wind, temp, pm, rain. This is also displays
 when there is a blockig in the background.
 """
 def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
-                      blocking_list, start_time, end_time, save=False):
+                      blocking_list, start_time, end_time, temp_plot=True, save=False):
     """
     Plot PM_data, wind_data, temp_data, rain_data, pressure_data 
     over time wit hthe datafile format. Also uses shaded parts to highlight 
@@ -778,9 +778,14 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
         start = min(datafile['datetime'])
         end = max(datafile['datetime'])  # Fix: Use max instead of min
         periods.append((start, end))
+        
+    if temp_plot == True:
+        size  = plt.subplots(6, 1, figsize=(8, 8), sharex=True)
+    else: 
+        size  = plt.subplots(5, 1, figsize=(8, 7), sharex=True)
 
     # Create figure and subplots
-    fig, axs = plt.subplots(6, 1, figsize=(7, 8), sharex=True)
+    fig, axs = size
     fig.suptitle(f'Data from {start_time.date()} to {end_time.date()}')
 
     # Add shaded periods to all subplots
@@ -815,22 +820,26 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
     axs[3].set_ylim(0, 14)
     axs[3].legend()
     axs[3].grid(True)
+    
+    n = 4
 
-    # Plot Temperature
-    axs[4].plot(merged_data['datetime'], merged_data['temp'], label='Temperature', color='red')
-    axs[4].set_ylabel('Temperature (°C)')
-    axs[4].legend()
-    axs[4].grid(True)
+    if temp_plot == True:
+        n = 5
+        # Plot Temperature
+        axs[4].plot(merged_data['datetime'], merged_data['temp'], label='Temperature', color='red')
+        axs[4].set_ylabel('Temperature (°C)')
+        axs[4].legend()
+        axs[4].grid(True)
 
     # Plot Rainfall
-    axs[5].plot(merged_data['datetime'], merged_data['rain'], label='Rainfall', color='darkblue')
-    axs[5].set_ylabel('Rainfall (mm)')
+    axs[n].plot(merged_data['datetime'], merged_data['rain'], label='Rainfall', color='darkblue')
+    axs[n].set_ylabel('Rainfall (mm)')
     
-    axs[5].set_xlabel('Date')
-    axs[5].legend()
-    axs[5].grid(True)
-    axs[5].tick_params(axis='x', rotation=45)
-    axs[5].set_xlim(start_time, end_time)
+    axs[n].set_xlabel('Date')
+    axs[n].legend()
+    axs[n].grid(True)
+    axs[n].tick_params(axis='x', rotation=45)
+    axs[n].set_xlim(start_time, end_time)
 
     plt.subplots_adjust(hspace=0.4, top=0.95)
     if save:
@@ -1570,3 +1579,4 @@ def plot_blockings_by_year(block_list, lim, save=False):
     if save:
         plt.savefig("BachelorThesis/Figures/BlockingsPerYear.pdf")
     plt.show()
+

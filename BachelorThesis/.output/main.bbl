@@ -40,9 +40,9 @@ Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
 \newblock Wind {{Set WA15}} and {{WA25}}.
 \newblock https://www.vaisala.com/en/products/weather-environmental-sensors/wind-set-wa15, January 2021.
 
-\bibitem{vaisalaT200BSeriesAll}
-{VAISALA}.
-\newblock T-{{200B Series All Weather Gauge}} - {{GEONOR}}, {{Inc}}.
-\newblock https://www.geonor.com/t-200b-all-weather-precipitation---rain-gauge.
+\bibitem{geonorinc.T200BSeriesAll2019}
+{GEONOR, Inc.}
+\newblock T-{{200B Series All Weather Gauge}}.
+\newblock https://www.geonor.com/t-200b-all-weather-precipitation---rain-gauge, 2019.
 
 \end{thebibliography}

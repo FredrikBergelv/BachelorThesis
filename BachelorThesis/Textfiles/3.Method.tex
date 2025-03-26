@@ -1,29 +1,22 @@
 \newpage
 \section{Method}
-The relevant data was downloaded from the SMHI:s website as csv files. These files included hourly pressure data, hourly rain data, hourly wind data and hourly temperature data. Data of hourly PM\textsubscript{2.5} measured for one hour was also downloaded. The choice of locations had to be done by taking into account the where the PM\textsubscript{2.5} data has been gathered and the time the stations had been active for. Since the goal of this project is to analyze the concentrations of PM\textsubscript{2.5} data in Southern Sweden during a high pressure blocking to different sites ne urban and onw rural was used. The cities was chosen based on their rural or urban factor as well as the time the station has been in use for. 
+The relevant data was downloaded from the SMHI’s website as CSV files. These files included hourly pressure data, hourly rain data, hourly wind data, and hourly temperature data. Hourly PM\textsubscript{2.5} data, measured over one-hour intervals, was also downloaded. The choice of locations was based on where the PM\textsubscript{2.5} data had been collected and how long the stations had been active. Since the goal of this project is to analyze PM\textsubscript{2.5} concentrations in Southern Sweden during high-pressure blocking events, one urban and one rural site were selected. The locations were chosen based on their classification as rural or urban and the length of time the stations had been in operation, where more data was considered better. 
 
-The rural measuring station which was had the most amount of data was in Vavihill (Svalöv, Skåne County, Sweden). This station had been active between September 28 1999 to November 15 2017, However due to some days lacking data, only \SI{57}{\%} of the period had non Nan values. Furthermore the station of Vavihill was between 2017 and 2018 moved to the location Hallahus (Svalöv, Skåne County, Sweden ). There the station was in use between May 10 2018 to December 31 2022 with \SI{93}{\%} of the period obtaining non Nan values. Combing these dataset resulted in a set of of 5371 days of hourly data. In the case of urban locations in Southern Sweden, the city of Malmö had the most data being active between June 3 1999 to December 31 2023. Here \SI{90}{\%} of the values had non Nan values, resulting in 8074 days of data. 
+The rural measuring station with the most data was Vavihill (Svalöv, Skåne County, Sweden). This station was active from September 28, 1999, to November 15, 2017. However, due to missing data on some days, only \SI{57}{\%} of the period contained non-NaN values. Additionally, between 2017 and 2018, the Vavihill station was relocated to nearby Hallahus (Svalöv, Skåne County, Sweden), where it operated from May 10, 2018, to December 31, 2022, with \SI{93}{\%} of the period containing non-NaN values. Combining these datasets resulted in a total of 5,371 days of hourly data. For urban locations in Southern Sweden, Malmö had the most data, with measurements recorded from June 3, 1999, to December 31, 2023. Here, \SI{90}{\%} of the recorded values were non-NaN, resulting in 8,074 days of data.
 
+The choice of pressuring measure station was chosen to be Helsingborg, located from \SI{25}{\km} from Vavihill and \SI{49}{\km} from Malmö. The choice of this location was based on its near distance to both PM\textsubscript{2.5} measuring stations, the fact that neither Malmö nor Vavihill have pressure measurements from this period, and the fact that the station has been in use from August 2 1995 to October 10 2024, with measurements taken every hour without any loss. This station covers thus the entire period of the PM\textsubscript{2.5} data. 
 
+It is important to note that the Hörby station was temporarily relocated for a short period in 2021.
 
-Start date 2018-05-10 08:00:00
- End date 2022-12-31 23:00:00
-Length of DataFrame in days: 1697
-Length with no NaN values: 1578
-Fraction of non-NaN values: 93%
+Mann-Kendall Test
 
-Mann-Kendall Test 
+Histogram locations and method
+The differences between the towns of Sturup, Ängelholm, and Helsingborg were analysed to evaluate potential alternative locations. The atmospheric pressure difference among these three had a mean of \SI{0.50}{\hecto\pascal} with a standard deviation of \SI{0.47}{\hecto\pascal}.
 
-
-The deviation between the towns Sturup, Ängelholm and Helsingborg was analysed to give insight into the different choices between these locations. The different in atmospheric pressure between these three had a mean of \SI{0.50}{\hecto\pascal} with a standard deviation of \SI{0.47}{\hecto\pascal}. 
-
-
-
-Important to note with Hörby is the fact that the station changed location for a short while during 20201. 
 
 \subsection{The meteorological measuring devices}
-The wind data from both Hörby and Helsingborg used the high-performance wind sensor Vaisala WAA15A for the wind speed and Vaisala WAV15A for the wind direction. These instruments are serviced and calibrated every year or every other year. They have been in use since 1995. The WAA15A anemometer measures wind speed with an accuracy of \SI{0.17}{\m\per\s}, and the WAV15A wind vane measures the wind direction with an accuracy better than \ang{3}\cite{vaisalaWindSetWA152021}. The WAA15A anemometer works by a rotating chopper disc that interrupts an infrared beam, resulting in a laser pulse proportional to the wind speed. The WAV15A wind vane uses a counterbalanced vane with an optical disc. When the vane turns, infrared LEDs detect the change in angle with the disc and phototransistors, resulting in a precise measurement of the wind angle.
+The wind data from both Hörby and Helsingborg used the high-performance wind sensor Vaisala WAA15A for the wind speed and Vaisala WAV15A for the wind direction. These instruments were serviced and calibrated every year or every other year, and had been in use since 1995. The WAA15A anemometer measured wind speed with an accuracy of \SI{0.17}{\m\per\s}, and the WAV15A wind vane measured the wind direction with an accuracy better than \ang{3}\cite{vaisalaWindSetWA152021}. The WAA15A anemometer works by a rotating chopper disc that interrupts an infrared beam, resulting in a laser pulse proportional to the wind speed. The WAV15A wind vane uses a counterbalanced vane with an optical disc. When the vane turns, infrared LEDs detect the change in angle with the disc and phototransistors, resulting in a precise measurement of the wind angle.
 
-For rain monitoring, the Geonor T200 product has been used for all stations since 1995. Like the wind monitor, this device has been serviced and calibrated every year or every other year. This device works by measuring precipitation with a vibrating wire sensor that detects weight changes from the water droplets\cite{vaisalaT200BSeriesAll}. The device has a measurement accuracy better than \SI{0.1}{\mm}.
+For rain monitoring, the Geonor T200 device had been in use for all stations since 1995. Like the wind monitor, this device had been serviced and calibrated every year or every other year. This device works by measuring precipitation with a vibrating wire sensor that detects weight changes from the water droplets\cite{geonorinc.T200BSeriesAll2019}. The device has a measurement accuracy better than \SI{0.1}{\mm}.
 
 The barometer that has been in use for Helsingborg is a Vaisala PTB201A for the entire period, except for the periods 15/04/2015–17/04/2025 and 19/09/2004–23/05/2014, when a Vaisala PTB220 was used instead. Even there, the device has been serviced every year or every other year.

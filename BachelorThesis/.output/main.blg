@@ -9,15 +9,15 @@ Database file #1: Other/References.bib
 Warning--I didn't find a database entry for "EuropesAirQuality2024"
 You've used 9 entries,
             1791 wiz_defined-function locations,
-            513 strings with 5795 characters,
-and the built_in function-call counts, 1791 in all, are:
-= -- 152
+            515 strings with 5804 characters,
+and the built_in function-call counts, 1795 in all, are:
+= -- 153
 > -- 83
 < -- 0
 + -- 32
 - -- 23
-* -- 115
-:= -- 290
+* -- 116
+:= -- 291
 add.period$ -- 27
 call.type$ -- 9
 change.case$ -- 9
@@ -26,17 +26,17 @@ cite$ -- 9
 duplicate$ -- 61
 empty$ -- 191
 format.name$ -- 23
-if$ -- 392
+if$ -- 393
 int.to.chr$ -- 0
 int.to.str$ -- 9
 missing$ -- 4
 newline$ -- 48
 num.names$ -- 9
-pop$ -- 33
+pop$ -- 34
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 30
+skip$ -- 28
 stack$ -- 0
 substring$ -- 111
 swap$ -- 9
@@ -47,5 +47,5 @@ type$ -- 0
 warning$ -- 0
 while$ -- 16
 width$ -- 10
-write$ -- 95
+write$ -- 96
 (There was 1 warning)
