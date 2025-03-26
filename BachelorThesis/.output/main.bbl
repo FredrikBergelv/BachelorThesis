@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{nasaHazeEurope2003}
 {NASA}.
@@ -44,5 +44,13 @@ Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
 {GEONOR, Inc.}
 \newblock T-{{200B Series All Weather Gauge}}.
 \newblock https://www.geonor.com/t-200b-all-weather-precipitation---rain-gauge, 2019.
+
+\bibitem{vaisalaPTB200DIGITAL1993}
+{VAISALA}.
+\newblock {{PTB}} 200 {{DIGITAL BAROMETERS USER}}'{{S GUIDE}}, February 1993.
+
+\bibitem{vaisalaPTB220SeriesDigital2001}
+{VAISALA}.
+\newblock {{PTB220 Series Digital Barometers USER}}'{{S GUIDE}}, August 2001.
 
 \end{thebibliography}

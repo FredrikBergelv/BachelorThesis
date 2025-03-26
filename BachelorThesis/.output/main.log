@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  26 MAR 2025 10:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  26 MAR 2025 15:07
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1030,20 +1030,28 @@ l.1 \newpage
 pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.19 
-      [3]) (./Textfiles/4.Result.tex
-<Figures/plot_20010101_20011231.pdf, id=137, 578.16pt x 505.89pt>
+l.12 
+      [3]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 13.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.22 
+      [4{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}]) (./Textfiles/4.Result.tex
+pdfTeX warning (ext4): destination with the same identifier (name{page.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.5 
+     [5]
+<Figures/plot_20010101_20011231.pdf, id=151, 578.16pt x 505.89pt>
 File: Figures/plot_20010101_20011231.pdf Graphic file (type pdf)
 <use Figures/plot_20010101_20011231.pdf>
 Package pdftex.def Info: Figures/plot_20010101_20011231.pdf  used on input line 7.
 (pdftex.def)             Requested size: 359.63979pt x 314.68292pt.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.11 
-      [4]
-<Figures/Meanplot_Vavihill.pdf, id=145, 361.35pt x 361.35pt>
+<Figures/Meanplot_Vavihill.pdf, id=153, 361.35pt x 361.35pt>
 File: Figures/Meanplot_Vavihill.pdf Graphic file (type pdf)
 <use Figures/Meanplot_Vavihill.pdf>
 Package pdftex.def Info: Figures/Meanplot_Vavihill.pdf  used on input line 23.
@@ -1054,88 +1062,83 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 24.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 24.
-<Figures/Meanplot_Malmö.pdf, id=146, 361.35pt x 361.35pt>
+<Figures/Meanplot_Malmö.pdf, id=154, 361.35pt x 361.35pt>
 File: Figures/Meanplot_Malmö.pdf Graphic file (type pdf)
 <use Figures/Meanplot_Malmö.pdf>
 Package pdftex.def Info: Figures/Meanplot_Malmö.pdf  used on input line 30.
 (pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
-<Figures/Meanplotinfo_Vavihill.pdf, id=147, 361.35pt x 216.81pt>
+<Figures/Meanplotinfo_Vavihill.pdf, id=155, 361.35pt x 216.81pt>
 File: Figures/Meanplotinfo_Vavihill.pdf Graphic file (type pdf)
 <use Figures/Meanplotinfo_Vavihill.pdf>
 Package pdftex.def Info: Figures/Meanplotinfo_Vavihill.pdf  used on input line 36.
 (pdftex.def)             Requested size: 223.07211pt x 133.84517pt.
-<Figures/Meanplotinfo_Malmö.pdf, id=148, 361.35pt x 216.81pt>
+<Figures/Meanplotinfo_Malmö.pdf, id=156, 361.35pt x 216.81pt>
 File: Figures/Meanplotinfo_Malmö.pdf Graphic file (type pdf)
 <use Figures/Meanplotinfo_Malmö.pdf>
 Package pdftex.def Info: Figures/Meanplotinfo_Malmö.pdf  used on input line 43.
 (pdftex.def)             Requested size: 223.07211pt x 133.84517pt.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.5}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.50 
-      [5 <./Figures/plot_20010101_20011231.pdf>]
-<Figures/Meanplot_dir_Vavihill.pdf, id=203, 397.485pt x 867.24pt>
+ [6 <./Figures/plot_20010101_20011231.pdf>]
+<Figures/Meanplot_dir_Vavihill.pdf, id=214, 397.485pt x 867.24pt>
 File: Figures/Meanplot_dir_Vavihill.pdf Graphic file (type pdf)
 <use Figures/Meanplot_dir_Vavihill.pdf>
 Package pdftex.def Info: Figures/Meanplot_dir_Vavihill.pdf  used on input line 60.
 (pdftex.def)             Requested size: 223.07211pt x 486.70973pt.
-<Figures/Meanplot_dir_Malmö.pdf, id=204, 397.485pt x 867.24pt>
+<Figures/Meanplot_dir_Malmö.pdf, id=215, 397.485pt x 867.24pt>
 File: Figures/Meanplot_dir_Malmö.pdf Graphic file (type pdf)
 <use Figures/Meanplot_dir_Malmö.pdf>
 Package pdftex.def Info: Figures/Meanplot_dir_Malmö.pdf  used on input line 67.
 (pdftex.def)             Requested size: 223.07211pt x 486.70973pt.
- [6 <./Figures/Meanplot_Vavihill.pdf> <./Figures/Meanplot_Malmö.pdf> <./Figures/Meanplotinfo_Vavihill.pdf> <./Figures/Meanplotinfo_Malmö.pdf>]
-<Figures/Meanplot_seasonal_Vavihill.pdf, id=392, 397.485pt x 867.24pt>
+ [7 <./Figures/Meanplot_Vavihill.pdf> <./Figures/Meanplot_Malmö.pdf> <./Figures/Meanplotinfo_Vavihill.pdf> <./Figures/Meanplotinfo_Malmö.pdf>]
+<Figures/Meanplot_seasonal_Vavihill.pdf, id=403, 397.485pt x 867.24pt>
 File: Figures/Meanplot_seasonal_Vavihill.pdf Graphic file (type pdf)
 <use Figures/Meanplot_seasonal_Vavihill.pdf>
 Package pdftex.def Info: Figures/Meanplot_seasonal_Vavihill.pdf  used on input line 79.
 (pdftex.def)             Requested size: 223.07211pt x 486.70973pt.
-<Figures/Meanplot_seasonal_Malmö.pdf, id=393, 397.485pt x 867.24pt>
+<Figures/Meanplot_seasonal_Malmö.pdf, id=404, 397.485pt x 867.24pt>
 File: Figures/Meanplot_seasonal_Malmö.pdf Graphic file (type pdf)
 <use Figures/Meanplot_seasonal_Malmö.pdf>
 Package pdftex.def Info: Figures/Meanplot_seasonal_Malmö.pdf  used on input line 86.
 (pdftex.def)             Requested size: 223.07211pt x 486.70973pt.
- [7 <./Figures/Meanplot_dir_Vavihill.pdf> <./Figures/Meanplot_dir_Malmö.pdf>]
-<Figures/Meanplot_pressure_Vavihill.pdf, id=514, 397.485pt x 650.43pt>
+ [8 <./Figures/Meanplot_dir_Vavihill.pdf> <./Figures/Meanplot_dir_Malmö.pdf>]
+<Figures/Meanplot_pressure_Vavihill.pdf, id=526, 397.485pt x 650.43pt>
 File: Figures/Meanplot_pressure_Vavihill.pdf Graphic file (type pdf)
 <use Figures/Meanplot_pressure_Vavihill.pdf>
 Package pdftex.def Info: Figures/Meanplot_pressure_Vavihill.pdf  used on input line 99.
 (pdftex.def)             Requested size: 223.07211pt x 365.03229pt.
-<Figures/Meanplot_pressure_Malmö.pdf, id=515, 397.485pt x 650.43pt>
+<Figures/Meanplot_pressure_Malmö.pdf, id=527, 397.485pt x 650.43pt>
 File: Figures/Meanplot_pressure_Malmö.pdf Graphic file (type pdf)
 <use Figures/Meanplot_pressure_Malmö.pdf>
 Package pdftex.def Info: Figures/Meanplot_pressure_Malmö.pdf  used on input line 106.
 (pdftex.def)             Requested size: 223.07211pt x 365.03229pt.
- [8 <./Figures/Meanplot_seasonal_Vavihill.pdf> <./Figures/Meanplot_seasonal_Malmö.pdf>]
-<Figures/Histogram_spring.pdf, id=629, 578.16pt x 361.35pt>
+ [9 <./Figures/Meanplot_seasonal_Vavihill.pdf> <./Figures/Meanplot_seasonal_Malmö.pdf>]
+<Figures/Histogram_spring.pdf, id=640, 578.16pt x 361.35pt>
 File: Figures/Histogram_spring.pdf Graphic file (type pdf)
 <use Figures/Histogram_spring.pdf>
 Package pdftex.def Info: Figures/Histogram_spring.pdf  used on input line 120.
 (pdftex.def)             Requested size: 223.07211pt x 139.41516pt.
-<Figures/Histogram_summer.pdf, id=630, 578.16pt x 361.35pt>
+<Figures/Histogram_summer.pdf, id=641, 578.16pt x 361.35pt>
 File: Figures/Histogram_summer.pdf Graphic file (type pdf)
 <use Figures/Histogram_summer.pdf>
 Package pdftex.def Info: Figures/Histogram_summer.pdf  used on input line 122.
 (pdftex.def)             Requested size: 223.07211pt x 139.41516pt.
-<Figures/Histogram_autumn.pdf, id=631, 578.16pt x 361.35pt>
+<Figures/Histogram_autumn.pdf, id=642, 578.16pt x 361.35pt>
 File: Figures/Histogram_autumn.pdf Graphic file (type pdf)
 <use Figures/Histogram_autumn.pdf>
 Package pdftex.def Info: Figures/Histogram_autumn.pdf  used on input line 126.
 (pdftex.def)             Requested size: 223.07211pt x 139.41516pt.
-<Figures/Histogram_winter.pdf, id=632, 578.16pt x 361.35pt>
+<Figures/Histogram_winter.pdf, id=643, 578.16pt x 361.35pt>
 File: Figures/Histogram_winter.pdf Graphic file (type pdf)
 <use Figures/Histogram_winter.pdf>
 Package pdftex.def Info: Figures/Histogram_winter.pdf  used on input line 128.
 (pdftex.def)             Requested size: 223.07211pt x 139.41516pt.
- [9 <./Figures/Meanplot_pressure_Vavihill.pdf> <./Figures/Meanplot_pressure_Malmö.pdf>]
-<Figures/BlockingsPerYear.pdf, id=744, 578.16pt x 361.35pt>
+ [10 <./Figures/Meanplot_pressure_Vavihill.pdf> <./Figures/Meanplot_pressure_Malmö.pdf>]
+<Figures/BlockingsPerYear.pdf, id=755, 578.16pt x 361.35pt>
 File: Figures/BlockingsPerYear.pdf Graphic file (type pdf)
 <use Figures/BlockingsPerYear.pdf>
 Package pdftex.def Info: Figures/BlockingsPerYear.pdf  used on input line 137.
 (pdftex.def)             Requested size: 318.66948pt x 199.16766pt.
-) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/7.Outlook.tex) [10 <./Figures/Histogram_spring.pdf> <./Figures/Histogram_summer.pdf> <./Figures/Histogram_autumn.pdf> <./Figures/Histogram_winter.pdf> <./Figures/BlockingsPerYear.pdf>] [11] (.output/main.bbl
-Overfull \hbox (75.33125pt too wide) in paragraph at lines 14--17
+) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/7.Outlook.tex) [11 <./Figures/Histogram_spring.pdf> <./Figures/Histogram_summer.pdf> <./Figures/Histogram_autumn.pdf> <./Figures/Histogram_winter.pdf> <./Figures/BlockingsPerYear.pdf>] [12] (.output/main.bbl
+Overfull \hbox (80.33125pt too wide) in paragraph at lines 14--17
 []\T1/ptm/m/n/10 Anthony R. Lupo.  At-mo-spheric block-ing events: A re-view.  https://nyaspubs.onlinelibrary.wiley.com/doi/abs/10.1111/nyas.14557,
  []
 
@@ -1145,11 +1148,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 24--27
  []
 
 
-Underfull \hbox (badness 2772) in paragraph at lines 44--47
+Underfull \hbox (badness 2050) in paragraph at lines 44--47
 []\T1/ptm/m/n/10 GEONOR, Inc.  T-200B Se-ries All Weather Gauge.  https://www.geonor.com/t-200b-all-weather-
  []
 
-) [12]
+) [13]
 \openout2 = `Textfiles/Appendix.aux'.
 
  (./Textfiles/Appendix.tex) 
@@ -1167,18 +1170,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: E9B5A43A9B7E5045419F86A91E7FCF7B;1168.
  ) 
 Here is how much of TeX's memory you used:
- 33064 strings out of 474222
- 651250 string characters out of 5748732
+ 33093 strings out of 474222
+ 652051 string characters out of 5748732
  1932975 words of memory out of 5000000
- 54682 multiletter control sequences out of 15000+600000
- 614656 words of font info for 112 fonts, out of 8000000 for 9000
+ 54702 multiletter control sequences out of 15000+600000
+ 615338 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,96p,2421b,1065s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on .output/main.pdf (17 pages, 2451397 bytes).
+</usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on .output/main.pdf (18 pages, 2506586 bytes).
 PDF statistics:
- 1000 PDF objects out of 1000 (max. 8388607)
- 258 compressed objects within 3 object streams
- 43 named destinations out of 1000 (max. 500000)
+ 1020 PDF objects out of 1200 (max. 8388607)
+ 272 compressed objects within 3 object streams
+ 46 named destinations out of 1000 (max. 500000)
  201 words of extra memory for PDF output out of 10000 (max. 10000000)
 

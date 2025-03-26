@@ -27,6 +27,7 @@ data = {
     },
     "wind": {
         "Helsingborg": "csv_files/Helsingborg_wind.csv",
+        "Malmö": "csv_files/Malmö_wind.csv",
         "Hörby": "csv_files/Hörby_wind.csv",
         "Sturup": "csv_files/Sturup_wind.csv"
     },
@@ -52,7 +53,6 @@ data = {
 PM_Malmö = read.get_pm_data(data["PM25"]["Malmö"])
 
 PM_Vavihill = read.get_pm_data(data["PM25"]["Vavihill"])
-print(PM_Vavihill)
 
 PM_Hallahus = read.get_pm_data(data["PM25"]["Hallahus"])
 PM_Vavihill = pd.concat([PM_Vavihill, PM_Hallahus], axis=0)
@@ -80,7 +80,10 @@ Helsingborg_rain_data = read.get_rain_data(data["rain"]["Helsingborg"])
 Malmö_rain_data = read.get_rain_data(data["rain"]["Malmö"])
 
 # Read Wind & Temperature Data
-wind_data = read.get_wind_data(data["wind"]["Hörby"])
+Hörby_wind_data = read.get_wind_data(data["wind"]["Hörby"])
+Malmö_wind_data = read.get_wind_data(data["wind"]["Malmö"])
+
+
 temp_data = read.get_temp_data(data["temperature"]["Hörby"])
 
 # Store all processed data in 'main' dictionary
@@ -88,7 +91,8 @@ main = {
     "PM25": { "Vavihill": PM_Vavihill,
               "Malmö": PM_Malmö },
     "pressure": Helsingborg_data,
-    "wind": wind_data,
+    "wind": {"Hörby": Hörby_wind_data,
+             "Malmö": Malmö_wind_data},
     "rain": {"Hörby": Hörby_rain_data,
              "Malmö": Malmö_rain_data},
     "temperature": temp_data }

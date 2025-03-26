@@ -20,10 +20,16 @@ location = 'Malmö'
 
 
 pressure_data = csv.main['pressure']
-rain_data = csv.main['rain'] 
 temp_data = csv.main['temperature'] 
-wind_data = csv.main['wind'] 
 PM_data = csv.main['PM25'][location]
+
+if location == "Malmö":
+     rain_data = csv.main['rain']["Malmö"]
+     wind_data = csv.main['wind']["Malmö"]
+     
+if location == "Vavihill":
+      rain_data = csv.main['rain']["Hörby"]
+      wind_data = csv.main['wind']["Hörby"]
 
 
 
@@ -43,7 +49,7 @@ totdata_list_dates = read.array_extra_blocking_list(PM_data, wind_data,
                                               blocking_list, 
                                               cover=1, only_titles=True)
 
-
+##############################################################################
         
 
 def mean_array(data_list, minpoints=mindatasets):

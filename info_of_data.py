@@ -16,7 +16,9 @@ import warnings
 
 
 # Assuming Vavihill is your DataFrame
-Vavihill = read.get_pm_data(csv.data["pressure"]["Helsingborg"])
+Vavihill = read.get_pm_data(csv.data["temperature"]["Lund"])
+
+
 print(f" Start date {Vavihill["datetime_start"][0]}")
 print(f" End date {Vavihill["datetime_start"][len(Vavihill)-1]}")
 

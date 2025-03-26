@@ -325,9 +325,9 @@ def find_blocking(pres_data, rain_data, pressure_limit, duration_limit,
     data.dropna(subset=['rain'])
     
     # Identify where we have high pressure and no rain, add new column
-    data['highp'] = (data['pressure'] > pressure_limit) & (data['rain'] < rain_limit)
+    data['highp'] = (data['pressure'] > pressure_limit) & (data['rain'] < rain_limit) & data['rain'].notna()
     
-    # Identify if next value is not high pressure or not (shift)
+    # Identify if next value is not high pressure or not (shift)(data['rain'] < rain_limit) & (data['rain'] not == np.Nan)
     # If the next value is not the same, add the value of True(1) cumulative 
     # This gives a unique streak_id for each streak depending on the limit
     data['streak_id'] = (data['highp'] != data['highp'].shift()).cumsum()
@@ -1470,6 +1470,14 @@ def plot_blockingsdays_by_year(block_list, season, save=False):
             blocking[year][2] += duration  # Summer
         elif month in [9, 10, 11]:
             blocking[year][3] += duration  # Autumn
+            
+        # THIS IS JUST A QUICK FIX TO PREVENT THESE YEARS DUE TO LACK OF DATA
+        if (year == 1992) or (year == 1993) or (year == 1994) or (year == 1995):
+                blocking[1992][0]=blocking[1992][1]=blocking[1992][2]=blocking[1992][3] = 0
+                blocking[1993][0]=blocking[1993][1]=blocking[1993][2]=blocking[1993][3] = 0
+                blocking[1994][0]=blocking[1994][1]=blocking[1994][2]=blocking[1994][3] = 0
+                blocking[1995][0]=blocking[1995][1]=blocking[1995][2]=blocking[1995][3] = 0
+                continue
         
     # Remove the first and last years since they are not full years
     blocking.pop(min(blocking))  # Remove the first year
@@ -1538,6 +1546,15 @@ def plot_blockings_by_year(block_list, lim, save=False):
     for data in block_list:
         start, end = min(data['datetime']), max(data['datetime'])  # Get start and end times
         year = start.year  # Extract the year from the start date
+        
+        # THIS IS JUST A QUICK FIX TO PREVENT THESE YEARS DUE TO LACK OF DATA
+        if (year == 1992) or (year == 1993) or (year == 1994) or (year == 1995):
+            blockings_per_year[1992] = 0
+            blockings_per_year[1993] = 0
+            blockings_per_year[1994] = 0
+            blockings_per_year[1995] = 0
+            continue
+            
         duration = (end - start).days  # Calculate duration in days
         
         blockings_per_year[year] += 1  # Increment count of blockings for that year
