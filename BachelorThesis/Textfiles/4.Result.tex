@@ -1,18 +1,27 @@
 \section{Result}
-
 \subsection{The evolution of PM 2.5 over time}
-The first part of the goals mentioned above has been achieved using Pandas in Python by extracting periods of high-pressure blocking based on a pressure limit and a rainfall limit. The pressure limit was chosen to be \SI{1015}{\hecto\pascal}, meaning that a high-pressure blocking event must maintain at least \SI{1015}{\hecto\pascal} throughout the entire period. The rainfall limit was set to \SI{0.5}{\milli\meter}, meaning the period can have a maximum of \SI{0.5}{\milli\meter} rainfall during the entire period. The minimum period length was set to 5 days. The result during the year 2001 can be seen in \autoref{fig:2001}.
+
+After applying the high-pressure blocking detection method to the data from Vavihill for the entire period, a total of 298 high-pressure blocking events were identified between August 1, 1995, and October 10, 2024. Of these 298 events, 171 were removed due to insufficient PM\textsubscript{2.5} data, as a filter requiring 95\% data coverage was applied. This left 127 relevant high-pressure blocking events. For Malmö, a total of 299 high-pressure blocking events were identified between November 20, 1995, and October 1, 2024. From these, 99 events were removed due to insufficient PM\textsubscript{2.5} data, again applying the 95\% data coverage filter. This resulted in 200 relevant high-pressure blocking events. An example plot showing the periods of high-pressure blocking events can be seen in \autoref{fig:2001}.
+
 
 \begin{figure}[H]
-    \centering    \includegraphics[width=0.79\textwidth]{Figures/plot_20010101_20011231.pdf}
-    \caption{This example plot displays the air pressure, PM\textsubscript{2.5} concentrations, wind direction, wind speed, temperature and rainfall during the year 2001. The periods which was filtered as periods of high pressure blocking are shown in gray. }
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Vavihill_plot_20010101_20011231.pdf}
+        \label{fig:2001Vavihill}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Malmö_plot_20010101_20011231.pdf}
+        \label{fig:2001Malmö}
+    \end{subfigure}
+    \caption{These example plot displays the air pressure, PM\textsubscript{2.5} concentrations, and rainfall during the year 2001. The periods which was indicated as periods of high-pressure blocking events are shown in gray. }
     \label{fig:2001}
 \end{figure}
 
-The second task was to evaluate the PM\textsubscript{2.5} concentrations during periods of high pressure blocking using statistics. This was done by taking the mean of all the different blockings displaying this together with the standard deviation. This can be seen in \autoref{fig:Meanplot_Comparison}. The data is compared with the overall mean taken from the data. A slight increase in the normal concentrations of PM\textsubscript{2.5} can be seen in Malmö, while the same is hard to say about Vavihill. 
-
-
-
+The second task was to evaluate the PM\textsubscript{2.5} concentrations during periods of high-pressure blocking by taking the mean concentration from the start of the event. This can be seen in \autoref{fig:Meanplot_Comparison}. The data is compared with the PM\textsubscript{2.5} mean taken from periods without high-pressure blocking events. An increase in PM\textsubscript{2.5} concentrations can be seen in Malmö, while a slight increase can be observed in Vavihill. It is important to note that after the first five days, the number of datasets decreases, which is reflected in the increase in standard deviation.
 
 
 \begin{figure}[H]
@@ -20,14 +29,14 @@ The second task was to evaluate the PM\textsubscript{2.5} concentrations during 
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/Meanplot_Vavihill.pdf}
-        \caption{This figure shows the mean PM\textsubscript{2.5} concentrations over time in Vavihill. The data is analyzed to observe trends and variations in air pollution levels in a rural setting.}
+        \caption{This figure shows the mean PM\textsubscript{2.5} concentrations over time in Vavihill. The data is analysed to observe trends and variations in air pollution levels in a rural setting.}
         \label{fig:Meanplot_Vavihill}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/Meanplot_Malmö.pdf}
-        \caption{This figure shows the mean PM\textsubscript{2.5} concentrations over time in Malmö. The data is analyzed to observe trends and variations in air pollution levels in an urban environment.}
+        \caption{This figure shows the mean PM\textsubscript{2.5} concentrations over time in Malmö. The data is analysed to observe trends and variations in air pollution levels in an urban environment.}
         \label{fig:Meanplot_Malmö}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
@@ -43,100 +52,124 @@ The second task was to evaluate the PM\textsubscript{2.5} concentrations during 
         \caption{This plot shows the number of datatsets used per day for the calculation above at Malmö.}
         \label{fig:Meanplotinfo_Malmö}
     \end{subfigure}
-    \caption{Comparison of mean PM\textsubscript{2.5} concentrations in Vavihill and Malmö, highlighting differences between rural and urban air quality.}
+    \caption{Comparison of mean PM\textsubscript{2.5} concentrations in Vavihill and Malmö, highlighting differences between rural and urban air quality. The shaded region indicates the standard deviation of the data.}
     \label{fig:Meanplot_Comparison}
 \end{figure}
 
-
-\autoref{fig:PM25_wind_direction} shows the increase in PM\textsubscript{2.5} concentrations in vavihill and Malmö for different wind directions. Even though the Concentration increased more in Malmö than in Vavihill, the directional dependence is less prominent.This may suggest that the accumulation of PM\textsubscript{2.5} in Malmö may be due to the local emissions in Malmö being much greater than those in Vavihill, while the increase of PM\textsubscript{2.5} in Vavihill may be more to the aerosols being transported to the area via the anticyclonic winds.  
-
-
+The change in PM\textsubscript{2.5} concentrations in Vavihill and Malmö for different wind directions can be seen in \autoref{fig:Meanplot_wind}. One can see similarities between the wind directions for Vavihill and Malmö, although the extremes are more pronounced in Malmö. When the wind filter was applied for the NE direction (310° to 70°), no clear increase or high levels of PM\textsubscript{2.5} were detected. The same is true for the non-specific wind direction in Vavihill. For the other directions, an increase in PM\textsubscript{2.5} can be seen. Elevated levels can also be seen in Vavihill for the SE direction (70° to 190°), in Malmö for the W direction (190° to 310°), and especially in Vavihill for the SE direction (70° to 190°).
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/Meanplot_dir_Vavihill.pdf}
-        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Vavihill for different wind directions. It is important to note that 4.9\% of the winds came from the Northeast (310° to 70°), 27.2\% from the Southeast (70° to 190°), 18.5\% from the West (190° to 310°) and 49.4\% from no specific direction.}
+        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Vavihill for different wind directions. It is important to note that 6.3\% of the winds came from the Northeast (310° to 70°), 39.9\% from the Southeast (70° to 190°), 21.3\% from the West (190° to 310°) and 42.5\% from no specific direction.}
         \label{fig:Meanplot_dir_Vavihill}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/Meanplot_dir_Malmö.pdf}
-        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Malmö for different wind directions. It is important to note that 5.2\% of the winds came from the Northeast (310° to 70°), 26.6\% from the Southeast (70° to 190°), 22.1\% from the West (190° to 310°) and 46.1\% from no specific direction.}
+        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Malmö for different wind directions. It is important to note that 7.5\% of the winds came from the Northeast (310° to 70°), 24.0\% from the Southeast (70° to 190°), 18.5\% from the West (190° to 310°) and 50.0\% from no specific direction.}
         \label{fig:Meanplot_dir_Malmö}
     \end{subfigure}
-    \caption{Comparison of PM\textsubscript{2.5} concentrations in Vavihill and Malmö for different wind directions. Note that a minimum number of datasets was still put to 8, resulting in some directions having very little data. }
-    \label{fig:PM25_wind_direction}
+    \caption{Comparison of PM\textsubscript{2.5} concentrations in Vavihill and Malmö for different wind directions. Note that a minimum number of datasets was still put to 8, resulting in some directions having very little data. The shaded region indicates the standard deviation of the data. }
+    \label{fig:Meanplot_wind}
 \end{figure}
+
+How the concentrations of PM\textsubscript{2.5} changed due to seasonal variation can be seen in \autoref{fig:Meanplot_seasonal}. From these plots, it is clear that the concentration during the summer for both Vavihill and Malmö does not indicate an increase nor high levels of PM\textsubscript{2.5}. A slight increase can be seen in the case of spring for both locations. A larger increase can be seen during the autumn, where high levels of PM\textsubscript{2.5} can be observed towards the end of the period. The winter in Vavihill indicates an increase in the PM\textsubscript{2.5} concentrations, although the standard deviation indicates highly dispersed data. Winter in Malmö indicates an increase in PM\textsubscript{2.5} concentrations, although the levels seem to lower towards the end of the period.
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/Meanplot_seasonal_Vavihill.pdf}
-        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Vavihill for different seasons. It is important to note that 21.3\% of the blockings occured during the winter, 37.7\% during the spring, 16.4\% during the summer and 24.6\% during the autumn.}
+        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Vavihill for different seasons. It is important to note that 21.1\% of the blocking events occurred during the winter, 27.4\% during the spring, 24.2\% during the summer and 27.4\% during the autumn.}
         \label{fig:Meanplot_seasonal_Vavihill}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/Meanplot_seasonal_Malmö.pdf}
-        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Malmö for different seasons. It is important to note that 26.4\% of the blockings occurred during the winter, 33.1\% during the spring, 18.2\% during the summer and 22.3\% during the autumn.}
+        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Malmö for different seasons. It is important to note that 24.0\% of the blocking events occurred during the winter, 34.0\% during the spring, 18.0\% during the summer and 24.0\% during the autumn.}
         \label{fig:Meanplot_seasonal_Malmö}
     \end{subfigure}
-    \caption{Comparison of PM\textsubscript{2.5} concentrations in Vavihill and Malmö for different seasons. Note that a minimum number of datasets was still put to 8. }
-    \label{fig:PM25_seasons}
+    \caption{Comparison of PM\textsubscript{2.5} concentrations in Vavihill and Malmö for different seasons. Note that a minimum number of datasets was still put to 8. The shaded region indicates the standard deviation of the data. }
+    \label{fig:Meanplot_seasonal}
 \end{figure}
 
+The increase in PM\textsubscript{2.5} concentrations depending on the strength of the high-pressure blocking event can be seen in \autoref{fig:Meanplot_pressure}. From the plots, we can observe similar behaviour in the two locations. For weaker and medium-strength high-pressure blocking events, a slight increase in PM\textsubscript{2.5} can be seen, although no significantly elevated concentrations are observed. However, in the case of stronger high-pressure blocking events, a more pronounced increase in PM\textsubscript{2.5} concentrations can be noticed, along with elevated levels of PM\textsubscript{2.5}, especially in Malmö.
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/Meanplot_pressure_Vavihill.pdf}
-        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Vavihill for different seasons. It is important to note that 11.1\% of the blockings occurred with a mean pressure below 1020 hPa 46.9\% occurred between 1020 and 1025 hPa and 42.0\% occurred with a mean pressure over 1025hPa.}
+        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Vavihill for different seasons. It is important to note that 20.5\% of the blocking events occurred with a mean pressure below 1020 hPa 44.9\% occurred between 1020 and 1025 hPa and 34.6\% occurred with a mean pressure over 1025hPa.}
         \label{fig:Meanplot_pressure_Vavihill}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/Meanplot_pressure_Malmö.pdf}
-        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Malmö for different seasons. It is important to note that 10.4\% of the blockings occurred with a mean pressure below 1020 hPa 50.0\% occurred between 1020 and 1025 hPa and 39.6\% occurred with a mean pressure over 1025hPa.}
+        \caption{These plots show how PM\textsubscript{2.5} concentrations change in Malmö for different seasons. It is important to note that 17.0\% of the blocking events occurred with a mean pressure below 1020 hPa 48.5\% occurred between 1020 and 1025 hPa and 34.5\% occurred with a mean pressure over 1025hPa.}
         \label{fig:Meanplot_pressure_Malmö}
     \end{subfigure}
     \caption{Comparison of PM\textsubscript{2.5} concentrations in Vavihill and Malmö for different strength of the high pressure blocking. Note that a minimum number of datasets was still put to 8. }
-    \label{fig:PM25_blocking_strength}
+    \label{fig:Meanplot_pressure}
 \end{figure}
+
+The result from the Mann-Kendall test can be viewed in \autoref{tab:Vavihill} and \autoref{tab:Malmö}. All of the categories had a p-value approximately equal to 0. The $\tau$-value can also be viewed. From this, it is clear that the total mean, the western direction, the spring season, and the pressure strengths medium and strong showed a moderate increase in Vavihill. In the case of Malmö, a moderate increase could be seen during the winter season, as well as in the spring, autumn, and stronger pressure events. Even stronger increases could be seen in the total mean, southeastern direction, and the unspecified direction.
+
+\begin{table}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Mann-Kendall Test for Vavihill}
+        \label{tab:Vavihill}
+        \begin{tabular}{@{}cccc@{}}
+        \toprule
+        \textbf{Filter} & \textbf{Category} & \textbf{Tau} \\ \midrule
+        \multirow{1}{*}{\textbf{Total Mean}} &  & 0.674 \\ \midrule    \multirow{4}{*}{\textbf{Direction}} & NE (310° to 70°)  & 0.353 \\  & SE (70° to 190°)  & 0.461 \\  & W (190° to 310°)  & 0.612 \\  & No Specific Direction  & 0.440 \\  \midrule   \multirow{4}{*}{\textbf{Season}} & Winter  & 0.449 \\  & Spring  & 0.582 \\  & Summer  & 0.360 \\  & Autumn  & 0.466 \\  \midrule    \multirow{4}{*}{\textbf{Pressure}} & Weaker  & 0.399 \\  & Medium  & 0.592 \\  & Stronger  & 0.515 \\ 
+        \bottomrule
+        \end{tabular}
+    \end{minipage}
+     \hfill 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Mann-Kendall Test for Malmö}
+        \label{tab:Malmö}
+        \begin{tabular}{@{}cccc@{}}
+        \toprule
+        \textbf{Filter} & \textbf{Category} & \textbf{Tau} \\ \midrule
+        \multirow{1}{*}{\textbf{Total Mean}} &  & 0.766 \\ \midrule    \multirow{4}{*}{\textbf{Direction}} & NE (310° to 70°)  & 0.368 \\  & SE (70° to 190°)  & 0.761 \\  & W (190° to 310°)  & 0.581 \\  & No Specific Direction  & 0.751 \\  \midrule   \multirow{4}{*}{\textbf{Season}} & Winter  & 0.500 \\  & Spring  & 0.605 \\  & Summer  & 0.488 \\  & Autumn  & 0.623 \\  \midrule    \multirow{4}{*}{\textbf{Pressure}} & Weaker  & 0.366 \\  & Medium  & 0.307 \\  & Stronger  & 0.643 \\ 
+        \bottomrule
+        \end{tabular}
+    \end{minipage}
+\end{table}
+
 
 \subsection{The frequency of high pressure blocking events}
-The last task was to determine if the number of days under high-pressure blockings has increased, in \autoref{fig:histograms}, it can be seen that this is not the case. The seasonal dependency was also accounted for, which can be observed in the plots.
-
-
-\begin{figure}[H]
-    \centering
-    \subfloat[Spring]{\includegraphics[width=0.49\textwidth]{Figures/Histogram_spring.pdf} \label{fig:spring}}
-    \hfill
-    \subfloat[Summer]{\includegraphics[width=0.49\textwidth]{Figures/Histogram_summer.pdf} \label{fig:summer}}
-    
-    \vspace{0.5cm}
-    
-    \subfloat[Autumn]{\includegraphics[width=0.49\textwidth]{Figures/Histogram_autumn.pdf} \label{fig:autumn}}
-    \hfill
-    \subfloat[Winter]{\includegraphics[width=0.49\textwidth]{Figures/Histogram_winter.pdf} \label{fig:winter}}
-    
-    \caption{Histograms for different seasons.}
-    \label{fig:histograms}
-\end{figure}
-One can in \autoref{fig:blockings} see that the number of events with high pressure blocking per year has also not increased. 
+The last task was to determine whether high-pressure blocking events have become more common. Here the 24 hour rain-limt was set to \SI{4}{\mm}, since this corresponds to little rainfall. When looking at the number of high-pressure blocking events per year, no significant change in frequency could be seen (see \autoref{fig:number_of_blockings}). Since the highest levels of PM\textsubscript{2.5} occurred toward the end of the events (see \autoref{fig:Meanplot_Comparison}, \autoref{fig:Meanplot_wind}, \autoref{fig:Meanplot_seasonal}, and \autoref{fig:Meanplot_pressure}), the frequency of longer high-pressure blocking events was also examined. However, no distinct increase could be observed in any of the cases.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/BlockingsPerYear.pdf}
-    \caption{This figure shows the number of high-pressure blockings per year, highlighting any trends or variations over time.}
-    \label{fig:blockings}
+    \caption{fig: This plots shows the change in frequency of high-pressure blocking events. The plots also indicates the change in events longer than 7 and 10 days. }
+    \label{fig:number_of_blockings}
 \end{figure}
+
+In \autoref{fig:Number_of_Blocking_Days_Per_Year}, the number of days under high-pressure blocking events per year can be seen. Here, the total, seasonal, and pressure strength dependence can be observed. The reason for not including the directional dependence is that this was not available from the data. However, these plots show no clear increase or decrease in the number of days under high-pressure blocking events.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/blocking_days_per_year_all.pdf}
+    \caption{These plots show the change in frequency of days under high-pressure blocking events. The number of days under a high-pressure blocking event each year, during each season, and for different pressure strengths can also be seen.}
+    \label{fig:Number_of_Blocking_Days_Per_Year}
+\end{figure}
+
+
 
 
 

@@ -11,10 +11,12 @@ import read_datafiles as read
 import csv_data as csv
 
 
-press_lim   = 1015 
-dur_lim     = 5 
-rain_lim    = 0.5
-mindatasets = 8
+press_lim   = 1014   # This is the pressure limit for classifying high pressure
+dur_lim     = 5      # Minimum number of days for blocking
+rain_lim    = 0.5    # Horly max rain rate
+mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
+pm_coverege = 0.95    # How much PM2.5 coverge must the periods have
+
 
 location = 'Malmö'
 
@@ -42,12 +44,12 @@ blocking_list = read.find_blocking(pressure_data,
 totdata_list = read.array_extra_blocking_list(PM_data, wind_data, 
                                               temp_data, rain_data, 
                                               blocking_list, 
-                                              cover=1, info=False)
+                                              cover=pm_coverege, info=False)
 
 totdata_list_dates = read.array_extra_blocking_list(PM_data, wind_data, 
                                               temp_data, rain_data, 
                                               blocking_list, 
-                                              cover=1, only_titles=True)
+                                              cover=pm_coverege, only_titles=True)
 
 ##############################################################################
         

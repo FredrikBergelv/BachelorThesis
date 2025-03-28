@@ -14,18 +14,21 @@ import csv_data as csv
 import time
 import warnings
 warnings.simplefilter("ignore", category=RuntimeWarning)
+warnings.simplefilter("ignore", category=SyntaxWarning)
 
 
-info        = False  #<-------- CHANGE IF YOU WANT
-press_lim   = 1015 
-dur_lim     = 5 
-rain_lim    = 0.5
-mindatasets = 8
-daystoplot  = 14
+
+info = False          #<-------- CHANGE IF YOU WANT
+
+press_lim   = 1014   # This is the pressure limit for classifying high pressure
+dur_lim     = 5      # Minimum number of days for blocking
+rain_lim    = 0.5    # Horly max rain rate
+mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
+daystoplot  = 14     # How long periods should the plots display
+pm_coverege = 0.95    # How much PM2.5 coverge must the periods have
 
 
 start_time = time.time()
-
 
 
 ###############################################################################
@@ -34,29 +37,36 @@ start_time = time.time()
 Here we make the period plot
 """
 
+locationlist = ['Vavihill', 'Malmö']
 
 pressure_data = csv.main['pressure']
-rain_data = csv.main['rain']["Hörby"]
 temp_data = csv.main['temperature'] 
-wind_data = csv.main['wind']["Hörby"]
-PM_data = csv.main['PM25']['Vavihill']
+
+for location in locationlist:
+    PM_data   = csv.main['PM25'][location] 
+    
+    if location == "Malmö":
+        rain_data = csv.main['rain']["Malmö"]
+        wind_data = csv.main['wind']["Malmö"]
+        
+    if location == "Vavihill":
+         rain_data = csv.main['rain']["Hörby"]
+         wind_data = csv.main['wind']["Hörby"]
 
 
-
-blocking_list = read.find_blocking(pressure_data, 
-                                   rain_data, 
+    blocking_list = read.find_blocking(pressure_data, rain_data, 
                                      pressure_limit=press_lim, 
                                      duration_limit=dur_lim, 
                                      rain_limit=rain_lim)
 
-read.plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
+    read.plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
                        blocking_list,
                        start_time='2001-01-01', 
                        end_time='2001-12-31',
-                       temp_plot=False,
-                       save=True)
+                       tempwind_plot=False,
+                       locationsave=location)
 
-if not info: print('1. The period plot is done')
+if not info: print('1. The period plots are done')
 
 ###############################################################################
 
@@ -68,27 +78,26 @@ blocking_list = read.find_blocking(csv.histogram_main['pressure'],
                                    csv.histogram_main['rain'], 
                                    pressure_limit=press_lim, 
                                    duration_limit=dur_lim, 
-                                   rain_limit=rain_lim)
+                                   rain_limit=4*24) # This is avrege four 24 hours 
 
 
-read.plot_blockings_by_year(blocking_list, lim=7, save=True)
+read.plot_blockings_by_year(blocking_list, lim1=7, lim2=10, save=True)
 
-read.plot_blockingsdays_by_year(blocking_list, 'all', save=True)
-read.plot_blockingsdays_by_year(blocking_list, 'autumn', save=True)
-read.plot_blockingsdays_by_year(blocking_list, 'summer', save=True)
-read.plot_blockingsdays_by_year(blocking_list, 'winter', save=True)
-read.plot_blockingsdays_by_year(blocking_list, 'spring', save=True)
 
+read.plot_blockingsdays_by_year(blocking_list, typ="all", save=True)
 
 
 
 if not info: print('2. The histograms are done')
+
+info
 
 ###############################################################################
 
 """
 Here we make the mean plots
 """
+
 
 locationlist = ['Vavihill', 'Malmö']
 
@@ -102,21 +111,25 @@ for location in locationlist:
     if location == "Vavihill":
          rain_data = csv.main['rain']["Hörby"]
          wind_data = csv.main['wind']["Hörby"]
+         
+    if info: print(f" \n *** {location} ***")
+
 
     blocking_list = read.find_blocking(pressure_data, rain_data, 
                                        pressure_limit=press_lim, 
                                        duration_limit=dur_lim, 
                                        rain_limit=rain_lim,
-                                       info=False)
+                                       info=info)
 
     totdata_list = read.array_extra_blocking_list(PM_data, wind_data, 
                                                   temp_data, rain_data, 
                                                   blocking_list, 
-                                                  cover=1, info=False)
+                                                  cover=pm_coverege, info=info)
+    
     totdata_list_dates = read.array_extra_blocking_list(PM_data, wind_data, 
                                                   temp_data, rain_data, 
                                                   blocking_list, 
-                                                  cover=1, only_titles=True)
+                                                  cover=pm_coverege, only_titles=True)
 
     block_datafile = pd.concat(blocking_list, ignore_index=True)
     PM_without_blocking = PM_data[~PM_data['datetime_start'].isin(block_datafile['datetime'])]
@@ -128,7 +141,8 @@ for location in locationlist:
                    place=location, save=True, info=True, infosave=True,
                    pm_mean=pm_mean, pm_sigma=pm_sigma)
     
-    if info: print(f" \n *** {location} ***")
+    
+    if info: print(" \n ")
     
     dir_totdata_list = read.sort_wind_dir(totdata_list, pieinfo=info)
     

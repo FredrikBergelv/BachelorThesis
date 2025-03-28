@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import matplotlib.colors as mcolors
 from collections import defaultdict
+import matplotlib.gridspec as gridspec
 import re
 
 
@@ -141,6 +142,58 @@ def get_rain_data(filename,
         plt.legend()
         plt.show()
     return datafile # return a datafile of all the data 
+
+def get_daily_rain_data(filename, plot=False):
+    """
+    Extracts daily rainfall data from a CSV file.
+    
+    Parameters:
+        filename (str): Path to the CSV file.
+        plot (bool): If True, plots the rainfall data.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing datetime and rain data.
+    """
+
+    # Load the necessary columns only, handling multiple delimiters
+    datafile = pd.read_csv(
+        filename,
+        delimiter=r'[:;/-]',  # Handle multiple delimiters
+        skiprows=14,  # Skip metadata rows
+        engine='python',  # Prevent parsing errors
+        usecols=[12, 11, 10, 13],  # Load specific columns (year, month, day, rain)
+        names=["year", "month", "day", "rain"],  
+        on_bad_lines='skip'
+    )
+    
+    # Combine year, month, and day columns into a single datetime column
+    datafile['datetime'] = pd.to_datetime(datafile[['year', 'month', 'day']], errors='coerce')
+    
+    datafile['rain']=datafile['rain']/24
+    
+    # Drop unnecessary columns
+    datafile.drop(columns=['year', 'month', 'day'], inplace=True)
+    
+    # Plot the data if requested
+    if plot:
+        with open(filename, 'r') as file:  
+            lines = file.readlines()
+            location = lines[1].strip().split(';')[0]  # Extract location name
+            datatype = lines[4].strip().split(';')[0]  # Extract data type
+        
+        # Plot rainfall data
+        plt.figure(figsize=(10, 6))
+        plt.plot(datafile['datetime'], datafile['rain'], label='Rainfall (mm)', color='blue')
+        plt.xlabel('Date')
+        plt.ylabel('Rainfall (mm)')
+        plt.title(f"{location} - {datatype}")
+        plt.xticks(rotation=45)
+        plt.grid(True)
+        plt.legend()
+        plt.tight_layout()
+        plt.show()
+
+    return datafile
 
 def get_temp_data(filename, 
                   plot=False):
@@ -368,9 +421,7 @@ def find_blocking(pres_data, rain_data, pressure_limit, duration_limit,
         datalist.append(streak_data)
     
     if info:
-        print(f'All periods with an air pressure at least {pressure_limit} hPa during at least a {duration_limit} day period')
-        print(blocking)
-        print(f'A total of {len(datalist)} high pressure blockings were found between {min(data["datetime"])} and {max(data["datetime"])}')
+        print(f'A total of {len(datalist)} high pressure blocking events were found between {min(data["datetime"].dt.date)} and {max(data["datetime"].dt.date)}')
         
     return datalist  # Return a list of all the blocking data
 
@@ -586,17 +637,18 @@ def array_extra_blocking_list(PM_data, wind_data, temp_data, rain_data, blocking
          # Store the dates if we want later on
         if only_titles == True:
                  title_list.append(f'Data from {start_time} to {end_time}') 
-                 
-                 
-        # Merge PM_data_trimmed with block_data
-        combined_data = pd.merge_asof(
-            PM_data_trimmed,
-            block_data,
-            left_on='datetime_start',
-            right_on='datetime',
-            direction='nearest'
-        )
+        
 
+        combined_data = block_data.merge(
+                        PM_data_trimmed,
+                        how="left",
+                        left_on="datetime",
+                        right_on="datetime_start"
+                    )
+
+        # Fill missing datetime_start values with the datetime from block_data
+        combined_data["datetime_start"] = combined_data["datetime_start"].fillna(combined_data["datetime"])
+        
         # Merge the result with wind_data_trimmed
         combined_data = pd.merge_asof(
             combined_data,
@@ -644,8 +696,7 @@ def array_extra_blocking_list(PM_data, wind_data, temp_data, rain_data, blocking
     if only_titles == True:
         return title_list  
     if info == True:
-        print(f'From a total of {len(blocking_list)} high pressure bocking periods, {counter} plots were removed due to lack of PM2.5 data')
-        print(f'resuting in {len(blocking_list)-counter} relevant blocking periods')
+        print(f'From a total of {len(blocking_list)} high-pressure bocking events, {counter} plots were removed due to lack of PM\textsubscript{2.5} data since a filter of {round(cover*100)}\% was used. Thus resuting in {len(blocking_list)-counter} relevant high-pressure blocking events')
     
     return array_list # Return list of all the datafiles
 
@@ -741,7 +792,8 @@ and plotting all the data: pres, wind, temp, pm, rain. This is also displays
 when there is a blockig in the background.
 """
 def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
-                      blocking_list, start_time, end_time, temp_plot=True, save=False):
+                      blocking_list, start_time, end_time, tempwind_plot=True, 
+                      save=False, locationsave=False):
     """
     Plot PM_data, wind_data, temp_data, rain_data, pressure_data 
     over time wit hthe datafile format. Also uses shaded parts to highlight 
@@ -779,14 +831,18 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
         end = max(datafile['datetime'])  # Fix: Use max instead of min
         periods.append((start, end))
         
-    if temp_plot == True:
+    if tempwind_plot == True:
         size  = plt.subplots(6, 1, figsize=(8, 8), sharex=True)
     else: 
-        size  = plt.subplots(5, 1, figsize=(8, 7), sharex=True)
+        size  = plt.subplots(3, 1, figsize=(5, 5), sharex=True)
 
     # Create figure and subplots
     fig, axs = size
     fig.suptitle(f'Data from {start_time.date()} to {end_time.date()}')
+    
+    if locationsave:
+        fig.suptitle(f'Data during {start_time.year}, {locationsave}',
+                     fontsize=13, fontname='serif', x=0.55)
 
     # Add shaded periods to all subplots
     for ax in axs:
@@ -794,7 +850,7 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
             ax.axvspan(start, end, color='gray', alpha=0.3)  # Light gray shading
 
     # Plot Pressure
-    axs[0].plot(merged_data['datetime'], merged_data['pressure'], label='Air Pressure', color='blue')
+    axs[0].plot(merged_data['datetime'], merged_data['pressure'], label='Air Pressure', color='red')
     axs[0].set_ylabel('Air Pressure (hPa)')
     axs[0].legend()
     axs[0].grid(True)
@@ -805,34 +861,35 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
     axs[1].set_ylim(0, 60)
     axs[1].legend()
     axs[1].grid(True)
-
-    # Plot Wind Direction
-    axs[2].scatter(merged_data['datetime'], merged_data['dir'], label='Wind Direction', color='orange', s=7)
-    axs[2].set_ylabel('Wind Direction (°)')
-    axs[2].set_yticks([0, 90, 180, 270, 360])
-    axs[2].set_ylim(0, 360)
-    axs[2].legend()
-    axs[2].grid(True)
-
-    # Plot Wind Speed
-    axs[3].plot(merged_data['datetime'], merged_data['speed'], label='Wind Speed', color='teal')
-    axs[3].set_ylabel('Wind Speed (m/s)')
-    axs[3].set_ylim(0, 14)
-    axs[3].legend()
-    axs[3].grid(True)
     
-    n = 4
+    n = 2
+    if tempwind_plot == True:
+        n=5
+        
+        # Plot Wind Direction
+        axs[2].scatter(merged_data['datetime'], merged_data['dir'], label='Wind Direction', color='orange', s=7)
+        axs[2].set_ylabel('Wind Direction (°)')
+        axs[2].set_yticks([0, 90, 180, 270, 360])
+        axs[2].set_ylim(0, 360)
+        axs[2].legend()
+        axs[2].grid(True)
+    
+        # Plot Wind Speed
+        axs[3].plot(merged_data['datetime'], merged_data['speed'], label='Wind Speed', color='teal')
+        axs[3].set_ylabel('Wind Speed (m/s)')
+        axs[3].set_ylim(0, 14)
+        axs[3].legend()
+        axs[3].grid(True)
+        
 
-    if temp_plot == True:
-        n = 5
         # Plot Temperature
-        axs[4].plot(merged_data['datetime'], merged_data['temp'], label='Temperature', color='red')
+        axs[4].plot(merged_data['datetime'], merged_data['temp'], label='Temperature', color='maroon')
         axs[4].set_ylabel('Temperature (°C)')
         axs[4].legend()
         axs[4].grid(True)
 
     # Plot Rainfall
-    axs[n].plot(merged_data['datetime'], merged_data['rain'], label='Rainfall', color='darkblue')
+    axs[n].plot(merged_data['datetime'], merged_data['rain'], label='Rainfall', color='blue')
     axs[n].set_ylabel('Rainfall (mm)')
     
     axs[n].set_xlabel('Date')
@@ -841,10 +898,14 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
     axs[n].tick_params(axis='x', rotation=45)
     axs[n].set_xlim(start_time, end_time)
 
-    plt.subplots_adjust(hspace=0.4, top=0.95)
+    plt.tight_layout()
     if save:
         plt.savefig(f'BachelorThesis/Figures/plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.pdf')
-    plt.show()        
+    plt.show() 
+
+    if locationsave:
+        plt.savefig(f'BachelorThesis/Figures/{locationsave}_plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.pdf')
+    plt.show()       
 
 """
 These functions sort the totdatalists into catatgories. 
@@ -1091,7 +1152,7 @@ These functions use statistics to evaluate PM25 during periods of high
 pressure blocking.
 """
  
-def plot_mean(totdata_list, daystoplot, wind=False, minpoints=8, 
+def plot_mean(totdata_list, daystoplot, minpoints=8, 
               info=False, infosave=False, save=False, place='',
               pm_mean=False, pm_sigma=False):
     """
@@ -1120,11 +1181,12 @@ def plot_mean(totdata_list, daystoplot, wind=False, minpoints=8,
     if info: 
         plt.figure(figsize=(5, 3))
         plt.plot(t, valid_counts_per_hour, label='Number of datasets')
-        plt.title(f'Number of datasets for {daystoplot} days at {place}')
+        plt.title(f'Number of datasets at {place}',
+                 fontsize=13, fontname='serif', x=0.5)
         plt.xlabel('Time from start of blocking (days)')
         plt.ylabel('Number of datasets')
         plt.axhline(y=minpoints, color='red', linestyle='--', linewidth=1.5, label='Minimum number of datasets allowed')
-        plt.yticks(np.arange(0, max(valid_counts_per_hour) + 1, 10))   
+        plt.yticks(np.arange(0, 201, 20))   
         plt.grid()
         plt.tight_layout()
         plt.legend()
@@ -1133,11 +1195,9 @@ def plot_mean(totdata_list, daystoplot, wind=False, minpoints=8,
         plt.show()
 
     # Plot everything
-    plt.figure(figsize=(5, 5))
-    if wind:
-        plt.title(f'Mean concentration of PM2.5 with wind between {wind} during first {daystoplot} days, {place}')
-    else:
-        plt.title(f'Mean concentration of PM2.5, {place}')
+    plt.figure(figsize=(5, 4))
+    plt.title(f'Mean concentration of PM2.5, {place}',
+                 fontsize=13, fontname='serif', x=0.5)
     
     # You can also plot the Mean Standard, if wanted to
     if pm_mean:
@@ -1182,11 +1242,11 @@ def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=8, place='',
                   zip(dir_totdata_list, labels, colors) if len(totdata_list) > 0]
     
     # Create dynamic subplots based on available data
-    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5.5, 3* len(valid_data)), sharex=True, sharey=True)
-    #fig.tight_layout()
-    fig.suptitle(f'Mean Concentration of PM2.5, {place}')
-    #fig.subplots_adjust(top=0.94)
-
+    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5, 2.5* len(valid_data)), 
+                             sharex=True, sharey=True, constrained_layout=True)
+    plt.suptitle(f'Mean Concentration of PM2.5, {place}\n',
+             fontsize=14, fontname='serif', x=0.5)
+    
     if len(valid_data) == 1:
         axes = [axes]  # Ensure axes is always iterable
 
@@ -1267,11 +1327,11 @@ def plot_seasonal_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
     valid_data = [(seasonal_totdata_list, label, color) for seasonal_totdata_list, label, color in 
                   zip(seasonal_totdata_list, labels, colors) if len(seasonal_totdata_list) > 0]
     
-    # Create dynamic subplots based on available data
-    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5.5, 3* len(valid_data)), sharex=True, sharey=True)
-    #fig.tight_layout()
-    fig.suptitle(f'Mean Concentration of PM2.5, {place}')
-    #fig.subplots_adjust(top=0.94)
+    # Create dynamic subplots based on available data    
+    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5, 2.5* len(valid_data)), 
+                             sharex=True, sharey=True, constrained_layout=True)
+    plt.suptitle(f'Mean Concentration of PM2.5, {place}\n',
+             fontsize=14, fontname='serif', x=0.5)
 
     if len(valid_data) == 1:
         axes = [axes]  # Ensure axes is always iterable
@@ -1356,8 +1416,10 @@ def plot_pressure_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
                   zip(seasonal_totdata_list, labels, colors) if len(seasonal_totdata_list) > 0]
     
     # Create subplots dynamically based on the available data categories
-    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5.5, 3 * len(valid_data)), sharex=True, sharey=True)
-    fig.suptitle(f'Mean Concentration of PM2.5, {place}')
+    fig, axes = plt.subplots(len(valid_data), 1, figsize=(5, 2.5* len(valid_data)), 
+                             sharex=True, sharey=True, constrained_layout=True)
+    plt.suptitle(f'Mean Concentration of PM2.5, {place}\n',
+             fontsize=14, fontname='serif', x=0.5)
 
     # Ensure axes is always iterable even if there's only one subplot
     if len(valid_data) == 1:
@@ -1434,7 +1496,7 @@ def plot_pressure_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
 """
 These two functions make histograms showing the frequency of blocking per yerar
 """
-def plot_blockingsdays_by_year(block_list, season, save=False):
+def plot_blockingsdays_by_year(block_list, typ, save=False):
     """We want to show the number of blockings per year"""
     
     years = [] 
@@ -1450,12 +1512,16 @@ def plot_blockingsdays_by_year(block_list, season, save=False):
             years.append(year)  # Add the year to the list if it's unique
     
     # Make a dictionary with years as keys and values [0, 0, 0, 0] (for winter, spring, summer, autumn)
-    blocking = {year: [0, 0, 0, 0] for year in years} 
+    blocking_seasonal = {year: [0, 0, 0, 0] for year in years} 
+        
+    blocking_strength = {year: [0, 0, 0] for year in years} 
         
     for data in block_list:
         start, end = min(data['datetime']), max(data['datetime'])
         duration = (end - start).days
         
+        # Extract the mean pressure 
+        mean_pressure = np.mean(data["pressure"])            
         # Find the date and month
         date = (start + (end - start) / 2)
         month = date.month
@@ -1463,76 +1529,224 @@ def plot_blockingsdays_by_year(block_list, season, save=False):
         
         # Add to the winter or summer blocking duration
         if month in [12, 1, 2]:
-            blocking[year][0] += duration  # Winter
+            blocking_seasonal[year][0] += duration  # Winter
         elif month in [3, 4, 5]:
-            blocking[year][1] += duration  # Spring
+            blocking_seasonal[year][1] += duration  # Spring
         elif month in [6, 7, 8]:
-            blocking[year][2] += duration  # Summer
+            blocking_seasonal[year][2] += duration  # Summer
         elif month in [9, 10, 11]:
-            blocking[year][3] += duration  # Autumn
+            blocking_seasonal[year][3] += duration  # Autumn
             
-        # THIS IS JUST A QUICK FIX TO PREVENT THESE YEARS DUE TO LACK OF DATA
-        if (year == 1992) or (year == 1993) or (year == 1994) or (year == 1995):
-                blocking[1992][0]=blocking[1992][1]=blocking[1992][2]=blocking[1992][3] = 0
-                blocking[1993][0]=blocking[1993][1]=blocking[1993][2]=blocking[1993][3] = 0
-                blocking[1994][0]=blocking[1994][1]=blocking[1994][2]=blocking[1994][3] = 0
-                blocking[1995][0]=blocking[1995][1]=blocking[1995][2]=blocking[1995][3] = 0
-                continue
+        if mean_pressure < 1020:
+            blocking_strength[year][0] += duration  # weak
+        elif mean_pressure < 1025 and mean_pressure > 1020:
+            blocking_strength[year][1] += duration  # medium
+        elif mean_pressure > 1025:
+            blocking_strength[year][2] += duration  # strong    
+
         
     # Remove the first and last years since they are not full years
-    blocking.pop(min(blocking))  # Remove the first year
-    blocking.pop(max(blocking))  # Remove the last year
+    blocking_seasonal.pop(min(blocking_seasonal))  # Remove the first year
+    blocking_seasonal.pop(max(blocking_seasonal))  # Remove the last year
+    
+    blocking_strength.pop(min(blocking_strength))  # Remove the first year
+    blocking_strength.pop(max(blocking_strength))  # Remove the last year
+    
     # Extract the data as lists
-    winter = [values[0] for values in blocking.values()]  # Winter blocking
-    spring = [values[1] for values in blocking.values()]  # Spring blocking
-    summer = [values[2] for values in blocking.values()]  # Summer blocking
-    autumn = [values[3] for values in blocking.values()]  # Autumn blocking
+    winter = [values[0] for values in blocking_seasonal.values()]  # Winter blocking
+    spring = [values[1] for values in blocking_seasonal.values()]  # Spring blocking
+    summer = [values[2] for values in blocking_seasonal.values()]  # Summer blocking
+    autumn = [values[3] for values in blocking_seasonal.values()]  # Autumn blocking
     
+    weak = [values[0] for values in blocking_strength.values()]  # weak blocking
+    medium = [values[1] for values in blocking_strength.values()]  # medium blocking
+    strong = [values[2] for values in blocking_strength.values()]  # strong blocking
+   
+    
+    total = [values[0] + values[1] + values[2] + values[3] for values in blocking_seasonal.values()]  # Total blocking days
+    
+    years = list(blocking_seasonal.keys())  # Years list
+   
+    if typ == "season":
+        # Create subplots: 2 rows and 4 columns
+        fig, axes = plt.subplots(4, 1, figsize=(5, 8), sharex=True)
+    
+        # Plot for seasons (left column)
+        axes[0].plot(years, winter, label="Winter", color='b', linestyle='-', marker='o')
+        axes[0].set_title("Winter")
+        axes[0].legend()
+        axes[0].grid()
+    
+        axes[1].plot(years, spring, label="Spring", color='g', linestyle='-', marker='^')
+        axes[1].set_title("Spring")
+        axes[1].legend()
+        axes[1].grid()
+    
+        axes[2].plot(years, summer, label="Summer", color='r', linestyle='-', marker='s')
+        axes[2].set_title("Summer")
+        axes[2].legend()
+        axes[2].grid()
+    
+        axes[3].plot(years, autumn, label="Autumn", color='orange', linestyle='-', marker='d')
+        axes[3].set_title("Autumn")
+        axes[3].legend()
+        axes[3].grid()
+    
+        # Set the labels and title with improved font sizes
+        plt.xlabel("Year", fontsize=12)
+        plt.ylabel("Days of Blocking [days]", fontsize=12)        
+        # Adjust x-axis ticks and label rotation
+        plt.xticks(years[::10], rotation=45)  # Show only every fourth year
+        # Adjust layout for better spacing
+        plt.tight_layout()
+        
+    if typ == "strength":
+        # Create subplots: 2 rows and 4 columns
+        fig, axes = plt.subplots(3, 1, figsize=(5, 8), sharex=True)
+    
+        # Plot for seasons (left column)
+        axes[0].plot(years, weak, label="Weak", color='b', linestyle='-', marker='o')
+        axes[0].set_title("Weak")
+        axes[0].legend()
+        axes[0].grid()
+    
+        axes[1].plot(years, medium, label="Medium", color='g', linestyle='-', marker='^')
+        axes[1].set_title("Medium")
+        axes[1].legend()
+        axes[1].grid()
+    
+        axes[2].plot(years, strong, label="Strong", color='r', linestyle='-', marker='s')
+        axes[2].set_title("Strong")
+        axes[2].legend()
+        axes[2].grid()
+    
+        # Set the labels and title with improved font sizes
+        plt.xlabel("Year", fontsize=12)
+        plt.ylabel("Days of Blocking [days]", fontsize=12)        
+        # Adjust x-axis ticks and label rotation
+        plt.xticks(years[::10], rotation=45)  # Show only every fourth year
+        # Adjust layout for better spacing
+        plt.tight_layout()
 
-    total = [values[0] + values[1] + values[2] + values[3] for values in blocking.values()]  # Total blocking days
-    years = list(blocking.keys())  # Years list
+    if typ == "tot":
+        # Create a single subplot (1 row, 1 column)
+        fig, ax = plt.subplots(1, 1, figsize=(8, 2.7), sharex=True)  # Adjust the figure size
     
-    # Plotting
-    plt.figure(figsize=(8, 5))  # Set a wider figure size for clarity
+        # Plot the total blocking days
+        ax.plot(years, total, label="Total", color='black', linestyle='-', marker='o')
+        ax.set_title("Total Blocking Days Per Year")  # Corrected title
+        ax.legend()
+        ax.grid(True)  # Add grid for better visibility
+        
+        # Set labels for x and y axes
+        ax.set_xlabel("Year", fontsize=12)
+        ax.set_ylabel("Days of Blocking [days]", fontsize=12)
+        
+        # Adjust x-axis ticks and label rotation
+        ax.set_xticks(years[::4])  # Show every fourth year
+        ax.set_xticklabels(years[::4], rotation=45)  # Rotate x-axis labels for better readability
+        
+        #plt.suptitle("Number of Blocking Days Per Year ", fontsize=14, fontname='serif', x=0.5)
+        plt.tight_layout()
+        
+    if typ == "all":
+        # Create a figure
+        fig = plt.figure(figsize=(9, 11))
 
-    # Create a bar for the total blocking days (optional)
-    plt.bar(years, total, label="Total", color='#D3D3D3', edgecolor='black', alpha=0.5)
+        # Create a GridSpec for the layout
+        gs = gridspec.GridSpec(5, 2, height_ratios=[1, 1, 1, 1, 1])  # The last row is twice as tall
 
-    if season == 'all':
-        # Plot individual seasons stacked on top of each other
-        plt.bar(years, winter, label="Winter", color='b', edgecolor='black', alpha=0.9)
-        plt.bar(years, spring, bottom=winter, label="Spring", color='g', edgecolor='black', alpha=0.9)
-        plt.bar(years, summer, bottom=[winter[i] + spring[i] for i in range(len(winter))], label="Summer", color='r', edgecolor='black', alpha=0.9)
-        plt.bar(years, autumn, bottom=[winter[i] + spring[i] + summer[i] for i in range(len(winter))], label="Autumn", color='orange', edgecolor='black', alpha=0.9)
-    
-    if season == "autumn":    
-        plt.bar(years, autumn, label="Autumn", color='orange', edgecolor='black', alpha=0.9)
-    
-    if season == "spring":    
-        plt.bar(years, spring, label="Spring", color='g', edgecolor='black', alpha=0.9)
+        # Add subplots to the grid
+        ax1 = fig.add_subplot(gs[0, 0])  # First column, first row
+        ax2 = fig.add_subplot(gs[1, 0])  # First column, second row
+        ax3 = fig.add_subplot(gs[2, 0])  # First column, third row
+        ax4 = fig.add_subplot(gs[3, 0])  # First column, third row
+        ax5 = fig.add_subplot(gs[0, 1])  # Second column, first row
+        ax6 = fig.add_subplot(gs[1, 1])  # Second column, second row
+        ax7 = fig.add_subplot(gs[2, 1])  # Second column, third row
+        ax8 = fig.add_subplot(gs[4, :])  # Fourth row, spanning all columns
+
+        # Plot the data for the first set of plots (seasons)
+        ax1.plot(years, winter, label="Winter", color='b', linestyle='-', marker='s')
+        ax1.set_title("Winter")
+        ax1.set_xlabel("Year", fontsize=12)
+        ax1.set_ylabel("Days", fontsize=12)
+        ax1.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax1.grid(True)  # Add grid
+        ax1.set_yticks(np.arange(0, max(winter), 20))
         
-    if season == "summer":    
-        plt.bar(years, summer, label="Summer", color='r', edgecolor='black', alpha=0.9)
+        ax2.plot(years, spring, label="Spring", color='g', linestyle='-', marker='s')
+        ax2.set_title("Spring")
+        ax2.set_xlabel("Year", fontsize=12)
+        ax2.set_ylabel("Days", fontsize=12)
+        ax2.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax2.grid(True)  # Add grid
+        ax2.set_yticks(np.arange(0, max(spring), 20))
         
-    if season == "winter":    
-        plt.bar(years, winter, label="Winter", color='b', edgecolor='black', alpha=0.9)
-        
-        
-    # Labels and title with improved font sizes
-    plt.xlabel("Year")
-    plt.ylabel("Days of Blocking")
-    plt.title("Number of Days Under Blocking Per Year")
-    plt.xticks(years[::4], rotation=45)  # Show only every fourth year
-    
-    # Add grid lines for better readability
-    plt.grid(axis='y', linestyle='--', alpha=0.6)
-    plt.legend()
-    plt.tight_layout()  
+        ax3.plot(years, summer, label="Summer", color='r', linestyle='-', marker='s')
+        ax3.set_title("Summer")
+        ax3.set_xlabel("Year", fontsize=12)
+        ax3.set_ylabel("Days", fontsize=12)
+        ax3.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax3.grid(True)  # Add grid
+        ax3.set_yticks(np.arange(0, max(summer), 20))
+
+        ax4.plot(years, autumn, label="Autumn", color='orange', linestyle='-', marker='s')
+        ax4.set_title("Autumn")
+        ax4.set_xlabel("Year", fontsize=12)
+        ax4.set_ylabel("Days", fontsize=12)
+        ax4.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax4.grid(True)  # Add grid
+        ax4.set_yticks(np.arange(0, max(autumn), 20))
+
+        # Plot the data for the second set of plots (strength)
+        ax5.plot(years, weak, label="Weak", color='b', linestyle='-', marker='s')
+        ax5.set_title("Weak")
+        ax5.set_xlabel("Year", fontsize=12)
+        ax5.set_ylabel("Days", fontsize=12)
+        ax5.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax5.grid(True)  # Add grid
+        ax5.set_yticks(np.arange(0, max(weak), 20))
+
+        ax6.plot(years, medium, label="Medium", color='g', linestyle='-', marker='s')
+        ax6.set_title("Medium")
+        ax6.set_xlabel("Year", fontsize=12)
+        ax6.set_ylabel("Days", fontsize=12)
+        ax6.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax6.grid(True)  # Add grid
+        ax6.set_yticks(np.arange(0, max(medium), 20))
+
+        ax7.plot(years, strong, label="Strong", color='r', linestyle='-', marker='s')
+        ax7.set_title("Strong")
+        ax7.set_xlabel("Year", fontsize=12)
+        ax7.set_ylabel("Days", fontsize=12)
+        ax7.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax7.grid(True)  # Add grid
+        ax7.set_yticks(np.arange(0, max(strong), 20))
+
+        # The large plot at the bottom
+        ax8.plot(years, total, label="Total", color='black', linestyle='-', marker='s')
+        ax8.set_title("Total Blocking Days Per Year")
+        ax8.set_xlabel("Year", fontsize=12)
+        ax8.set_ylabel("Days", fontsize=12)
+        ax8.set_xticks(years[::4])  # Show every fourth year on the x-axis
+        ax8.set_xticklabels(years[::4], rotation=45)  # Rotate the tick labels
+        ax8.grid(True)  # Add grid
+        ax8.set_yticks(np.arange(0, max(total), 20))
+
+        plt.suptitle("Number of Blocking Days Per Year ", fontsize=14, fontname='serif', x=0.5)
+        # Adjust layout for better spacing
+        plt.tight_layout()
+        plt.show()
+
+     # Save the plot if needed
     if save:
-        plt.savefig(f"BachelorThesis/Figures/Histogram_{season}.pdf")
+            plt.savefig(f"BachelorThesis/Figures/blocking_days_per_year_{typ}.pdf")
+        
+        # Display the plot
     plt.show()
 
-def plot_blockings_by_year(block_list, lim, save=False):
+def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
     """
     This function plots the number of blockings per year and the number of blockings 
     longer than 7 days for each year.
@@ -1540,59 +1754,82 @@ def plot_blockings_by_year(block_list, lim, save=False):
     
     # Dictionary to store the number of blockings per year
     blockings_per_year = defaultdict(int)
-    long_blockings_per_year = defaultdict(int)
+    lim1_blockings_per_year = defaultdict(int)
+    lim2_blockings_per_year = defaultdict(int)
     
     # Loop through the block list to count blockings per year and blockings > 7 days
     for data in block_list:
         start, end = min(data['datetime']), max(data['datetime'])  # Get start and end times
         year = start.year  # Extract the year from the start date
-        
-        # THIS IS JUST A QUICK FIX TO PREVENT THESE YEARS DUE TO LACK OF DATA
-        if (year == 1992) or (year == 1993) or (year == 1994) or (year == 1995):
-            blockings_per_year[1992] = 0
-            blockings_per_year[1993] = 0
-            blockings_per_year[1994] = 0
-            blockings_per_year[1995] = 0
-            continue
             
         duration = (end - start).days  # Calculate duration in days
         
         blockings_per_year[year] += 1  # Increment count of blockings for that year
         
-        if duration > lim:
-            long_blockings_per_year[year] += 1  # Increment count for long blockings (over 7 days)
-    
+        if duration > lim1:
+            lim1_blockings_per_year[year] += 1  # Increment count for long blockings (over 7 days)
+        if duration > lim2:
+            lim2_blockings_per_year[year] += 1  # Increment count for long blockings (over 7 days)
+       
     # Prepare data for plotting
     years = sorted(blockings_per_year.keys())  # Sorted list of years
     total_blockings = [blockings_per_year[year] for year in years]
-    long_blockings = [long_blockings_per_year.get(year, 0) for year in years]  # Handle years with no long blockings
-    
-    # Plotting
-    fig, ax = plt.subplots(figsize=(8, 5))
+    lim1_blockings_per_year = [lim1_blockings_per_year.get(year, 0) for year in years]  # Handle years with no long blockings
+    lim2_blockings_per_year = [lim2_blockings_per_year.get(year, 0) for year in years]  # Handle years with no long blockings
+
     t = range(len(years))
     
     # Remove first and last year
     t=t[1:-1]
     total_blockings=total_blockings[1:-1]
-    long_blockings=long_blockings[1:-1]
+    lim1_blockings_per_year=lim1_blockings_per_year[1:-1]
+    lim2_blockings_per_year=lim2_blockings_per_year[1:-1]
     
-    # Bar plots for total blockings and long blockings
-    ax.bar(t, total_blockings, label='Total Blockings', color='#D3D3D3', edgecolor='black', alpha=0.6)
-    ax.bar(t, long_blockings, label=f'Blockings > {lim} Days', color='red', edgecolor='black', alpha=0.9)
+    if Histogram:
+        # Plotting
+        fig, ax = plt.subplots(figsize=(8, 5))
+        # Bar plots for total blockings and long blockings
+        ax.bar(t, total_blockings, label='Total Blockings', color='#D3D3D3', edgecolor='black', alpha=0.6)
+        ax.bar(t, lim1_blockings_per_year, label=f'Blockings > {lim1} Days', color='red', edgecolor='black', alpha=0.9)
+    
+        
+        # Labels and title
+        ax.set_xlabel('Year', fontsize=12)
+        ax.set_ylabel('Number of Blockings', fontsize=12)
+        ax.set_title(f'Number of Blockings Per Year and Blockings > {lim1} Days', 
+                 fontsize=14, fontname='serif', x=0.5)
+    
+        # Set x-ticks every 4 years and rotate labels
+        ax.set_xticks([i for i in range(0, len(years), 3)])  # Set ticks every 4th year
+        ax.set_xticklabels(years[::3], rotation=45)  # Rotate the labels by 45 degrees
+        
+        plt.grid(axis='y', linestyle='--', alpha=0.6)
+        ax.legend()
+        plt.tight_layout()
+   
+    else:
+        fig, ax = plt.subplots(figsize=(9, 5))
 
-    
-    # Labels and title
-    ax.set_xlabel('Year', fontsize=12)
-    ax.set_ylabel('Number of Blockings', fontsize=12)
-    ax.set_title(f'Number of Blockings Per Year and Blockings > {lim} Days', fontsize=14)
-
-    # Set x-ticks every 4 years and rotate labels
-    ax.set_xticks([i for i in range(0, len(years), 3)])  # Set ticks every 4th year
-    ax.set_xticklabels(years[::3], rotation=45)  # Rotate the labels by 45 degrees
-    
-    plt.grid(axis='y', linestyle='--', alpha=0.6)
-    ax.legend()
-    plt.tight_layout()
+        # Line plots for total blockings and long blockings
+        ax.plot(t, total_blockings, label='Total Blockings', color='black', linestyle='-', marker='s', alpha=0.9)
+        
+        ax.plot(t, lim1_blockings_per_year, label=f'Blockings > {lim1} Days', color='green', linestyle='-', marker='o', alpha=0.9)
+        ax.plot(t, lim2_blockings_per_year, label=f'Blockings > {lim2} Days', color='red', linestyle='-', marker='^', alpha=0.9)
+        # Labels and title
+        ax.set_xlabel('Year', fontsize=12)
+        ax.set_ylabel('Number of Blockings', fontsize=12)
+        ax.set_title(f'Number of Blockings Per Year and Blockings', 
+                     fontsize=14, fontname='serif', x=0.5)
+        
+        # Set x-ticks every 3 years and rotate labels
+        ax.set_xticks([i for i in range(0, len(years), 5)])  
+        ax.set_xticklabels(years[::5], rotation=45)
+        
+        plt.grid(True)
+        ax.legend()
+        plt.tight_layout()
+        plt.show()
+        
     if save:
         plt.savefig("BachelorThesis/Figures/BlockingsPerYear.pdf")
     plt.show()

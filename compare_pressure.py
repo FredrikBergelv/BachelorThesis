@@ -28,6 +28,7 @@ Helsingborg['datetime'] = pd.to_datetime(Helsingborg['datetime'])
 Ängelholm['datetime'] = pd.to_datetime(Ängelholm['datetime'])
 Sturup['datetime'] = pd.to_datetime(Sturup['datetime'])
 
+
 # Filter data within the given time range
 mask_h = (Helsingborg['datetime'] >= start_time) & (Helsingborg['datetime'] <= end_time)
 mask_a = (Ängelholm['datetime'] >= start_time) & (Ängelholm['datetime'] <= end_time)
@@ -58,17 +59,10 @@ plt.show()
 diff_HeÄn = pd.merge(Helsingborg, Ängelholm, on='datetime', suffixes=('_Helsingborg', '_Ängelholm'))
 diff_HeÄn['pressure_diff'] = np.abs(diff_HeÄn['pressure_Helsingborg'] - diff_HeÄn['pressure_Ängelholm'])
 
-diff_HeSt = pd.merge(Helsingborg, Sturup, on='datetime', suffixes=('_Helsingborg', '_Sturup'))
-diff_HeSt['pressure_diff'] = np.abs(diff_HeSt['pressure_Helsingborg'] - diff_HeSt['pressure_Sturup'])
-
-diff_ÄnSt = pd.merge(Ängelholm, Sturup, on='datetime', suffixes=('_Ängelholm', '_Sturup'))
-diff_ÄnSt['pressure_diff'] = np.abs(diff_ÄnSt['pressure_Ängelholm'] - diff_ÄnSt['pressure_Sturup'])
 
 # Plot filtered data
 plt.figure(figsize=(8,5))
 plt.plot(diff_HeÄn['datetime'], diff_HeÄn['pressure_diff'], label='Helsingborg - Ängelholm')
-plt.plot(diff_HeSt['datetime'], diff_HeSt['pressure_diff'], label='Helsingborg - Sturup')
-plt.plot(diff_ÄnSt['datetime'], diff_ÄnSt['pressure_diff'], label='Ängelholm - Sturup')
 
 
 plt.xlabel('Date')
@@ -79,3 +73,11 @@ plt.tight_layout()
 plt.legend()
 plt.grid()
 plt.show()
+
+#%%
+
+diff = diff_HeÄn["pressure_diff"]
+# Compute the mean of the difference
+
+
+print(f'mean = {np.mean(diff):.2f} \nstd = {np.std(diff):.2f}')

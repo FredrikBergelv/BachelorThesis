@@ -36,6 +36,10 @@ data = {
         "Malmö": "csv_files/Malmö_rain.csv",
         "Hörby": "csv_files/Hörby_rain.csv",
         "Örja": "csv_files/Örja_rain.csv"
+        },
+    "dailyrain": {
+        "Tånga": "csv_files/Tånga_rain_day.csv",
+        "Ängelholm": "csv_files/Ängelholm_rain_day.csv"
     },
     "temperature": {
         "Hörby": "csv_files/Hörby_temperature.csv",
@@ -69,9 +73,16 @@ pres_data = pres_data.sort_values(by='datetime', ascending=False).drop_duplicate
 ).sort_values(by='datetime').reset_index(drop=True)  # Reset index
 
 # Read Rain Data
-Örja_rain_data = read.get_rain_data(data["rain"]["Örja"])
 Hörby_rain_data = read.get_rain_data(data["rain"]["Hörby"])
-rain_data = pd.concat([Hörby_rain_data, Örja_rain_data], axis=0)
+
+
+# Read Rain Data
+Hörby_rain_data = read.get_rain_data(data["rain"]["Hörby"])
+
+
+Ängelholm_rain_data = read.get_daily_rain_data(data["dailyrain"]["Ängelholm"])
+Tånga_rain_data = read.get_daily_rain_data(data["dailyrain"]["Tånga"])
+rain_data = pd.concat([Ängelholm_rain_data,Hörby_rain_data], axis=0)
 rain_data = rain_data.sort_values(by='datetime', ascending=False).drop_duplicates(
     subset=['datetime'], keep='first'
 ).sort_values(by='datetime').reset_index(drop=True)  # Reset index
