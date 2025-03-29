@@ -53,7 +53,8 @@ def get_pressure_data(filename,
         plt.ylabel('Pressure [hPa]')
         plt.title(location + ' - ' + datatype)
         plt.xticks(rotation=45)
-        plt.grid(True)
+        plt.grid(True, axis='both', linestyle='--', alpha=0.6)
+
         plt.tight_layout()
         plt.legend()
         plt.show()
@@ -97,7 +98,8 @@ def get_wind_data(filename,
         plt.ylabel('direction [degrees]')
         plt.title(location + ' - ' + datatype)
         plt.xticks(rotation=45)
-        plt.grid(True)
+        plt.grid(True, axis='both', linestyle='--', alpha=0.6)
+
         plt.tight_layout()
         plt.legend()
         plt.show()
@@ -137,7 +139,8 @@ def get_rain_data(filename,
         plt.ylabel('Rainfall [mm]')
         plt.title(location + ' - ' + datatype)
         plt.xticks(rotation=45)
-        plt.grid(True)
+        plt.grid(True, axis='both', linestyle='--', alpha=0.6)
+
         plt.tight_layout()
         plt.legend()
         plt.show()
@@ -188,7 +191,8 @@ def get_daily_rain_data(filename, plot=False):
         plt.ylabel('Rainfall (mm)')
         plt.title(f"{location} - {datatype}")
         plt.xticks(rotation=45)
-        plt.grid(True)
+        plt.grid(True, axis='both', linestyle='--', alpha=0.6)
+
         plt.legend()
         plt.tight_layout()
         plt.show()
@@ -234,7 +238,8 @@ def get_temp_data(filename,
         plt.ylabel('Temperature [degrees]')
         plt.title(location + ' - ' + datatype)
         plt.xticks(rotation=45)
-        plt.grid(True)
+        plt.grid(True, axis='both', linestyle='--', alpha=0.6)
+
         plt.tight_layout()
         plt.legend()
         plt.show()
@@ -272,7 +277,8 @@ def get_pm_data(filename,
         plt.ylabel('Concentration [PM2.5 (µg/m³)]')
         plt.title(f'{location[1:]} - Concentration of PM 2.5')
         plt.xticks(rotation=45)
-        plt.grid(True)
+        plt.grid(True, axis='both', linestyle='--', alpha=0.6)
+
         plt.tight_layout()
         plt.legend()
         plt.show()
@@ -414,7 +420,8 @@ def find_blocking(pres_data, rain_data, pressure_limit, duration_limit,
             plt.ylabel('Pressure [hPa]')
             plt.title(f'High Pressure blocking ({start_date} to {end_date})')
             plt.xticks(rotation=45)
-            plt.grid(True)
+            plt.grid(True, axis='both', linestyle='--', alpha=0.6)
+
             plt.tight_layout()
             plt.legend()
             plt.show()
@@ -537,14 +544,16 @@ def array_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
         axs[0].plot(time, pressure, label='Air Pressure', color='blue')
         axs[0].set_ylabel('Air Pressure (hPa)')
         axs[0].legend()
-        axs[0].grid(True)
+        axs[0].grid(True, axis='both', linestyle='--', alpha=0.6)
+
             
         # Plot PM2.5
         axs[1].plot(time, pm25, label='PM2.5', color='green')
         axs[1].set_ylabel('PM2.5 (µg/m³)')
         axs[1].legend()
         axs[1].set_ylim(0,60)
-        axs[1].grid(True)
+        axs[1].grid(True, axis='both', linestyle='--', alpha=0.6)
+
             
         # Plot Wind Direction
         axs[2].scatter(time, wind_dir, label='Wind Direction', color='orange', s=7)
@@ -552,27 +561,31 @@ def array_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
         axs[2].legend()
         axs[2].set_yticks([0, 90, 180, 270, 365])
         axs[2].set_ylim(0,365)
-        axs[2].grid(True)
+        axs[2].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot Wind Speed
         axs[3].plot(time, wind_speed, label='Wind Speed', color='teal')
         axs[3].set_ylabel('Wind Speed (m/s)')
         axs[3].set_ylim(0,14)
         axs[3].legend()
-        axs[3].grid(True)
+        axs[3].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot temp
         axs[4].plot(time, temp, label='Temperatre', color='red')
         axs[4].set_ylabel('Temperature (°C)')
         axs[4].legend()
-        axs[4].grid(True)
+        axs[4].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot rain
         axs[5].plot(time, rain, label='Rain', color='darkblue')
         axs[5].set_ylabel('Rainfall (mm)')
         axs[5].set_xlabel('Time from start of period (days)')
         axs[5].legend()
-        axs[5].grid(True)
+        axs[5].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         if save:
             plt.savefig(f"BachelorThesis/Figures/plot_{start_time}_to_{end_time}.pdf")
         plt.show()
@@ -726,14 +739,16 @@ def plot_extra_blocking_array(array, array_title=False, extrainfo=True, save=Fal
         axs[0].plot(time, pressure, label='Air Pressure', color='blue')
         axs[0].set_ylabel('Air Pressure (hPa)')
         axs[0].legend()
-        axs[0].grid(True)
+        axs[0].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot PM2.5
         axs[1].plot(time, pm25, label='PM2.5', color='green')
         axs[1].set_ylabel('PM2.5 (µg/m³)')
         axs[1].legend()
         axs[1].set_ylim(0,60)
-        axs[1].grid(True)
+        axs[1].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         axs[1].set_xlabel('Time from start of blocking period (days)')
     else:
         # Create the figure and subplots
@@ -744,14 +759,16 @@ def plot_extra_blocking_array(array, array_title=False, extrainfo=True, save=Fal
         axs[0].plot(time, pressure, label='Air Pressure', color='blue')
         axs[0].set_ylabel('Air Pressure (hPa)')
         axs[0].legend()
-        axs[0].grid(True)
+        axs[0].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot PM2.5
         axs[1].plot(time, pm25, label='PM2.5', color='green')
         axs[1].set_ylabel('PM2.5 (µg/m³)')
         axs[1].legend()
         axs[1].set_ylim(0,60)
-        axs[1].grid(True)
+        axs[1].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot Wind Direction
         axs[2].scatter(time, wind_dir, label='Wind Direction', color='orange', s=7)
@@ -759,20 +776,23 @@ def plot_extra_blocking_array(array, array_title=False, extrainfo=True, save=Fal
         axs[2].legend()
         axs[2].set_yticks([0, 90, 180, 270, 365])
         axs[2].set_ylim(0,365)
-        axs[2].grid(True)
+        axs[2].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot Wind Speed
         axs[3].plot(time, wind_speed, label='Wind Speed', color='teal')
         axs[3].set_ylabel('Wind Speed (m/s)')
         axs[3].set_ylim(0,10)
         axs[3].legend()
-        axs[3].grid(True)
+        axs[3].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot temp
         axs[4].plot(time, temp, label='Temperatre', color='red')
         axs[4].set_ylabel('Temperature (°C)')
         axs[4].legend()
-        axs[4].grid(True)
+        axs[4].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
         # Plot rain
         axs[5].plot(time, rain, label='Rain', color='darkblue')
@@ -780,7 +800,8 @@ def plot_extra_blocking_array(array, array_title=False, extrainfo=True, save=Fal
         axs[5].set_xlabel('Time from start of blocking period (days)')
         axs[5].legend()
         axs[5].set_ylim(0,0.5)
-        axs[5].grid(True)
+        axs[5].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         if save:
             plt.savefig(f"BachelorThesis/Figures/{array_title}.pdf")
         plt.show()
@@ -853,14 +874,16 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
     axs[0].plot(merged_data['datetime'], merged_data['pressure'], label='Air Pressure', color='red')
     axs[0].set_ylabel('Air Pressure (hPa)')
     axs[0].legend()
-    axs[0].grid(True)
+    axs[0].grid(True, axis='both', linestyle='--', alpha=0.6)
+
 
     # Plot PM2.5
     axs[1].plot(merged_data['datetime'], merged_data['pm2.5'], label='PM2.5', color='green')
     axs[1].set_ylabel('PM2.5 (µg/m³)')
     axs[1].set_ylim(0, 60)
     axs[1].legend()
-    axs[1].grid(True)
+    axs[1].grid(True, axis='both', linestyle='--', alpha=0.6)
+
     
     n = 2
     if tempwind_plot == True:
@@ -872,21 +895,24 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
         axs[2].set_yticks([0, 90, 180, 270, 360])
         axs[2].set_ylim(0, 360)
         axs[2].legend()
-        axs[2].grid(True)
+        axs[2].grid(True, axis='both', linestyle='--', alpha=0.6)
+
     
         # Plot Wind Speed
         axs[3].plot(merged_data['datetime'], merged_data['speed'], label='Wind Speed', color='teal')
         axs[3].set_ylabel('Wind Speed (m/s)')
         axs[3].set_ylim(0, 14)
         axs[3].legend()
-        axs[3].grid(True)
+        axs[3].grid(True, axis='both', linestyle='--', alpha=0.6)
+
         
 
         # Plot Temperature
         axs[4].plot(merged_data['datetime'], merged_data['temp'], label='Temperature', color='maroon')
         axs[4].set_ylabel('Temperature (°C)')
         axs[4].legend()
-        axs[4].grid(True)
+        axs[4].grid(True, axis='both', linestyle='--', alpha=0.6)
+
 
     # Plot Rainfall
     axs[n].plot(merged_data['datetime'], merged_data['rain'], label='Rainfall', color='blue')
@@ -894,7 +920,8 @@ def plot_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
     
     axs[n].set_xlabel('Date')
     axs[n].legend()
-    axs[n].grid(True)
+    axs[n].grid(True, axis='both', linestyle='--', alpha=0.6)
+
     axs[n].tick_params(axis='x', rotation=45)
     axs[n].set_xlim(start_time, end_time)
 
@@ -1186,8 +1213,8 @@ def plot_mean(totdata_list, daystoplot, minpoints=8,
         plt.xlabel('Time from start of blocking (days)')
         plt.ylabel('Number of datasets')
         plt.axhline(y=minpoints, color='red', linestyle='--', linewidth=1.5, label='Minimum number of datasets allowed')
-        plt.yticks(np.arange(0, 201, 20))   
-        plt.grid()
+        plt.yticks(np.arange(0, 201, 25))   
+        plt.grid(True, axis='both', linestyle='--', alpha=0.6)
         plt.tight_layout()
         plt.legend()
         if infosave:
@@ -1217,7 +1244,7 @@ def plot_mean(totdata_list, daystoplot, minpoints=8,
     plt.xlabel('Time from start of blocking (days)')
     plt.ylabel('Mean Concentration [PM2.5 (µg/m³)]')
     plt.ylim(0, 40)
-    plt.grid(axis='y', linestyle='--', alpha=0.6)
+    plt.grid(True, axis='both', linestyle='--', alpha=0.6)
     plt.tight_layout()
     plt.legend()
     
@@ -1298,7 +1325,8 @@ def plot_dir_mean(dir_totdata_list, daystoplot, minpoints=8, place='',
 
         # Set y-axis integer ticks and grid lines
         ax.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
-        ax.grid(axis='y', linestyle='--', alpha=0.6)
+        ax.grid(True, axis='both', linestyle='--', alpha=0.6)
+
 
         ax.set_title(f'Direction: {label}')
         ax.set_ylabel('PM2.5 [µg/m³]')
@@ -1384,7 +1412,8 @@ def plot_seasonal_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
 
         # Set y-axis integer ticks and grid lines
         ax.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
-        ax.grid(axis='y', linestyle='--', alpha=0.6)
+        ax.grid(True, axis='both', linestyle='--', alpha=0.6)
+
 
         ax.set_title(f'{label}')
         ax.set_ylabel('PM2.5 [µg/m³]')
@@ -1474,7 +1503,8 @@ def plot_pressure_mean(seasonal_totdata_list, daystoplot, minpoints=8, place='',
 
         # Configure y-axis with integer ticks and grid lines
         ax.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
-        ax.grid(axis='y', linestyle='--', alpha=0.6)
+        ax.grid(True, axis='both', linestyle='--', alpha=0.6)
+
 
         ax.set_title(f'{label}')
         ax.set_ylabel('PM2.5 [µg/m³]')
@@ -1636,7 +1666,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax.plot(years, total, label="Total", color='black', linestyle='-', marker='o')
         ax.set_title("Total Blocking Days Per Year")  # Corrected title
         ax.legend()
-        ax.grid(True)  # Add grid for better visibility
+        ax.grid(True, axis='both', linestyle='--', alpha=0.6)
+  # Add grid for better visibility
         
         # Set labels for x and y axes
         ax.set_xlabel("Year", fontsize=12)
@@ -1672,7 +1703,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax1.set_xlabel("Year", fontsize=12)
         ax1.set_ylabel("Days", fontsize=12)
         ax1.set_xticks(years[::12])  # Show every tenth year on the x-axis
-        ax1.grid(True)  # Add grid
+        ax1.grid(True, axis='both', linestyle='--', alpha=0.6)
+  # Add grid
         ax1.set_yticks(np.arange(0, max(winter), 20))
         
         ax2.plot(years, spring, label="Spring", color='g', linestyle='-', marker='s')
@@ -1680,7 +1712,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax2.set_xlabel("Year", fontsize=12)
         ax2.set_ylabel("Days", fontsize=12)
         ax2.set_xticks(years[::12])  # Show every tenth year on the x-axis
-        ax2.grid(True)  # Add grid
+        ax2.grid(True, axis='both', linestyle='--', alpha=0.6)
+  # Add grid
         ax2.set_yticks(np.arange(0, max(spring), 20))
         
         ax3.plot(years, summer, label="Summer", color='r', linestyle='-', marker='s')
@@ -1688,7 +1721,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax3.set_xlabel("Year", fontsize=12)
         ax3.set_ylabel("Days", fontsize=12)
         ax3.set_xticks(years[::12])  # Show every tenth year on the x-axis
-        ax3.grid(True)  # Add grid
+        ax3.grid(True, axis='both', linestyle='--', alpha=0.6)
+  # Add grid
         ax3.set_yticks(np.arange(0, max(summer), 20))
 
         ax4.plot(years, autumn, label="Autumn", color='orange', linestyle='-', marker='s')
@@ -1696,7 +1730,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax4.set_xlabel("Year", fontsize=12)
         ax4.set_ylabel("Days", fontsize=12)
         ax4.set_xticks(years[::12])  # Show every tenth year on the x-axis
-        ax4.grid(True)  # Add grid
+        ax4.grid(True, axis='both', linestyle='--', alpha=0.6)
+  # Add grid
         ax4.set_yticks(np.arange(0, max(autumn), 20))
 
         # Plot the data for the second set of plots (strength)
@@ -1705,7 +1740,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax5.set_xlabel("Year", fontsize=12)
         ax5.set_ylabel("Days", fontsize=12)
         ax5.set_xticks(years[::12])  # Show every tenth year on the x-axis
-        ax5.grid(True)  # Add grid
+        ax5.grid(True, axis='both', linestyle='--', alpha=0.6)
+  # Add grid
         ax5.set_yticks(np.arange(0, max(weak), 20))
 
         ax6.plot(years, medium, label="Medium", color='g', linestyle='-', marker='s')
@@ -1713,7 +1749,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax6.set_xlabel("Year", fontsize=12)
         ax6.set_ylabel("Days", fontsize=12)
         ax6.set_xticks(years[::12])  # Show every tenth year on the x-axis
-        ax6.grid(True)  # Add grid
+        ax6.grid(True, axis='both', linestyle='--', alpha=0.6)
+  # Add grid
         ax6.set_yticks(np.arange(0, max(medium), 20))
 
         ax7.plot(years, strong, label="Strong", color='r', linestyle='-', marker='s')
@@ -1721,7 +1758,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax7.set_xlabel("Year", fontsize=12)
         ax7.set_ylabel("Days", fontsize=12)
         ax7.set_xticks(years[::12])  # Show every tenth year on the x-axis
-        ax7.grid(True)  # Add grid
+        ax7.grid(True, axis='both', linestyle='--', alpha=0.6)
+  # Add grid
         ax7.set_yticks(np.arange(0, max(strong), 20))
 
         # The large plot at the bottom
@@ -1731,8 +1769,9 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax8.set_ylabel("Days", fontsize=12)
         ax8.set_xticks(years[::4])  # Show every fourth year on the x-axis
         ax8.set_xticklabels(years[::4], rotation=45)  # Rotate the tick labels
-        ax8.grid(True)  # Add grid
-        ax8.set_yticks(np.arange(0, max(total), 20))
+        ax8.set_yticks(np.arange(0, max(total), 40))  # Set major ticks every 40 units
+        ax8.set_yticks(np.arange(0, max(total), 20), minor=True)  # Set minor ticks every 20 units
+        ax8.grid(True, which="both", linestyle='--', alpha=0.6) # Apply grid for both major and minor ticks
 
         plt.suptitle("Number of Blocking Days Per Year ", fontsize=14, fontname='serif', x=0.5)
         # Adjust layout for better spacing
@@ -1803,7 +1842,7 @@ def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
         ax.set_xticks([i for i in range(0, len(years), 3)])  # Set ticks every 4th year
         ax.set_xticklabels(years[::3], rotation=45)  # Rotate the labels by 45 degrees
         
-        plt.grid(axis='y', linestyle='--', alpha=0.6)
+        plt.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax.legend()
         plt.tight_layout()
    
@@ -1825,7 +1864,7 @@ def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
         ax.set_xticks([i for i in range(0, len(years), 5)])  
         ax.set_xticklabels(years[::5], rotation=45)
         
-        plt.grid(True)
+        ax.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax.legend()
         plt.tight_layout()
         plt.show()
