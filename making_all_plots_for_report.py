@@ -25,7 +25,7 @@ dur_lim     = 5      # Minimum number of days for blocking
 rain_lim    = 0.5    # Horly max rain rate
 mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
 daystoplot  = 14     # How long periods should the plots display
-pm_coverege = 0.95    # How much PM2.5 coverge must the periods have
+pm_coverege = 0.95   # How much PM2.5 coverge must the periods have
 
 
 start_time = time.time()
@@ -129,7 +129,8 @@ for location in locationlist:
     totdata_list_dates = read.array_extra_blocking_list(PM_data, wind_data, 
                                                   temp_data, rain_data, 
                                                   blocking_list, 
-                                                  cover=pm_coverege, only_titles=True)
+                                                  cover=pm_coverege, 
+                                                  only_titles=True)
 
     block_datafile = pd.concat(blocking_list, ignore_index=True)
     PM_without_blocking = PM_data[~PM_data['datetime_start'].isin(block_datafile['datetime'])]
