@@ -13,7 +13,7 @@ import csv_data as csv
 import pandas as pd
 
 
-location = 'Malmö'
+location = 'Vavihill'
 
 
 pressure_data = csv.main['pressure']
@@ -21,7 +21,6 @@ rain_data = csv.main['rain']
 temp_data = csv.main['temperature'] 
 wind_data = csv.main['wind'] 
 PM_data = csv.main['PM25'][location]
-
 
 # Rename 'datetime_start' in PM data to 'datetime' for consistency
 PM_data = PM_data.rename(columns={'datetime_start': 'datetime'})

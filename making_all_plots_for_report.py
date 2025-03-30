@@ -78,7 +78,7 @@ blocking_list = read.find_blocking(csv.histogram_main['pressure'],
                                    csv.histogram_main['rain'], 
                                    pressure_limit=press_lim, 
                                    duration_limit=dur_lim, 
-                                   rain_limit=4*24) # This is avrege four 24 hours 
+                                   rain_limit=4/24) # This is avrege four 24 hours 
 
 
 read.plot_blockings_by_year(blocking_list, lim1=7, lim2=10, save=True)

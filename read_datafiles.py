@@ -1704,7 +1704,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax1.set_ylabel("Days", fontsize=12)
         ax1.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax1.grid(True, axis='both', linestyle='--', alpha=0.6)
-  # Add grid
         ax1.set_yticks(np.arange(0, max(winter), 20))
         
         ax2.plot(years, spring, label="Spring", color='g', linestyle='-', marker='s')
@@ -1713,7 +1712,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax2.set_ylabel("Days", fontsize=12)
         ax2.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax2.grid(True, axis='both', linestyle='--', alpha=0.6)
-  # Add grid
         ax2.set_yticks(np.arange(0, max(spring), 20))
         
         ax3.plot(years, summer, label="Summer", color='r', linestyle='-', marker='s')
@@ -1722,7 +1720,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax3.set_ylabel("Days", fontsize=12)
         ax3.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax3.grid(True, axis='both', linestyle='--', alpha=0.6)
-  # Add grid
         ax3.set_yticks(np.arange(0, max(summer), 20))
 
         ax4.plot(years, autumn, label="Autumn", color='orange', linestyle='-', marker='s')
@@ -1731,7 +1728,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax4.set_ylabel("Days", fontsize=12)
         ax4.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax4.grid(True, axis='both', linestyle='--', alpha=0.6)
-  # Add grid
         ax4.set_yticks(np.arange(0, max(autumn), 20))
 
         # Plot the data for the second set of plots (strength)
@@ -1741,7 +1737,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax5.set_ylabel("Days", fontsize=12)
         ax5.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax5.grid(True, axis='both', linestyle='--', alpha=0.6)
-  # Add grid
         ax5.set_yticks(np.arange(0, max(weak), 20))
 
         ax6.plot(years, medium, label="Medium", color='g', linestyle='-', marker='s')
@@ -1750,7 +1745,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax6.set_ylabel("Days", fontsize=12)
         ax6.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax6.grid(True, axis='both', linestyle='--', alpha=0.6)
-  # Add grid
         ax6.set_yticks(np.arange(0, max(medium), 20))
 
         ax7.plot(years, strong, label="Strong", color='r', linestyle='-', marker='s')
@@ -1759,7 +1753,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax7.set_ylabel("Days", fontsize=12)
         ax7.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax7.grid(True, axis='both', linestyle='--', alpha=0.6)
-  # Add grid
         ax7.set_yticks(np.arange(0, max(strong), 20))
 
         # The large plot at the bottom
@@ -1784,7 +1777,7 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         
         # Display the plot
     plt.show()
-
+    
 def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
     """
     This function plots the number of blockings per year and the number of blockings 

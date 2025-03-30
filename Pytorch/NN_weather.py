@@ -78,7 +78,7 @@ for epoch in range(num_epochs):
 # Test the model with a new input
 model.eval()
 
-n = 10440   # Predict for the 7th data point
+n = 980   # Predict for the 7th data point
 
 # During inference, ensure float32 type
 new_data = X_train[n].unsqueeze(0).to(torch.float32)
@@ -100,3 +100,19 @@ print(f"Pressure: {real_next_day[0]:.0f} hPa")
 print(f"Rain: {real_next_day[1]:.2} mm")
 print(f"Temperature: {real_next_day[2]:.0f}°C")
 print(f"Wind Speed: {real_next_day[3]:.1f} m/s")
+
+
+#%%
+new_data = torch.tensor([[1011, 0, 13, 4.8]])
+new_data_norm = (new_data - X_mean) / (X_std + 1e-6)
+predicted_next_day_norm = model(new_data_norm).squeeze(0)  # Remove batch dimension
+
+# Denormalize the predicted values
+predicted_next_day = predicted_next_day_norm * y_std + y_mean
+
+real_next_day = y_train[n]  # Actual next day values
+print("\nPredicted Weather for Next Day:")
+print(f"Pressure: {predicted_next_day[0]:.0f} hPa")
+print(f"Rain: {predicted_next_day[1]:.2} mm")
+print(f"Temperature: {predicted_next_day[2]:.0f}°C")
+print(f"Wind Speed: {predicted_next_day[3]:.1f} m/s")

@@ -12,52 +12,52 @@ import csv_data as csv
 
 press_lim   = 1014   # This is the pressure limit for classifying high pressure
 dur_lim     = 5      # Minimum number of days for blocking
-rain_lim    = 0.5    # Horly max rain rate
-mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
-pm_coverege = 0.95    # How much PM2.5 coverge must the periods have
+rain_lim    = 0.5    # Hourly max rain rate
+mindatasets = 8      # Minimum allowed of datasets when taking std and mean
+pm_coverege = 0.95   # How much PM2.5 coverage must the periods have
 
-location = 'Malmö'
+# Function to handle the Mann-Kendall analysis for each location
+def process_location(location, press_lim, dur_lim, rain_lim, pm_coverege):
+    pressure_data = csv.main['pressure']
+    temp_data = csv.main['temperature']
+    PM_data = csv.main['PM25'][location]
 
-pressure_data = csv.main['pressure']
-temp_data = csv.main['temperature'] 
-PM_data = csv.main['PM25'][location]
+    if location == "Malmö":
+        rain_data = csv.main['rain']["Malmö"]
+        wind_data = csv.main['wind']["Malmö"]
+    elif location == "Vavihill":
+        rain_data = csv.main['rain']["Hörby"]
+        wind_data = csv.main['wind']["Hörby"]
 
-if location == "Malmö":
-     rain_data = csv.main['rain']["Malmö"]
-     wind_data = csv.main['wind']["Malmö"]
-     
-if location == "Vavihill":
-      rain_data = csv.main['rain']["Hörby"]
-      wind_data = csv.main['wind']["Hörby"]
+    blocking_list = read.find_blocking(pressure_data, rain_data, 
+                                       pressure_limit=press_lim, 
+                                       duration_limit=dur_lim, 
+                                       rain_limit=rain_lim)
 
-blocking_list = read.find_blocking(pressure_data, 
-                                   rain_data, 
-                                     pressure_limit=press_lim, 
-                                     duration_limit=dur_lim, 
-                                     rain_limit=rain_lim)
+    totdata_list = read.array_extra_blocking_list(PM_data, wind_data, 
+                                                  temp_data, rain_data, 
+                                                  blocking_list, 
+                                                  cover=pm_coverege, info=False)
 
-totdata_list = read.array_extra_blocking_list(PM_data, wind_data, 
-                                              temp_data, rain_data, 
-                                              blocking_list, 
-                                              cover=pm_coverege, info=False)
+    totdata_list_dates = read.array_extra_blocking_list(PM_data, wind_data, 
+                                                        temp_data, rain_data, 
+                                                        blocking_list, 
+                                                        cover=pm_coverege, only_titles=True)
+    
+    return totdata_list, totdata_list_dates
 
-totdata_list_dates = read.array_extra_blocking_list(PM_data, wind_data, 
-                                              temp_data, rain_data, 
-                                              blocking_list, 
-                                              cover=pm_coverege, only_titles=True)
-
-##############################################################################
+# Function to calculate the mean array
 def mean_array(data_list, minpoints=mindatasets):
-    """"
-    This function populates the an array by taking the nan mean of the values
-    in a givven list of array for each index. This also uses minpoints to ensure
-    we have enough values for our data.
+    """
+    This function populates an array by taking the nan mean of the values
+    in a given list of arrays for each index. It also uses minpoints to ensure
+    there are enough values for our data.
     """
     
     # Determine the length of the longest dataset
     timelen = max(len(array[2]) for array in data_list)
     
-    # Initialize the array with Nan
+    # Initialize the array with NaN
     new_array = np.full((len(data_list), timelen), np.nan)
 
     # Populate the PM_array with the data from data_list
@@ -71,23 +71,25 @@ def mean_array(data_list, minpoints=mindatasets):
         if valid_count < minpoints:
             new_array[:, t] = np.nan  # Set that time point to NaN if not enough valid points
 
-    # Removing columns  that only contain NaNs
+    # Removing columns that only contain NaNs
     new_array = new_array[:, ~np.isnan(new_array).all(axis=0)]
+    
     # Calculate the nan mean
     mean = np.nanmean(new_array, axis=0)
     return mean
 
+# Function to prepare LaTeX output for Mann-Kendall test results
 def whattoprint(trend,h,p,z,tau,s,var_s,slope,intercept):
-    samllresult = f"& {np.round(p, 5)} & {np.round(tau, 3)}"
+    smallresult = f"& {np.round(p, 5)} & {np.round(tau, 3)}"
     largeresult = f"trend={trend}, h={h}, p={np.round(p, 5)}, z={np.round(z, 5)}, tau={np.round(tau, 3)}, s={np.round(s, 5)}, var_s={np.round(var_s, 5)}, slope={np.round(slope, 5)}, intercept={np.round(intercept, 5)}"
-    return samllresult
+    return smallresult
 
 # Generate Mann-Kendall Test for both "Malmö" and "Vavihill"
 def generate_latex_table(location, totdata_list, totdata_list_dates):
     # Calculate Mann-Kendall test results
     mean_pm_data = mean_array(totdata_list)
     result = mk.original_test(mean_pm_data, 0.05)
-    trend,h,p,z,tau,s,var_s,slope,intercept = result
+    trend, h, p, z, tau, s, var_s, slope, intercept = result
 
     # For the Direction category:
     dir_totdata_list = read.sort_wind_dir(totdata_list)
@@ -99,7 +101,7 @@ def generate_latex_table(location, totdata_list, totdata_list_dates):
         if mean_pm_data.size == 0:
             continue
         dirresult = mk.original_test(mean_pm_data, 0.05)
-        trend,h,p,z,tau,s,var_s,slope,intercept = dirresult
+        trend, h, p, z, tau, s, var_s, slope, intercept = dirresult
         direction_results.append((dirlabels[k], np.round(p, 5), np.round(tau, 3)))
 
     # For the Season category:
@@ -112,7 +114,7 @@ def generate_latex_table(location, totdata_list, totdata_list_dates):
         if mean_pm_data.size == 0:
             continue
         searesult = mk.original_test(mean_pm_data, 0.05)
-        trend,h,p,z,tau,s,var_s,slope,intercept = searesult
+        trend, h, p, z, tau, s, var_s, slope, intercept = searesult
         season_results.append((sealabels[k], np.round(p, 5), np.round(tau, 3)))
 
     # For the Pressure category:
@@ -125,7 +127,7 @@ def generate_latex_table(location, totdata_list, totdata_list_dates):
         if mean_pm_data.size == 0:
             continue
         prresult = mk.original_test(mean_pm_data, 0.05)
-        trend,h,p,z,tau,s,var_s,slope,intercept = prresult
+        trend, h, p, z, tau, s, var_s, slope, intercept = prresult
         pressure_results.append((prlabels[k], np.round(p, 5), np.round(tau, 3)))
 
     # Generate the LaTeX table string with the total mean result included
@@ -165,16 +167,21 @@ def generate_latex_table(location, totdata_list, totdata_list_dates):
 
     return latex_table
 
-# Generate tables for both locations
-latex_table_malmo = generate_latex_table("Malmö", totdata_list, totdata_list_dates)
-latex_table_vavihill = generate_latex_table("Vavihill", totdata_list, totdata_list_dates)
+# Process data for both Malmö and Vavihill
+totdata_list_malmo, totdata_list_dates_malmo = process_location("Malmö", press_lim, dur_lim, rain_lim, pm_coverege)
+totdata_list_vavihill, totdata_list_dates_vavihill = process_location("Vavihill", press_lim, dur_lim, rain_lim, pm_coverege)
+
+# Generate Mann-Kendall test tables for both locations
+latex_table_malmo = generate_latex_table("Malmö", totdata_list_malmo, totdata_list_dates_malmo)
+latex_table_vavihill = generate_latex_table("Vavihill", totdata_list_vavihill, totdata_list_dates_vavihill)
 
 # Create LaTeX code to display both tables side by side
 final_latex = f"""
 \\begin{{table}}[h!]
     \\centering
-    {latex_table_malmo} \\hfill {latex_table_vavihill}
+    {latex_table_vavihill} \\hfill {latex_table_malmo}
 \\end{{table}}
 """
 
+# Print the final LaTeX code
 print(final_latex)

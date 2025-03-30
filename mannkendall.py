@@ -18,7 +18,7 @@ mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and m
 pm_coverege = 0.95    # How much PM2.5 coverge must the periods have
 
 
-location = 'Malmö'
+location = 'Vavihill'
 
 
 pressure_data = csv.main['pressure']
@@ -90,7 +90,6 @@ def whattoprint(trend,h,p,z,tau,s,var_s,slope,intercept):
     samllresult = f"trend={trend}, p={np.round(p, 5)}, tau={np.round(tau, 3)}"
     
     largeresult = f"trend={trend}, h={h}, p={np.round(p, 5)}, z={np.round(z, 5)}, tau={np.round(tau, 3)}, s={np.round(s, 5)}, var_s={np.round(var_s, 5)}, slope={np.round(slope, 5)}, intercept={np.round(intercept, 5)}"
-    
     return samllresult
     
 
@@ -182,3 +181,5 @@ for k, data in enumerate(pressure_totdata_list):
     else:
         print(f"               {prlabels[k]}: {whattoprint(trend,h,p,z,tau,s,var_s,slope,intercept)}")
 print("")
+
+
