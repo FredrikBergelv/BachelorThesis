@@ -7,45 +7,45 @@ A level-1 auxiliary file: Textfiles/0.Abstract.aux
 A level-1 auxiliary file: Textfiles/Appendix.aux
 Database file #1: Other/References.bib
 Warning--I didn't find a database entry for "EuropesAirQuality2024"
-You've used 12 entries,
+You've used 14 entries,
             1791 wiz_defined-function locations,
-            529 strings with 6251 characters,
-and the built_in function-call counts, 2166 in all, are:
-= -- 180
-> -- 95
+            538 strings with 6630 characters,
+and the built_in function-call counts, 2398 in all, are:
+= -- 195
+> -- 103
 < -- 0
-+ -- 38
-- -- 26
-* -- 123
-:= -- 347
-add.period$ -- 34
-call.type$ -- 12
-change.case$ -- 12
++ -- 42
+- -- 28
+* -- 124
+:= -- 380
+add.period$ -- 38
+call.type$ -- 14
+change.case$ -- 14
 chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 76
-empty$ -- 245
-format.name$ -- 26
-if$ -- 480
+cite$ -- 14
+duplicate$ -- 86
+empty$ -- 281
+format.name$ -- 28
+if$ -- 535
 int.to.chr$ -- 0
-int.to.str$ -- 12
+int.to.str$ -- 14
 missing$ -- 4
-newline$ -- 61
-num.names$ -- 12
-pop$ -- 54
+newline$ -- 69
+num.names$ -- 14
+pop$ -- 66
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 38
+skip$ -- 49
 stack$ -- 0
 substring$ -- 111
-swap$ -- 12
+swap$ -- 14
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 19
-width$ -- 14
-write$ -- 122
+while$ -- 21
+width$ -- 16
+write$ -- 137
 (There was 1 warning)

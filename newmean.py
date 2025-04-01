@@ -15,10 +15,12 @@ import time
 import warnings
 warnings.simplefilter("ignore", category=RuntimeWarning)
 warnings.simplefilter("ignore", category=SyntaxWarning)
+warnings.simplefilter("ignore", category=UserWarning)
 
 
 
-info = False          #<-------- CHANGE IF YOU WANT
+
+info = True          #<-------- CHANGE IF YOU WANT
 
 press_lim   = 1014   # This is the pressure limit for classifying high pressure
 dur_lim     = 5      # Minimum number of days for blocking
@@ -29,69 +31,6 @@ pm_coverege = 0.95   # How much PM2.5 coverge must the periods have
 
 
 start_time = time.time()
-
-
-###############################################################################
-
-"""
-Here we make the period plot
-"""
-
-locationlist = ['Vavihill', 'Malmö']
-
-pressure_data = csv.main['pressure']
-temp_data = csv.main['temperature'] 
-
-for location in locationlist:
-    PM_data   = csv.main['PM25'][location] 
-    
-    if location == "Malmö":
-        rain_data = csv.main['rain']["Malmö"]
-        wind_data = csv.main['wind']["Malmö"]
-        
-    if location == "Vavihill":
-         rain_data = csv.main['rain']["Hörby"]
-         wind_data = csv.main['wind']["Hörby"]
-
-
-    blocking_list = read.find_blocking(pressure_data, rain_data, 
-                                     pressure_limit=press_lim, 
-                                     duration_limit=dur_lim, 
-                                     rain_limit=rain_lim)
-
-    read.plot_period(PM_data, wind_data, rain_data, pressure_data,
-                       blocking_list,
-                       start_time='2001-01-01', 
-                       end_time='2001-12-31',
-                       wind_plot=False,
-                       locationsave=location)
-
-
-if not info: print('1. The period plots are done')
-
-###############################################################################
-
-"""
-Here we make the histograms
-"""
-
-blocking_list = read.find_blocking(csv.histogram_main['pressure'], 
-                                   csv.histogram_main['rain'], 
-                                   pressure_limit=press_lim, 
-                                   duration_limit=dur_lim, 
-                                   rain_limit=2/24) # This is avrege four 24 hours 
-
-
-read.plot_blockings_by_year(blocking_list, lim1=7, lim2=10, save=True)
-
-
-read.plot_blockingsdays_by_year(blocking_list, typ="all", save=True)
-
-
-
-if not info: print('2. The histograms are done')
-
-info
 
 ###########################################################
 
@@ -160,7 +99,7 @@ read.plot_mean(totdata_list1=totdata_list_Vavihill, totdata_list2=totdata_list_M
                place1='Vavihill', place2='Malmö', 
                pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
                pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö, 
-               save=True)
+               save=False)
     
 if info: print(" \n ")
     
@@ -188,7 +127,7 @@ read.plot_dir_mean(dir_totdata_list1=dir_totdata_list_Vavihill,
                    dir_totdata_list2=dir_totdata_list_Malmö, 
                    daystoplot=daystoplot,  
                    minpoints=8,
-                   place1='Vavihill', place2='Malmö', save=True,
+                   place1='Vavihill', place2='Malmö', save=False,
                    pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
                    pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö)
 
@@ -198,7 +137,7 @@ read.plot_pressure_mean(pressure_totdata_list1=pressure_totdata_list_Vavihill,
                         pressure_totdata_list2=pressure_totdata_list_Malmö, 
                         daystoplot=daystoplot,  
                         minpoints=8,
-                        place1='Vavihill', place2='Malmö', save=True,
+                        place1='Vavihill', place2='Malmö', save=False,
                         pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
                         pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö)
 
@@ -207,7 +146,7 @@ read.plot_seasonal_mean(seasonal_totdata_list1=seasonal_totdata_list_Vavihill,
                         seasonal_totdata_list2=seasonal_totdata_list_Malmö, 
                         daystoplot=daystoplot,  
                         minpoints=8,
-                        place1='Vavihill', place2='Malmö', save=True,
+                        place1='Vavihill', place2='Malmö', save=False,
                         pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
                         pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö)
     

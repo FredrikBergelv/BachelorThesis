@@ -58,4 +58,12 @@ Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
 {VAISALA}.
 \newblock {{PTB220 Series Digital Barometers USER}}'{{S GUIDE}}, August 2001.
 
+\bibitem{thermofisherscientificinc.TEOMSeries1400a2007}
+{Thermo Fisher Scientific Inc.}
+\newblock {{TEOM}}{\textregistered} {{Series}} 1400a {{Ambient Particulate}} ({{PM-10}}) {{Monitor Operating Manual}}, 2007.
+
+\bibitem{palasgmbhOperatingManualFidas}
+{PALAS GmbH}.
+\newblock Operating {{Manual}}: {{Fidas}}{\textregistered} {{Fine Dust Monitor System}}.
+
 \end{thebibliography}
