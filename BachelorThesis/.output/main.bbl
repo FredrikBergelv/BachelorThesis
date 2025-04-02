@@ -40,6 +40,11 @@ Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
 \newblock Europe's air quality status 2024.
 \newblock https://www.eea.europa.eu/publications/europes-air-quality-status-2024, 2024.
 
+\bibitem{hussainmd.andmahmudishtiakPyMannKendallPythonPackage2019}
+{Hussain, Md. and Mahmud, Ishtiak}.
+\newblock {{pyMannKendall}}: A python package for non parametric {{Mann Kendall}} family of trend tests.
+\newblock {\em Journal of Open Source Software}, 4(3):1556, July 2019.
+
 \bibitem{vaisalaWindSetWA152021}
 {VAISALA}.
 \newblock Wind {{Set WA15}} and {{WA25}}.
@@ -65,5 +70,9 @@ Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
 \bibitem{palasgmbhOperatingManualFidas}
 {PALAS GmbH}.
 \newblock Operating {{Manual}}: {{Fidas}}{\textregistered} {{Fine Dust Monitor System}}.
+
+\bibitem{thermoscientific8500FDMSFilter2010}
+{Thermo Scientific}.
+\newblock 8500 {{FDMS Filter Dynamics Measurement System}}, 2010.
 
 \end{thebibliography}

@@ -106,6 +106,8 @@ PM_data_Vavihill   = csv.main['PM25']['Vavihill']
 rain_data_Vavihill = csv.main['rain']["Hörby"]
 wind_data_Vavihill = csv.main['wind']["Hörby"]
          
+if info: print("*** Vavihill *** ")
+
 
 blocking_list_Vavihill = read.find_blocking(pressure_data, rain_data_Vavihill, 
                                        pressure_limit=press_lim, 
@@ -127,6 +129,8 @@ PM_without_blocking_Vavihill = PM_data_Vavihill[~PM_data_Vavihill['datetime_star
 
 pm_mean_Vavihill= np.nanmean(np.array(PM_without_blocking_Vavihill['pm2.5']))
 pm_sigma_Vavihill = np.nanstd(np.array(PM_without_blocking_Vavihill['pm2.5']))
+
+if info: print("*** Malmö *** ")
 
 
 PM_data_Malmö   = csv.main['PM25']['Malmö'] 
@@ -164,8 +168,8 @@ read.plot_mean(totdata_list1=totdata_list_Vavihill, totdata_list2=totdata_list_M
     
 if info: print(" \n ")
     
-dir_totdata_list_Malmö = read.sort_wind_dir(totdata_list_Malmö, pieinfo=info)
 dir_totdata_list_Vavihill = read.sort_wind_dir(totdata_list_Vavihill, pieinfo=info)
+dir_totdata_list_Malmö = read.sort_wind_dir(totdata_list_Malmö, pieinfo=info)
 
     
 if info: print(" \n ")
