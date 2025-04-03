@@ -15,6 +15,8 @@ import time
 import warnings
 warnings.simplefilter("ignore", category=RuntimeWarning)
 warnings.simplefilter("ignore", category=SyntaxWarning)
+warnings.simplefilter("ignore", category=UserWarning)
+
 
 
 
