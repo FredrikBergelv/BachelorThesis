@@ -25,9 +25,8 @@ import matplotlib.colors as mcolors
 from collections import defaultdict
 import matplotlib.gridspec as gridspec
 import re
-import pymannkendall as mk
+import pymannkendall as mk '''
 
-pip install pandas matplotlib numpy pymannkendall
 
 ## Data Summary
 csv_data.py reads and loads all .csv data files into pandas DataFrames, preparing them for analysis.
