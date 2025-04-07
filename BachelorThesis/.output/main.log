@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  2 APR 2025 19:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  7 APR 2025 13:46
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -926,7 +926,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
 
 pdfTeX warning: pdflatex (file ./Other/titlepage.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Other/titlepage.pdf, id=75, 597.53635pt x 845.07529pt>
+<Other/titlepage.pdf, id=91, 597.53635pt x 845.07529pt>
 File: Other/titlepage.pdf Graphic file (type pdf)
 <use Other/titlepage.pdf>
 Package pdftex.def Info: Other/titlepage.pdf  used on input line 7.
@@ -944,7 +944,7 @@ pdfTeX warning: pdflatex (file ./Other/titlepage.pdf): PDF inclusion: found PDF 
 
 
 pdfTeX warning: pdflatex (file ./Other/titlepage.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<Other/titlepage.pdf, id=78, page=1, 597.53635pt x 845.07529pt>
+<Other/titlepage.pdf, id=94, page=1, 597.53635pt x 845.07529pt>
 File: Other/titlepage.pdf Graphic file (type pdf)
 <use Other/titlepage.pdf, page 1>
 Package pdftex.def Info: Other/titlepage.pdf , page1 used on input line 7.
@@ -981,46 +981,52 @@ Package pdftex.def Info: Other/titlepage.pdf , page1 used on input line 7.
 
 
 ] (.output/main.toc
-LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line 3.
+LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line 2.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line 3.
+LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line 2.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line 3.
+LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line 2.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line 3.
+LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line 2.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 3.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
-)
-\tf@toc=\write6
-\openout6 = `main.toc'.
-
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
  [5
 
 
-] [6] (./Textfiles/1.Introduction.tex) (./Textfiles/2.Theory.tex
+])
+\tf@toc=\write6
+\openout6 = `main.toc'.
+
+ [6] (./Textfiles/1.Introduction.tex) (./Textfiles/2.Theory.tex
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.8 
-     [1]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 14.
+l.8 R
+     ecurring anticyclones can be classified into Hess and Brezowsky (1977) ... [1]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 12.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 12.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 12.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 13.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )) (./Textfiles/3.Method.tex
@@ -1053,49 +1059,49 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.6}) has b
                    \relax 
 l.53 
       [6]) (./Textfiles/4.Result.tex [7]
-<Figures/Vavihill_plot_20010101_20011231.pdf, id=212, 361.35pt x 361.35pt>
+<Figures/Vavihill_plot_20010101_20011231.pdf, id=232, 361.35pt x 361.35pt>
 File: Figures/Vavihill_plot_20010101_20011231.pdf Graphic file (type pdf)
 <use Figures/Vavihill_plot_20010101_20011231.pdf>
 Package pdftex.def Info: Figures/Vavihill_plot_20010101_20011231.pdf  used on input line 12.
 (pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
-<Figures/Malmö_plot_20010101_20011231.pdf, id=213, 361.35pt x 361.35pt>
+<Figures/Malmö_plot_20010101_20011231.pdf, id=233, 361.35pt x 361.35pt>
 File: Figures/Malmö_plot_20010101_20011231.pdf Graphic file (type pdf)
 <use Figures/Malmö_plot_20010101_20011231.pdf>
 Package pdftex.def Info: Figures/Malmö_plot_20010101_20011231.pdf  used on input line 18.
 (pdftex.def)             Requested size: 223.07211pt x 223.07529pt.
-<Figures/Meanplot.pdf, id=215, 722.7pt x 433.62pt>
+<Figures/Meanplot.pdf, id=235, 722.7pt x 433.62pt>
 File: Figures/Meanplot.pdf Graphic file (type pdf)
 <use Figures/Meanplot.pdf>
 Package pdftex.def Info: Figures/Meanplot.pdf  used on input line 30.
 (pdftex.def)             Requested size: 455.24411pt x 273.14896pt.
  [8 <./Figures/Vavihill_plot_20010101_20011231.pdf> <./Figures/Malmö_plot_20010101_20011231.pdf>]
-<Figures/Meanplot_dir.pdf, id=357, 715.47299pt x 715.47299pt>
+<Figures/Meanplot_dir.pdf, id=377, 715.47299pt x 715.47299pt>
 File: Figures/Meanplot_dir.pdf Graphic file (type pdf)
 <use Figures/Meanplot_dir.pdf>
-Package pdftex.def Info: Figures/Meanplot_dir.pdf  used on input line 40.
+Package pdftex.def Info: Figures/Meanplot_dir.pdf  used on input line 41.
 (pdftex.def)             Requested size: 455.24411pt x 455.23735pt.
- [9 <./Figures/Meanplot.pdf>]
-<Figures/Meanplot_seasonal.pdf, id=446, 715.47299pt x 715.47299pt>
+ [9 <./Figures/Meanplot.pdf>] [10 <./Figures/Meanplot_dir.pdf>]
+<Figures/Meanplot_seasonal.pdf, id=560, 715.47299pt x 715.47299pt>
 File: Figures/Meanplot_seasonal.pdf Graphic file (type pdf)
 <use Figures/Meanplot_seasonal.pdf>
-Package pdftex.def Info: Figures/Meanplot_seasonal.pdf  used on input line 50.
+Package pdftex.def Info: Figures/Meanplot_seasonal.pdf  used on input line 51.
 (pdftex.def)             Requested size: 455.24411pt x 455.23735pt.
- [10 <./Figures/Meanplot_dir.pdf>] [11 <./Figures/Meanplot_seasonal.pdf>]
-<Figures/Meanplot_pressure.pdf, id=630, 715.47299pt x 536.2434pt>
+ [11 <./Figures/Meanplot_seasonal.pdf>]
+<Figures/Meanplot_pressure.pdf, id=649, 715.47299pt x 536.2434pt>
 File: Figures/Meanplot_pressure.pdf Graphic file (type pdf)
 <use Figures/Meanplot_pressure.pdf>
-Package pdftex.def Info: Figures/Meanplot_pressure.pdf  used on input line 59.
+Package pdftex.def Info: Figures/Meanplot_pressure.pdf  used on input line 64.
 (pdftex.def)             Requested size: 455.24411pt x 341.19809pt.
-<Figures/BlockingsPerYear.pdf, id=636, 552.8655pt x 307.1475pt>
+ [12 <./Figures/Meanplot_pressure.pdf>]
+<Figures/BlockingsPerYear.pdf, id=741, 552.8655pt x 307.1475pt>
 File: Figures/BlockingsPerYear.pdf Graphic file (type pdf)
 <use Figures/BlockingsPerYear.pdf>
-Package pdftex.def Info: Figures/BlockingsPerYear.pdf  used on input line 72.
+Package pdftex.def Info: Figures/BlockingsPerYear.pdf  used on input line 80.
 (pdftex.def)             Requested size: 318.66948pt x 177.0443pt.
- [12 <./Figures/Meanplot_pressure.pdf>]
-<Figures/blocking_days_per_year_all.pdf, id=724, 650.43pt x 794.97pt>
+<Figures/blocking_days_per_year_all.pdf, id=743, 650.43pt x 794.97pt>
 File: Figures/blocking_days_per_year_all.pdf Graphic file (type pdf)
 <use Figures/blocking_days_per_year_all.pdf>
-Package pdftex.def Info: Figures/blocking_days_per_year_all.pdf  used on input line 82.
+Package pdftex.def Info: Figures/blocking_days_per_year_all.pdf  used on input line 90.
 (pdftex.def)             Requested size: 364.19667pt x 445.14378pt.
  [13 <./Figures/BlockingsPerYear.pdf>]) (./Textfiles/5.Discussion.tex) (./Textfiles/6.Conclusion.tex) (./Textfiles/7.Outlook.tex) [14 <./Figures/blocking_days_per_year_all.pdf>] (.output/main.bbl
 Overfull \hbox (80.33125pt too wide) in paragraph at lines 14--17
@@ -1128,21 +1134,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A5E6FBB9EC8DA862E858AC2C290D77BB;3009.
+(rerunfilecheck)             Checksum: E0DE6D4842EED141BD297B59638FC1FC;4527.
  ) 
 Here is how much of TeX's memory you used:
- 33188 strings out of 474222
- 651833 string characters out of 5748732
+ 33228 strings out of 474222
+ 652428 string characters out of 5748732
  1934975 words of memory out of 5000000
- 54764 multiletter control sequences out of 15000+600000
- 609166 words of font info for 101 fonts, out of 8000000 for 9000
+ 54799 multiletter control sequences out of 15000+600000
+ 622172 words of font info for 130 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,96p,2421b,1065s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on .output/main.pdf (21 pages, 2524267 bytes).
+Output written on .output/main.pdf (21 pages, 2525661 bytes).
 PDF statistics:
- 963 PDF objects out of 1000 (max. 8388607)
- 359 compressed objects within 4 object streams
- 61 named destinations out of 1000 (max. 500000)
- 209 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 983 PDF objects out of 1000 (max. 8388607)
+ 379 compressed objects within 4 object streams
+ 65 named destinations out of 1000 (max. 500000)
+ 241 words of extra memory for PDF output out of 10000 (max. 10000000)
 
