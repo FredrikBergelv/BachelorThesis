@@ -6,7 +6,7 @@ This repository contains all scripts, data, and the LaTeX source code for my Bac
 
 ## Thesis Introduction
 
-It is common knowledge that Earth’s increasing temperature has many side effects. One such effect is the increase in frequency of extreme weather phenomena [2]. One such phenomenon, which lacks extensive research, is high-pressure blocking events. High-pressure blocking events is an anticyclone that covers an area for a prolonged period of time and often blocks other types of weather, hence the name. This results in clearer weather and more extreme temperatures [3]. However, an anticyclone is also associated with lower air movement and wind, causing the air to remain stagnant. This can lead to an accumulation of aerosols such as PM₂.₅ in the region [4].
+It is common knowledge that Earth’s increasing temperature has many side effects. One such effect is the increase in frequency of extreme weather phenomena. One such phenomenon, which lacks extensive research, is high-pressure blocking events. High-pressure blocking events is an anticyclone that covers an area for a prolonged period of time and often blocks other types of weather, hence the name. This results in clearer weather and more extreme temperatures. However, an anticyclone is also associated with lower air movement and wind, causing the air to remain stagnant. This can lead to an accumulation of aerosols such as PM₂.₅ in the region.
 
 To investigate the relationship between PM₂.₅ and high-pressure blocking, one must analyse periods of high-pressure blocking and examine the concentration of PM₂.₅ during these periods. The goal of this thesis is to analyse the concentration of PM₂.₅ during periods of high-pressure blocking by examining data from the Swedish Meteorological and Hydrological Institute (SMHI) and PM₂.₅ data from rural (Vavihill, Svalöv Skåne county) and urban (Malmö, Skåne county) areas.
 
@@ -29,6 +29,7 @@ import pymannkendall as mk '''
 
 
 ## Data Summary
+ ├── BachelorThesis.tex # LaTeX source file for the full written thesis ├── compare_pressure.py # Compares pressure data against PM₂.₅ patterns ├── csv_data.py # Reads all CSV data files into pandas DataFrames ├── info_of_data.py # Provides summaries and descriptive statistics of the data ├── making_all_plots_for_report.py # Generates plots used in the thesis; can be customized for different datasets ├── mannkendall_result.py # Performs Mann-Kendall trend analysis on the data ├── plot_yearly_data.py # Plots annual PM₂.₅ trends for different stations ├── read_datafiless.py # Contains core functions for calculations and data processing ├── csv_files/ # Folder containing all relevant input data files (CSV)
 csv_data.py reads and loads all .csv data files into pandas DataFrames, preparing them for analysis.
 
 read_datafiless.py contains core functions used for calculations, including preprocessing and data transformations.
