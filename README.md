@@ -44,9 +44,16 @@ import matplotlib.gridspec as gridspec
 import re
 import pymannkendall as mk
 ```
+---
+
 ## Author
-Fredrik Bergelv
 
-Bachelor Student, Lund University
+Fredrik Bergelv  
+Bachelor Student, Lund University  
+[fredrik.bergelv@live.se](mailto:fredrik.bergelv@live.se)
 
-fredrik.bergelv@live.se
+## License
+
+If you use or reference the results of this work, please cite the following:
+
+**Bergelv, F. (2025).** *Analysis of PM₂.₅ Concentration During High-Pressure Blocking Events*. Bachelor Thesis, Lund University.
