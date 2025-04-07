@@ -3,13 +3,11 @@ output
 
 .gitignore
 
-*.csv
 
 __pycache__/
 
 planning/
 
-csv_files/
 
 pytorch/
 
