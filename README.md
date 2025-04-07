@@ -46,5 +46,7 @@ import pymannkendall as mk
 ```
 ## Author
 Fredrik Bergelv
+
 Bachelor Student, Lund University
+
 fredrik.bergelv@live.se
