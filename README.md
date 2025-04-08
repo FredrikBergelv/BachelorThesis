@@ -1,6 +1,6 @@
 # Bachelor Thesis: Analysis of PM₂.₅ Concentration During High-Pressure Blocking Events
 
-This repository contains all scripts, data, and the LaTeX source code for my Bachelor thesis in environmental analysis. The work investigates the relationship between PM₂.₅ concentrations and high-pressure blocking events using data from the Swedish Meteorological and Hydrological Institute (SMHI) and air quality measurements from both urban and rural sites in Skåne County, Sweden.
+This repository contains all scripts, data, and the LaTeX source code for my Bachelor thesis in physics. The work investigates the relationship between PM₂.₅ concentrations and high-pressure blocking events using data from the Swedish Meteorological and Hydrological Institute (SMHI) and air quality measurements from both urban and rural sites in Skåne County, Sweden.
 
 ---
 
