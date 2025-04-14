@@ -947,7 +947,7 @@ read.plot_dir_mean(dir_totdata_list1=dir_totdata_list_Vavihill,
                    minpoints=8,
                    place1='Vavihill', place2='Malmö', save=False,
                    pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
-                   pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö)
+                   pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö, info=True)
 
 
 
