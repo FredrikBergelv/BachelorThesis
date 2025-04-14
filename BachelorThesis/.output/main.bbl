@@ -13,7 +13,7 @@ John F.~B. Mitchell, Jason Lowe, Richard~A. Wood, and Michael Vellinga.
 \bibitem{lupoAtmosphericBlockingEvents2020}
 Anthony~R. Lupo.
 \newblock Atmospheric blocking events: A review.
-\newblock https://nyaspubs.onlinelibrary.wiley.com/doi/abs/10.1111/nyas.14557, December 2020.
+\newblock https://doi.org/10.1111/nyas.14557, December 2020.
 
 \bibitem{caiImpactBlockingStructure2020}
 Wenyue Cai, Xiangde Xu, Xinghong Cheng, Fengying Wei, Xinfa Qiu, and Wenhui Zhu.
@@ -24,6 +24,11 @@ Wenyue Cai, Xiangde Xu, Xinghong Cheng, Fengying Wei, Xinfa Qiu, and Wenhui Zhu.
 Vlado Spiridonov and {\'C}uri{\'c} Mladjen.
 \newblock Cyclones and {{Anticyclones}} {\textbar} {{SpringerLink}}.
 \newblock https://link.springer.com/chapter/10.1007/978-3-030-52655-9\_17, November 2020.
+
+\bibitem{gregohareWeatherClimateClimate2005}
+{Greg O'Hare}, {Rob Wilby}, and {John Sweeney and Rob Wilby}.
+\newblock {\em Weather, {{Climate}} and {{Climate}} Change}.
+\newblock Pearson Eductaion Limited, England, 2005.
 
 \bibitem{bartholyEuropeanCycloneTrack2006}
 Judit Bartholy, Rita Pongracz, and Margit {Pattanty{\'u}s-{\'A}brah{\'a}m}.
@@ -40,28 +45,15 @@ Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
 \newblock Europe's air quality status 2024.
 \newblock https://www.eea.europa.eu/publications/europes-air-quality-status-2024, 2024.
 
-\bibitem{hussainmd.andmahmudishtiakPyMannKendallPythonPackage2019}
-{Hussain, Md. and Mahmud, Ishtiak}.
-\newblock {{pyMannKendall}}: A python package for non parametric {{Mann Kendall}} family of trend tests.
-\newblock {\em Journal of Open Source Software}, 4(3):1556, July 2019.
+\bibitem{sharmaHealthEffectsAssociated2020}
+Shubham Sharma, Mina Chandra, and Sri~Harsha Kota.
+\newblock Health {{Effects Associated}} with {{PM2}}.5: A {{Systematic Review}}.
+\newblock {\em Current Pollution Reports}, 6(4):345--367, 2020.
 
-\bibitem{vaisalaWindSetWA152021}
-{VAISALA}.
-\newblock Wind {{Set WA15}} and {{WA25}}.
-\newblock https://www.vaisala.com/en/products/weather-environmental-sensors/wind-set-wa15, January 2021.
-
-\bibitem{geonorinc.T200BSeriesAll2019}
-{GEONOR, Inc.}
-\newblock T-{{200B Series All Weather Gauge}}.
-\newblock https://www.geonor.com/t-200b-all-weather-precipitation---rain-gauge, 2019.
-
-\bibitem{vaisalaPTB200DIGITAL1993}
-{VAISALA}.
-\newblock {{PTB}} 200 {{DIGITAL BAROMETERS USER}}'{{S GUIDE}}, February 1993.
-
-\bibitem{vaisalaPTB220SeriesDigital2001}
-{VAISALA}.
-\newblock {{PTB220 Series Digital Barometers USER}}'{{S GUIDE}}, August 2001.
+\bibitem{hvidtfeldtLongtermResidentialExposure2019}
+Ulla~Arthur Hvidtfeldt, Mette S{\o}rensen, Camilla Geels, Matthias Ketzel, Jibran Khan, Anne Tj{\o}nneland, Kim Overvad, J{\o}rgen Brandt, and Ole {Raaschou-Nielsen}.
+\newblock Long-term residential exposure to {{PM2}}.5, {{PM10}}, black carbon, {{NO2}}, and ozone and mortality in a {{Danish}} cohort.
+\newblock {\em Environment International}, 123:265--272, February 2019.
 
 \bibitem{thermofisherscientificinc.TEOMSeries1400a2007}
 {Thermo Fisher Scientific Inc.}
@@ -74,5 +66,23 @@ Noelia Otero, Oscar~E. Jurado, Tim Butler, and Henning~W. Rust.
 \bibitem{thermoscientific8500FDMSFilter2010}
 {Thermo Scientific}.
 \newblock 8500 {{FDMS Filter Dynamics Measurement System}}, 2010.
+
+\bibitem{vaisalaPTB200DIGITAL1993}
+{VAISALA}.
+\newblock {{PTB}} 200 {{DIGITAL BAROMETERS USER}}'{{S GUIDE}}, February 1993.
+
+\bibitem{vaisalaPTB220SeriesDigital2001}
+{VAISALA}.
+\newblock {{PTB220 Series Digital Barometers USER}}'{{S GUIDE}}, August 2001.
+
+\bibitem{vaisalaWindSetWA152021}
+{VAISALA}.
+\newblock Wind {{Set WA15}} and {{WA25}}.
+\newblock https://www.vaisala.com/en/products/weather-environmental-sensors/wind-set-wa15, January 2021.
+
+\bibitem{geonorinc.T200BSeriesAll2019}
+{GEONOR, Inc.}
+\newblock T-{{200B Series All Weather Gauge}}.
+\newblock https://www.geonor.com/t-200b-all-weather-precipitation---rain-gauge, 2019.
 
 \end{thebibliography}

@@ -656,7 +656,7 @@ def array_blocking_list(PM_data, wind_data, rain_data, blocking_list,
                         how="left",
                         left_on="datetime",
                         right_on="datetime_start"
-                    )
+                        )
 
         # Fill missing datetime_start values with the datetime from block_data
         combined_data["datetime_start"] = combined_data["datetime_start"].fillna(combined_data["datetime"])
@@ -668,8 +668,8 @@ def array_blocking_list(PM_data, wind_data, rain_data, blocking_list,
             left_on='datetime',
             right_on='datetime',
             direction='nearest'
-        )
-        
+            )
+            
         combined_data = pd.merge_asof(
             combined_data,
             rain_data_trimmed,
@@ -1009,7 +1009,7 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
         
     # Print Summary
     if pieinfo:
-        print(f'It is important to note that {round(100 * partNE,1)}\% of the winds came from the Northeast (310° to 70°), {round(100 * partSE,1)}\% from the Southeast (70° to 190°), {round(100 * partW,1)}\% from the West (190° to 310°) and {round(100 * partTurning,1)}\% from no specific direction.')        
+        print(f'{round(100 * partNE,1)}\% of the winds came from the Northeast (310° to 70°), {round(100 * partSE,1)}\% from the Southeast (70° to 190°), {round(100 * partW,1)}\% from the West (190° to 310°) and {round(100 * partTurning,1)}\% from no specific direction.')        
         
     
     if upperlim:
@@ -1092,7 +1092,7 @@ def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
         
     # Print Summary
     if pieinfo:
-        print(f'It is important to note that {round(100 * partWinter,1)}\% of the blockings occurred during the winter, {round(100 * partSpring,1)}\% during the spring, {round(100 * partSummer,1)}\% during the summer and {round(100 * partAutumn,1)}\% during the autumn.')        
+        print(f'{round(100 * partWinter,1)}\% of the blocking events occurred during the winter, {round(100 * partSpring,1)}\% during the spring, {round(100 * partSummer,1)}\% during the summer and {round(100 * partAutumn,1)}\% during the autumn.')        
     if uppermonthlim is not False and lowermonthlim is not False:
         return personalized_totdata_list
 
@@ -1149,7 +1149,7 @@ def sort_pressure(totdata_list, pie=False, save=False, pieinfo=False, limits=[10
         
     # Print summary in a single line with explicit pressure thresholds
     if pieinfo:
-        print(f'It is important to note that {round(100 * partLow,1)}\% of the blockings occurred with a mean pressure below {limits[0]} hPa {round(100 * partMedium,1)}\% occurred between {limits[0]} and {limits[1]} hPa and {round(100 * partHigh,1)}\% occurred with a mean pressure over {limits[1]}hPa.')
+        print(f'{round(100 * partLow,1)}\% of the blocking events occurred with a mean pressure below {limits[0]} hPa {round(100 * partMedium,1)}\% occurred between {limits[0]} and {limits[1]} hPa and {round(100 * partHigh,1)}\% occurred with a mean pressure over {limits[1]}hPa.')
 
 
     return low_totdata_list, medium_totdata_list, high_totdata_list
@@ -1196,7 +1196,7 @@ def plot_mean(totdata_list1, totdata_list2,
     valid_counts_per_hour2 = np.sum(~np.isnan(PM_array2), axis=0)
     
     #create subfgure
-    fig = plt.figure(figsize=(10, 6), constrained_layout=True)  
+    fig = plt.figure(figsize=(9, 6), constrained_layout=True)  
     fig.suptitle(r'Mean concentration of PM$_{{2.5}}$',
                  fontsize=13, fontname='serif', x=0.5,)
     gs = gridspec.GridSpec(2, 2, height_ratios=[1.4, 1])  # Top row is twice as tall
@@ -1250,26 +1250,26 @@ def plot_mean(totdata_list1, totdata_list2,
     ax2.grid(True, axis='both', linestyle='--', alpha=0.6)
     ax2.legend()
 
-
     
     # Plotting for ax2
-    ax3.plot(t, valid_counts_per_hour1, label=f'Number of datasets, {place1}')
+    maxval = max(max(valid_counts_per_hour1), max(valid_counts_per_hour2))
+    ax3.plot(t, valid_counts_per_hour1, label=f'{place1}')
     #ax3.set_title(f'Number of datasets at {place1}', fontsize=13, fontname='serif', x=0.5)
     ax3.set_xlabel('Time from start of blocking [days]')
-    ax3.set_ylabel('Number of datasets')
-    ax3.axhline(y=minpoints, color='red', linestyle='--', linewidth=1.5, label='Minimum number of datasets allowed')
-    ax3.set_yticks(np.arange(0, 201, 25))
+    ax3.set_ylabel('Number of events')
+    ax3.axhline(y=minpoints, color='red', linestyle='--', linewidth=1.5, label='Minimum number of events allowed')
+    ax3.set_yticks(np.arange(0, maxval+1, 50))
     ax3.grid(True, axis='both', linestyle='--', alpha=0.6)
     ax3.legend(loc='upper left')
-
+    
     
     # Plotting for ax4
-    ax4.plot(t, valid_counts_per_hour2, label=f'Number of datasets, {place2} ')
+    ax4.plot(t, valid_counts_per_hour2, label=f'{place2} ')
     #ax4.set_title(f'Number of datasets at {place2}', fontsize=13, fontname='serif', x=0.5)
     ax4.set_xlabel('Time from start of blocking [days]')
-    ax4.set_ylabel('Number of datasets')
+    ax4.set_ylabel('Number of events')
     ax4.axhline(y=minpoints, color='red', linestyle='--', linewidth=1.5)
-    ax4.set_yticks(np.arange(0, 201, 25))
+    ax4.set_yticks(np.arange(0, maxval+1, 50))
     ax4.grid(True, axis='both', linestyle='--', alpha=0.6)
     ax4.legend(loc='center left')
 
@@ -1278,12 +1278,13 @@ def plot_mean(totdata_list1, totdata_list2,
     fig.show()
     
     if save:
-        plt.savefig(f"BachelorThesis/Figures/Meanplot.pdf")
+        plt.savefig("BachelorThesis/Figures/Meanplot.pdf")
     plt.show() 
     
 def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,  
                   minpoints=8, place1='', place2='', save=False,
-                  pm_mean1=False, pm_sigma1=False, pm_mean2=False, pm_sigma2=False,
+                  pm_mean1=False, pm_sigma1=False, pm_mean2=False, pm_sigma2=False, 
+                  info=False,
                   labels=["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "No Specific"]):
     
     """
@@ -1360,6 +1361,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     tau23, slope23 = mk.original_test(mean2[2], 0.05)[4], mk.original_test(mean2[2], 0.05)[7]
     tau24, slope24 = mk.original_test(mean2[3], 0.05)[4], mk.original_test(mean2[3], 0.05)[7]
 
+    if info:
+        first_nine_days = mean1[2][:9*24]
+        tau, slope = mk.original_test(first_nine_days, 0.05)[4], mk.original_test(first_nine_days, 0.05)[7]
+        print(f'tau for first nine days in SE for {place1} is {tau}')
     
     # Add subplot labels (a), (b), (c), (d)
     ax11.text(0.95, 0.95, "(a)", transform=ax11.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
@@ -1993,7 +1998,7 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
 
     if typ == "tot":
         # Create a single subplot (1 row, 1 column)
-        fig, ax = plt.subplots(1, 1, figsize=(8, 2.7), sharex=True)  # Adjust the figure size
+        fig, ax = plt.subplots(1, 1, figsize=(9, 10), sharex=True)  # Adjust the figure size
     
         # Plot the total blocking days
         ax.plot(years, total, label="Total", color='black', linestyle='-', marker='o')
@@ -2015,7 +2020,7 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         
     if typ == "all":
         # Create a figure
-        fig = plt.figure(figsize=(9, 11))
+        fig = plt.figure(figsize=(9, 9))
 
         # Create a GridSpec for the layout
         gs = gridspec.GridSpec(5, 2, height_ratios=[1, 1, 1, 1, 1])  # The last row is twice as tall
@@ -2062,32 +2067,32 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         # Plot the data for the first set of plots (seasons)
         ax1.plot(years, winter, label=infostrings["winter"], color='b', linestyle='-', marker='s')
         ax1.set_title("Winter")
-        ax1.set_xlabel("Year", fontsize=12)
-        ax1.set_ylabel("Days", fontsize=12)
+        ax1.set_xlabel("Year")
+        ax1.set_ylabel("Days")
         ax1.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax1.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax1.set_yticks(np.arange(0, max(winter), 20))
         
         ax2.plot(years, spring, label=infostrings["spring"], color='g', linestyle='-', marker='s')
         ax2.set_title("Spring")
-        ax2.set_xlabel("Year", fontsize=12)
-        ax2.set_ylabel("Days", fontsize=12)
+        ax2.set_xlabel("Year")
+        ax2.set_ylabel("Days")
         ax2.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax2.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax2.set_yticks(np.arange(0, max(spring), 20))
         
         ax3.plot(years, summer, label=infostrings["summer"], color='r', linestyle='-', marker='s')
         ax3.set_title("Summer")
-        ax3.set_xlabel("Year", fontsize=12)
-        ax3.set_ylabel("Days", fontsize=12)
+        ax3.set_xlabel("Year")
+        ax3.set_ylabel("Days")
         ax3.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax3.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax3.set_yticks(np.arange(0, max(summer), 20))
 
         ax4.plot(years, autumn, label=infostrings["autumn"], color='orange', linestyle='-', marker='s')
         ax4.set_title("Autumn")
-        ax4.set_xlabel("Year", fontsize=12)
-        ax4.set_ylabel("Days", fontsize=12)
+        ax4.set_xlabel("Year")
+        ax4.set_ylabel("Days")
         ax4.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax4.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax4.set_yticks(np.arange(0, max(autumn), 20))
@@ -2095,24 +2100,24 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         # Plot the data for the second set of plots (strength)
         ax5.plot(years, weak, label=infostrings["weak"], color='b', linestyle='-', marker='s')
         ax5.set_title("Weak")
-        ax5.set_xlabel("Year", fontsize=12)
-        ax5.set_ylabel("Days", fontsize=12)
+        ax5.set_xlabel("Year")
+        ax5.set_ylabel("Days")
         ax5.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax5.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax5.set_yticks(np.arange(0, max(weak), 20))
 
         ax6.plot(years, medium, label=infostrings["medium"], color='g', linestyle='-', marker='s')
         ax6.set_title("Medium")
-        ax6.set_xlabel("Year", fontsize=12)
-        ax6.set_ylabel("Days", fontsize=12)
+        ax6.set_xlabel("Year")
+        ax6.set_ylabel("Days")
         ax6.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax6.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax6.set_yticks(np.arange(0, max(medium), 20))
 
         ax7.plot(years, strong, label=infostrings["strong"], color='r', linestyle='-', marker='s')
         ax7.set_title("Strong")
-        ax7.set_xlabel("Year", fontsize=12)
-        ax7.set_ylabel("Days", fontsize=12)
+        ax7.set_xlabel("Year")
+        ax7.set_ylabel("Days")
         ax7.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax7.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax7.set_yticks(np.arange(0, max(strong), 20))
@@ -2120,8 +2125,8 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         # The large plot at the bottom
         ax8.plot(years, total, label=infostrings["total"], color='black', linestyle='-', marker='s')
         ax8.set_title("Total Blocking Days Per Year")
-        ax8.set_xlabel("Year", fontsize=12)
-        ax8.set_ylabel("Days", fontsize=12)
+        ax8.set_xlabel("Year")
+        ax8.set_ylabel("Days")
         ax8.set_xticks(years[::4])  # Show every fourth year on the x-axis
         ax8.set_xticklabels(years[::4], rotation=45)  # Rotate the tick labels
         ax8.set_yticks(np.arange(0, max(total), 40))  # Set major ticks every 40 units
@@ -2137,7 +2142,7 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax7.legend(loc="lower left")
         ax8.legend(loc="lower left")
                             
-        plt.suptitle("Number of Blocking Days Per Year ", fontsize=14, fontname='serif', x=0.5)
+        plt.suptitle("Number of Blocking Days Per Year ", fontsize=12, fontname='serif', x=0.5)
         # Adjust layout for better spacing
         plt.tight_layout()
         plt.show()
@@ -2225,8 +2230,8 @@ def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
         ax.plot(t, lim2_blockings_per_year, label=f'Blockings > {lim2} Days, p={p2:.1e}, $\\tau={tau2:.2f}$, sen-slope={slope2:.1e}', color='red', linestyle='-', marker='^', alpha=0.9)
         # Labels and title
         ax.set_xlabel('Year', fontsize=12)
-        ax.set_ylabel('Number of Blockings', fontsize=12)
-        ax.set_title('Number of Blockings Per Year and Blockings', 
+        ax.set_ylabel('Number of events', fontsize=12)
+        ax.set_title('Number of Blocking events Per Year and Blockings', 
                      fontsize=14, fontname='serif', x=0.5)
         
         # Set x-ticks every 3 years and rotate labels

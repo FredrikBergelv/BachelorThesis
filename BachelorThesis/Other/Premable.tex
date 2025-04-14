@@ -8,7 +8,20 @@
 \usepackage{amsmath,amssymb,amsfonts,amsthm} 
 \usepackage{hyperref} 
 \usepackage{upgreek} 
+\usepackage{xspace}
 \usepackage{multirow}  % Add this package for \multirow command
+
+\usepackage{tocloft} % Alters spacing in ToC
+% Adjust the space before sections, subsections, and subsubsections
+\setlength{\cftbeforesecskip}{6pt}      % section 
+\setlength{\cftbeforesubsecskip}{4pt}   % subsection 
+\setlength{\cftbeforesubsubsecskip}{4pt} % subsubsection 
+
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries} % <-- this makes it larger
+  {\thesection}{1em}{}
+
 
 \hypersetup{
     colorlinks, 
@@ -40,17 +53,44 @@
 \usepackage{comment} 
 \usepackage{tcolorbox}
 \usepackage{pdfpages} 
+\raggedbottom
 
 
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2em}
 
-\pagestyle{fancy}
-\fancyhead[L]{\footnotesize \textsc{Fredrik Bergelv}}
-\fancyhead[R]{\footnotesize \textsc{\leftmark}}
-\fancyfoot[R]{ \thepage}
-\fancyfoot[C]{}
+% FRONT MATTER STYLE (before ToC)
+\fancypagestyle{fancyFront}{%
+  \fancyhf{}
+  \fancyhead[L]{\footnotesize \textsc{Fredrik Bergelv}}
+  \fancyhead[R]{\footnotesize \textsc{\leftmark}}
+  \fancyfoot[C]{}
+  \fancyfoot[LO,RE]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+}
+
+% MAIN MATTER STYLE (after ToC)
+\fancypagestyle{fancyMain}{%
+  \fancyhf{}
+  \fancyhead[L]{\footnotesize \textsc{Fredrik Bergelv}}
+  \fancyhead[R]{\footnotesize \textsc{\leftmark}}
+  \fancyfoot[C]{}
+  \fancyfoot[LE,RO]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+}
+
+% Plain page style (for chapter starts, etc.)
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[L]{\footnotesize \textsc{Fredrik Bergelv}}
+  \fancyhead[R]{\footnotesize \textsc{\leftmark}}
+  \fancyfoot[C]{}
+  \fancyfoot[LO,RE]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+}
+
+
 \bibliographystyle{unsrt}
 
 % MY OWN PACKAGES
@@ -79,6 +119,9 @@
 
 
 \DeclareSIUnit\angstrom{\protect \text {Å}}
+
+\newcommand{\PM}{PM\textsubscript{2.5}\xspace}
+
 
 
 

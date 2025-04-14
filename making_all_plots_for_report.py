@@ -18,8 +18,6 @@ warnings.simplefilter("ignore", category=SyntaxWarning)
 warnings.simplefilter("ignore", category=UserWarning)
 
 
-
-
 info = False          #<-------- CHANGE IF YOU WANT
 
 press_lim   = 1014   # This is the pressure limit for classifying high pressure
@@ -27,7 +25,7 @@ dur_lim     = 5      # Minimum number of days for blocking
 rain_lim    = 0.5    # Horly max rain rate
 mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
 daystoplot  = 14     # How long periods should the plots display
-pm_coverege = 0.95   # How much PM2.5 coverge must the periods have
+pm_coverege = 0.85   # How much PM2.5 coverge must the periods have
 
 
 start_time = time.time()
@@ -74,7 +72,7 @@ if not info: print('1. The period plots are done')
 ###############################################################################
 
 """
-Here we make the histograms
+Here we make the frequency plots
 """
 
 blocking_list = read.find_blocking(csv.histogram_main['pressure'], 
@@ -91,9 +89,8 @@ read.plot_blockingsdays_by_year(blocking_list, typ="all", save=True)
 
 
 
-if not info: print('2. The histograms are done')
+if not info: print('2. The frequency plots are done')
 
-info
 
 ###########################################################
 

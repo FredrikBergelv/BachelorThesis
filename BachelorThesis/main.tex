@@ -1,4 +1,5 @@
-\documentclass{article}
+
+\documentclass[twoside]{article}
 
 \input{Other/Premable}
 
@@ -6,25 +7,32 @@
 
 \includepdf{Other/titlepage.pdf} 
 
-\pagestyle{empty} 
-
+\clearpage
+\thispagestyle{empty}
+\text{}
 \newpage
- \text{}
+
+\pagestyle{fancyFront}
+\pagenumbering{roman}
+\setcounter{page}{2}
 
 \include{Other/firstpage.tex}
 
 \include{Textfiles/0.Abstract.tex}
 
-\tableofcontents
+\include{Other/Abriviations.tex}
+
+\tableofcontents 
 
 \newpage
 
+\pagestyle{fancyMain}
+\pagenumbering{arabic}  
 \setcounter{page}{1}
 
-\pagestyle{fancy}
 
 \input{Textfiles/1.Introduction.tex}
-\input{Textfiles/2.Theory.tex}
+\input{Textfiles/2.Background.tex}
 \input{Textfiles/3.Method.tex}
 \input{Textfiles/4.Result.tex}
 \input{Textfiles/5.Discussion.tex}
@@ -36,6 +44,11 @@
 \bibliography{Other/References.bib}
 
 \include{Textfiles/Appendix}
+
+\newpage
+\clearpage
+\thispagestyle{empty}
+\text{}
 
 \end{document}
 
