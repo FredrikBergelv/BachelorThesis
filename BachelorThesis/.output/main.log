@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  16 APR 2025 19:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  17 APR 2025 10:59
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -870,7 +870,7 @@ Package translations Info: No language package found. I am going to use `english
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 6.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
-) (.output/main.aux (.output/Other/firstpage.aux) (.output/Textfiles/0.Abstract.aux) (.output/Other/Abriviations.aux) (.output/Textfiles/Appendix.aux))
+) (.output/main.aux (.output/Textfiles/0.Abstract.aux) (.output/Other/acknowledgments.aux) (.output/Other/Abriviations.aux) (.output/Textfiles/Appendix.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
@@ -1020,11 +1020,6 @@ Package pdftex.def Info: Other/titlepage.pdf , page1 used on input line 8.
  <./Other/titlepage.pdf>] [2
 
 ]
-\openout2 = `Other/firstpage.aux'.
-
- (./Other/firstpage.tex) [2{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
-
-]
 \openout2 = `Textfiles/0.Abstract.aux'.
 
  (./Textfiles/0.Abstract.tex
@@ -1057,7 +1052,12 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 5.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)) [3
+)) [2{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
+
+]
+\openout2 = `Other/acknowledgments.aux'.
+
+ (./Other/acknowledgments.tex) [3
 
 
 
@@ -1173,7 +1173,7 @@ Underfull \hbox (badness 2050) in paragraph at lines 89--92
 
 ] 
 enddocument/afterlastpage: lastpage setting LastPage.
-(.output/main.aux (.output/Other/firstpage.aux) (.output/Textfiles/0.Abstract.aux) (.output/Other/Abriviations.aux) (.output/Textfiles/Appendix.aux))
+(.output/main.aux (.output/Textfiles/0.Abstract.aux) (.output/Other/acknowledgments.aux) (.output/Other/Abriviations.aux) (.output/Textfiles/Appendix.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1187,14 +1187,14 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  33903 strings out of 474222
- 663028 string characters out of 5748732
- 1934975 words of memory out of 5000000
+ 663178 string characters out of 5748732
+ 1935975 words of memory out of 5000000
  55437 multiletter control sequences out of 15000+600000
  633056 words of font info for 145 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,96p,2421b,1064s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on .output/main.pdf (28 pages, 2558238 bytes).
+Output written on .output/main.pdf (28 pages, 2558535 bytes).
 PDF statistics:
  1058 PDF objects out of 1200 (max. 8388607)
  440 compressed objects within 5 object streams
