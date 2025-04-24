@@ -19,8 +19,8 @@ To investigate the relationship between PM₂.₅ and high-pressure blocking, on
 - **csv_data.py**: Reads all CSV data files into pandas DataFrames.
 - **info_of_data.py**: Provides summaries and descriptive statistics of the data.
 - **making_all_plots_for_report.py**: Generates plots used in the thesis; can be customized for different datasets.
-- **mannkendall_result.py**: Performs Mann-Kendall trend analysis on the data.
 - **plot_yearly_data.py**: Plots annual data trends for different stations.
+- **pm25_difference_plots.py**: Plots difference of PM₂.₅ per day under hig-pressure blocking.
 - **read_datafiles.py**: Contains core functions for calculations and data processing.
 - **csv_files/**: Folder containing all relevant input data files (CSV).
 
