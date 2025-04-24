@@ -39,10 +39,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.colors as mcolors
-from collections import defaultdict
 import matplotlib.gridspec as gridspec
-import re
 import pymannkendall as mk
+import re
+from collections import defaultdict
 ```
 ---
 
