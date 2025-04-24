@@ -7,46 +7,44 @@ A level-1 auxiliary file: Other/acknowledgments.aux
 A level-1 auxiliary file: Other/Abriviations.aux
 A level-1 auxiliary file: Textfiles/Appendix.aux
 Database file #1: Other/References.bib
-Warning--I didn't find a database entry for "hussainmd.andmahmudishtiakPyMannKendallPythonPackage2019"
-You've used 19 entries,
+You've used 20 entries,
             1791 wiz_defined-function locations,
-            574 strings with 8027 characters,
-and the built_in function-call counts, 3580 in all, are:
-= -- 289
-> -- 181
+            578 strings with 8160 characters,
+and the built_in function-call counts, 3782 in all, are:
+= -- 306
+> -- 189
 < -- 0
-+ -- 70
-- -- 51
-* -- 218
-:= -- 577
-add.period$ -- 52
-call.type$ -- 19
-change.case$ -- 18
++ -- 73
+- -- 53
+* -- 235
+:= -- 610
+add.period$ -- 55
+call.type$ -- 20
+change.case$ -- 19
 chr.to.int$ -- 0
-cite$ -- 19
-duplicate$ -- 128
-empty$ -- 388
-format.name$ -- 51
-if$ -- 785
+cite$ -- 20
+duplicate$ -- 137
+empty$ -- 409
+format.name$ -- 53
+if$ -- 829
 int.to.chr$ -- 0
-int.to.str$ -- 19
-missing$ -- 9
-newline$ -- 93
-num.names$ -- 19
-pop$ -- 82
+int.to.str$ -- 20
+missing$ -- 10
+newline$ -- 98
+num.names$ -- 20
+pop$ -- 83
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 64
+skip$ -- 68
 stack$ -- 0
-substring$ -- 186
-swap$ -- 19
+substring$ -- 198
+swap$ -- 20
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 32
-width$ -- 21
-write$ -- 189
-(There was 1 warning)
+while$ -- 34
+width$ -- 22
+write$ -- 200

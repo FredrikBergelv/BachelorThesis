@@ -354,7 +354,7 @@ def yearly_histogram(data, datatype, location=False, save=False):
     plt.xticks(years[::20]) 
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     if save:
-        plt.savefig(f"BachelorThesis/Figures/yearly_{datatype}_{location}.pdf")
+        plt.savefig(f"BachelorThesis/Figures/yearly_{datatype}_{location}.png")
     plt.show()
 
 """
@@ -589,7 +589,7 @@ def array_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
         axs[5].grid(True, axis='both', linestyle='--', alpha=0.6)
 
         if save:
-            plt.savefig(f"BachelorThesis/Figures/plot_{start_time}_to_{end_time}.pdf")
+            plt.savefig(f"BachelorThesis/Figures/plot_{start_time}_to_{end_time}.png")
         plt.show()
     
     return array # Return list of all the datafiles
@@ -785,7 +785,7 @@ def plot_blocking_array(array, array_title=False, extrainfo=True, save=False):
         axs[4].grid(True, axis='both', linestyle='--', alpha=0.6)
 
         if save:
-            plt.savefig(f"BachelorThesis/Figures/{array_title}.pdf")
+            plt.savefig(f"BachelorThesis/Figures/{array_title}.png")
         plt.show()
 
 
@@ -908,11 +908,11 @@ def plot_period(PM_data, wind_data, rain_data, pressure_data,
 
     plt.tight_layout()
     if save:
-        plt.savefig(f'BachelorThesis/Figures/plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.pdf')
+        plt.savefig(f'BachelorThesis/Figures/plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.png')
     plt.show() 
 
     if locationsave:
-        plt.savefig(f'BachelorThesis/Figures/{locationsave}_plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.pdf')
+        plt.savefig(f'BachelorThesis/Figures/{locationsave}_plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.png')
     plt.show()       
 
 """
@@ -1004,7 +1004,7 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
         plt.title('Distribution of Wind Directions', fontsize=14)
 
         if save:
-            plt.savefig("BachelorThesis/Figures/PieChart.pdf", bbox_inches="tight")
+            plt.savefig("BachelorThesis/Figures/PieChart.png", bbox_inches="tight")
         plt.show()
         
     # Print Summary
@@ -1087,7 +1087,7 @@ def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
         plt.title('Distribution of Wind Directions', fontsize=14)
 
         if save:
-            plt.savefig("BachelorThesis/Figures/PieChart.pdf", bbox_inches="tight")
+            plt.savefig("BachelorThesis/Figures/PieChart.png", bbox_inches="tight")
         plt.show()
         
     # Print Summary
@@ -1144,7 +1144,7 @@ def sort_pressure(totdata_list, pie=False, save=False, pieinfo=False, limits=[10
         plt.title('Distribution of Blocking Categories', fontsize=14)
 
         if save:
-            plt.savefig("BachelorThesis/Figures/BlockingPieChart.pdf", bbox_inches="tight")
+            plt.savefig("BachelorThesis/Figures/BlockingPieChart.png", bbox_inches="tight")
         plt.show()
         
     # Print summary in a single line with explicit pressure thresholds
@@ -1278,7 +1278,7 @@ def plot_mean(totdata_list1, totdata_list2,
     fig.show()
     
     if save:
-        plt.savefig("BachelorThesis/Figures/Meanplot.pdf")
+        plt.savefig("BachelorThesis/Figures/Meanplot.png")
     plt.show() 
     
 def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,  
@@ -1485,7 +1485,7 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     fig.tight_layout()
     
     if save:
-        plt.savefig("BachelorThesis/Figures/Meanplot_dir.pdf")
+        plt.savefig("BachelorThesis/Figures/Meanplot_dir.png")
     plt.show()
 
 def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplot,  
@@ -1688,7 +1688,7 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
     fig.tight_layout()
         
     if save:
-            plt.savefig("BachelorThesis/Figures/Meanplot_seasonal.pdf")
+            plt.savefig("BachelorThesis/Figures/Meanplot_seasonal.png")
     plt.show()
 
 def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplot,  
@@ -1855,7 +1855,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
     fig.tight_layout()
     
     if save:
-        plt.savefig("BachelorThesis/Figures/Meanplot_pressure.pdf")
+        plt.savefig("BachelorThesis/Figures/Meanplot_pressure.png")
     plt.show()
 
 
@@ -2149,7 +2149,7 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
 
      # Save the plot if needed
     if save:
-            plt.savefig(f"BachelorThesis/Figures/blocking_days_per_year_{typ}.pdf")
+            plt.savefig(f"BachelorThesis/Figures/blocking_days_per_year_{typ}.png")
         
         # Display the plot
     plt.show()
@@ -2244,6 +2244,6 @@ def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
         plt.show()
         
     if save:
-        plt.savefig("BachelorThesis/Figures/BlockingsPerYear.pdf")
+        plt.savefig("BachelorThesis/Figures/BlockingsPerYear.png")
     plt.show()
 
