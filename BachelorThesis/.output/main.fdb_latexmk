@@ -1,25 +1,25 @@
 # Fdb version 4
-["bibtex .output/main"] 1745580725.48767 ".output/main.aux" ".output/main.bbl" ".output/main" 1745580804.66511 0
+["bibtex .output/main"] 1745580725.48767 ".output/main.aux" ".output/main.bbl" ".output/main" 1745580838.35288 0
   "./Other/References.bib" 1744631634.95761 16836 3f7ca0f443a353ab703cefc8768024ca ""
-  ".output/Other/Abriviations.aux" 1745580797.5542 1081 1b68daa8579d4a5bb004cd6cd7e88cfc "pdflatex"
-  ".output/Other/acknowledgments.aux" 1745580797.5482 1084 1aa776dbc0e2d5a5dcbfc1c195e1c204 "pdflatex"
-  ".output/Textfiles/0.Abstract.aux" 1745580797.5442 1113 d7a18861b78a9df4d83be42a57d452bb "pdflatex"
-  ".output/Textfiles/Appendix.aux" 1745580804.34221 1084 68395d7fc782b5d549fa83ba19e32b99 "pdflatex"
-  ".output/main.aux" 1745580804.34521 10895 59cc887793c27addaf1defa279552f7e "pdflatex"
+  ".output/Other/Abriviations.aux" 1745580831.09026 1081 1b68daa8579d4a5bb004cd6cd7e88cfc "pdflatex"
+  ".output/Other/acknowledgments.aux" 1745580831.08426 1084 1aa776dbc0e2d5a5dcbfc1c195e1c204 "pdflatex"
+  ".output/Textfiles/0.Abstract.aux" 1745580831.07926 1113 d7a18861b78a9df4d83be42a57d452bb "pdflatex"
+  ".output/Textfiles/Appendix.aux" 1745580837.90227 1084 68395d7fc782b5d549fa83ba19e32b99 "pdflatex"
+  ".output/main.aux" 1745580837.90427 10895 59cc887793c27addaf1defa279552f7e "pdflatex"
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
   (generated)
   ".output/main.bbl"
   ".output/main.blg"
   (rewritten before read)
-["pdflatex"] 1745580796.89469 "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" ".output/main.pdf" "main" 1745580804.66539 0
-  ".output/Other/Abriviations.aux" 1745580797.5542 1081 1b68daa8579d4a5bb004cd6cd7e88cfc "pdflatex"
-  ".output/Other/acknowledgments.aux" 1745580797.5482 1084 1aa776dbc0e2d5a5dcbfc1c195e1c204 "pdflatex"
-  ".output/Textfiles/0.Abstract.aux" 1745580797.5442 1113 d7a18861b78a9df4d83be42a57d452bb "pdflatex"
-  ".output/Textfiles/Appendix.aux" 1745580804.34221 1084 68395d7fc782b5d549fa83ba19e32b99 "pdflatex"
-  ".output/main.aux" 1745580804.34521 10895 59cc887793c27addaf1defa279552f7e "pdflatex"
+["pdflatex"] 1745580830.2891 "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" ".output/main.pdf" "main" 1745580838.35324 0
+  ".output/Other/Abriviations.aux" 1745580831.09026 1081 1b68daa8579d4a5bb004cd6cd7e88cfc "pdflatex"
+  ".output/Other/acknowledgments.aux" 1745580831.08426 1084 1aa776dbc0e2d5a5dcbfc1c195e1c204 "pdflatex"
+  ".output/Textfiles/0.Abstract.aux" 1745580831.07926 1113 d7a18861b78a9df4d83be42a57d452bb "pdflatex"
+  ".output/Textfiles/Appendix.aux" 1745580837.90227 1084 68395d7fc782b5d549fa83ba19e32b99 "pdflatex"
+  ".output/main.aux" 1745580837.90427 10895 59cc887793c27addaf1defa279552f7e "pdflatex"
   ".output/main.bbl" 1745580725.57008 4711 aaf3f629bf333d9acac0b28d36856952 "bibtex .output/main"
-  ".output/main.out" 1745580804.34721 5665 e08e743e1f43a1321bab7da16989103f "pdflatex"
-  ".output/main.toc" 1745580804.34721 2342 55f4704a78b013e916910cc31888eee1 "pdflatex"
+  ".output/main.out" 1745580837.90627 5665 e08e743e1f43a1321bab7da16989103f "pdflatex"
+  ".output/main.toc" 1745580837.90727 2342 55f4704a78b013e916910cc31888eee1 "pdflatex"
   "/etc/texmf/web2c/texmf.cnf" 1732548902.53758 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/fredrik/Documents/BachelorThesis/BachelorThesis/main.tex" 1744871236.73962 817 e69452318358cc31baea4a63019d1402 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -272,7 +272,7 @@
   "Other/titlepage.pdf" 1738780778 1828138 fce811ece54460f1a01b276fbb9835dd ""
   "Textfiles/0.Abstract.tex" 1745481271.7901 2210 a1cb5c9e39ebaeef0053bff77c5c6aaa ""
   "Textfiles/1.Introduction.tex" 1745481354.02527 1765 e5b786112535b35402fb4183bfa352b7 ""
-  "Textfiles/2.Background.tex" 1745580791.03819 9313 f210f8199733ae2bc5ad7dbf39056d6b ""
+  "Textfiles/2.Background.tex" 1745580830.01626 9314 6a54d57152693f5be702a6df25a723f6 ""
   "Textfiles/3.Method.tex" 1745481790.50612 15309 33cf9fa7f4a9fbc9411b413b89d1ebe2 ""
   "Textfiles/4.Result.tex" 1745484812.91684 12526 fc29824252dee3f1de9eb0d58b792ce9 ""
   "Textfiles/5.Discussion.tex" 1745482031.60025 6198 25cecaf822bc2d969f6ca1a47e4534ff ""
