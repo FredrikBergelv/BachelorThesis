@@ -436,6 +436,72 @@ def find_blocking(pres_data, rain_data, pressure_limit, duration_limit,
         
     return datalist  # Return a list of all the blocking data
 
+"""
+This function takes two blcoking lists and sorts them so the blokings line up 
+with their respectivly dates. 
+"""
+def date_calibrate_blockinglists(blocking1, blocking2, timediff, info):
+    """ 
+    Takes two blcocking lists filled with pandas datatframe and one panda timediff
+    returns two filtered dataframe
+    """
+    bl1 = blocking1
+    bl2 = blocking2
+
+    datelist_Malmö = pd.Series(index=range(len(bl2)), dtype='datetime64[ns]')
+    datelist_Vavihill = pd.Series(index=range(len(bl1)), dtype='datetime64[ns]')
+
+    for i, event in enumerate(bl2):
+        start = min(event['datetime'])  
+        datelist_Malmö[i] = pd.to_datetime(start)  
+        
+    for i, event in enumerate(bl1):
+        start = min(event['datetime'])  
+        datelist_Vavihill[i] = pd.to_datetime(start)  
+
+    # Define time window (24 hours)
+    time_window = pd.Timedelta('48 hours')
+
+    # Initialize sets to keep track of matched indices
+    matched_malmo = set()
+    matched_vavihill = set()
+
+    # For each Vavihill event, check for Malmö events within ±24 hours
+    for i_vav, date_vav in datelist_Vavihill.items():
+        diffs = (datelist_Malmö - date_vav).abs()
+        nearby = diffs <= time_window
+        if nearby.any():
+            # There is at least one Malmö event within ±24 hours — mark both as matched
+            matched_vavihill.add(i_vav)
+            matched_malmo.update(datelist_Malmö[nearby].index)
+
+    # Now calculate unmatched indices
+    all_malmo = set(datelist_Malmö.index)
+    all_vavihill = set(datelist_Vavihill.index)
+
+    unmatched_malmo = sorted(all_malmo - matched_malmo)
+    unmatched_vavihill = sorted(all_vavihill - matched_vavihill)
+
+
+    # First: create copies to avoid modifying original lists accidentally
+    bl1_filtered = [event for i, event in enumerate(bl1) if i not in unmatched_vavihill]
+    bl2_filtered = [event for i, event in enumerate(bl2) if i not in unmatched_malmo]
+
+    # Now bl1_filtered and bl2_filtered contain only paired events!
+
+    # Optional: if you want to overwrite original variables directly
+    blocking1 = bl1_filtered
+    blocking2 = bl2_filtered
+    
+    if info:
+        num_events = len(bl1_filtered)
+        if num_events > 0:
+            start_date = min([min(event['datetime']) for event in bl1_filtered]).strftime('%B %d, %Y')
+            end_date = max([max(event['datetime']) for event in bl1_filtered]).strftime('%B %d, %Y')
+            print(f"\nAfter applying the high-pressure blocking detection method to the data from Vavihill and Malmö for the entire period, a total of {num_events} high-pressure blocking events were identified between {start_date} and {end_date}.")
+    
+    return blocking1, blocking2
+
 
 """
 The function is for extracting a certian period from <start> to <end>
@@ -1270,7 +1336,7 @@ def plot_mean(totdata_list1, totdata_list2,
     ax3.set_xlabel('Time from start of blocking [days]')
     ax3.set_ylabel('Number of events')
     ax3.axhline(y=minpoints, color='red', linestyle='--', linewidth=1.5, label='Minimum number of events allowed')
-    ax3.set_yticks(np.arange(0, maxval+1, 50))
+    ax3.set_yticks(np.arange(0, 201, 50))
     ax3.grid(True, axis='both', linestyle='--', alpha=0.6)
     ax3.legend(loc='upper left')
     
@@ -1281,7 +1347,7 @@ def plot_mean(totdata_list1, totdata_list2,
     ax4.set_xlabel('Time from start of blocking [days]')
     ax4.set_ylabel('Number of events')
     ax4.axhline(y=minpoints, color='red', linestyle='--', linewidth=1.5)
-    ax4.set_yticks(np.arange(0, maxval+1, 50))
+    ax4.set_yticks(np.arange(0, 201, 50))
     ax4.grid(True, axis='both', linestyle='--', alpha=0.6)
     ax4.legend(loc='center left')
     

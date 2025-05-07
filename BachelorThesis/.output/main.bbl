@@ -25,15 +25,20 @@ Vlado Spiridonov and {\'C}uri{\'c} Mladjen.
 \newblock Cyclones and {{Anticyclones}} {\textbar} {{SpringerLink}}.
 \newblock https://link.springer.com/chapter/10.1007/978-3-030-52655-9\_17, November 2020.
 
+\bibitem{gramschInfluenceSurfaceSubsidence2014}
+E.~Gramsch, D.~C{\'a}ceres, P.~Oyola, F.~Reyes, Y.~V{\'a}squez, M.~A. Rubio, and G.~S{\'a}nchez.
+\newblock Influence of surface and subsidence thermal inversion on {{PM2}}.5 and black carbon concentration.
+\newblock {\em Atmospheric Environment}, 98:290--298, December 2014.
+
 \bibitem{gregohareWeatherClimateClimate2005}
 {Greg O'Hare}, {Rob Wilby}, and {John Sweeney and Rob Wilby}.
 \newblock {\em Weather, {{Climate}} and {{Climate}} Change}.
 \newblock Pearson Eductaion Limited, England, 2005.
 
-\bibitem{gramschInfluenceSurfaceSubsidence2014}
-E.~Gramsch, D.~C{\'a}ceres, P.~Oyola, F.~Reyes, Y.~V{\'a}squez, M.~A. Rubio, and G.~S{\'a}nchez.
-\newblock Influence of surface and subsidence thermal inversion on {{PM2}}.5 and black carbon concentration.
-\newblock {\em Atmospheric Environment}, 98:290--298, December 2014.
+\bibitem{porebskaAnalysisExtremeTemperature2013}
+Magdalena Por{\k e}bska and Ma{\l}gorzata Zdunek.
+\newblock Analysis of extreme temperature events in {{Central Europe}} related to high pressure blocking situations in 2001--2011.
+\newblock {\em Meteorologische Zeitschrift}, 22(5):533--540, 2013.
 
 \bibitem{bartholyEuropeanCycloneTrack2006}
 Judit Bartholy, Rita Pongracz, and Margit {Pattanty{\'u}s-{\'A}brah{\'a}m}.
@@ -59,6 +64,11 @@ Shubham Sharma, Mina Chandra, and Sri~Harsha Kota.
 Ulla~Arthur Hvidtfeldt, Mette S{\o}rensen, Camilla Geels, Matthias Ketzel, Jibran Khan, Anne Tj{\o}nneland, Kim Overvad, J{\o}rgen Brandt, and Ole {Raaschou-Nielsen}.
 \newblock Long-term residential exposure to {{PM2}}.5, {{PM10}}, black carbon, {{NO2}}, and ozone and mortality in a {{Danish}} cohort.
 \newblock {\em Environment International}, 123:265--272, February 2019.
+
+\bibitem{analitisEffectsHeatWaves2014}
+A.~Analitis, P.~Michelozzi, D.~D'Ippoliti, F.~De'Donato, B.~Menne, F.~Matthies, R.~W. Atkinson, C.~I{\~n}iguez, X.~Basaga{\~n}a, A.~Schneider, A.~Lefranc, A.~Paldy, L.~Bisanti, and K.~Katsouyanni.
+\newblock Effects of heat waves on mortality: Effect modification and confounding by air pollutants.
+\newblock {\em Epidemiology}, 25(1):15--22, 2014.
 
 \bibitem{thermofisherscientificinc.TEOMSeries1400a2007}
 {Thermo Fisher Scientific Inc.}

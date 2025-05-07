@@ -7,44 +7,44 @@ A level-1 auxiliary file: Other/acknowledgments.aux
 A level-1 auxiliary file: Other/Abriviations.aux
 A level-1 auxiliary file: Textfiles/Appendix.aux
 Database file #1: Other/References.bib
-You've used 20 entries,
+You've used 22 entries,
             1791 wiz_defined-function locations,
-            578 strings with 8160 characters,
-and the built_in function-call counts, 3782 in all, are:
-= -- 306
-> -- 189
+            593 strings with 8854 characters,
+and the built_in function-call counts, 4400 in all, are:
+= -- 352
+> -- 241
 < -- 0
-+ -- 73
-- -- 53
-* -- 235
-:= -- 610
-add.period$ -- 55
-call.type$ -- 20
-change.case$ -- 19
++ -- 91
+- -- 69
+* -- 296
+:= -- 718
+add.period$ -- 61
+call.type$ -- 22
+change.case$ -- 21
 chr.to.int$ -- 0
-cite$ -- 20
-duplicate$ -- 137
-empty$ -- 409
-format.name$ -- 53
-if$ -- 829
+cite$ -- 22
+duplicate$ -- 155
+empty$ -- 455
+format.name$ -- 69
+if$ -- 953
 int.to.chr$ -- 0
-int.to.str$ -- 20
-missing$ -- 10
-newline$ -- 98
-num.names$ -- 20
-pop$ -- 83
+int.to.str$ -- 22
+missing$ -- 12
+newline$ -- 108
+num.names$ -- 22
+pop$ -- 85
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 68
+skip$ -- 75
 stack$ -- 0
-substring$ -- 198
-swap$ -- 20
+substring$ -- 242
+swap$ -- 22
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 34
-width$ -- 22
-write$ -- 200
+while$ -- 40
+width$ -- 24
+write$ -- 222

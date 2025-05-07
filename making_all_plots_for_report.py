@@ -19,7 +19,7 @@ warnings.simplefilter("ignore", category=UserWarning)
 
 
 info   = False          #<-------- CHANGE IF YOU WANT
-imsave = "png"          # Can be pdf, png, False
+imsave = False          # Can be pdf, png, False
 
 press_lim   = 1014   # This is the pressure limit for classifying high pressure
 dur_lim     = 5      # Minimum number of days for blocking
@@ -27,49 +27,11 @@ rain_lim    = 0.5    # Horly max rain rate
 mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
 daystoplot  = 14     # How long periods should the plots display
 pm_coverege = 0.85   # How much PM2.5 coverge must the periods have
+timediff = pd.Timedelta('48 hours') # This determines how far away two differnet blocking can be 
 
 
 start_time = time.time()
 
-
-###############################################################################
-
-"""
-Here we make the period plot
-"""
-
-locationlist = ['Vavihill', 'Malmö']
-
-pressure_data = csv.main['pressure']
-temp_data = csv.main['temperature'] 
-
-for location in locationlist:
-    PM_data   = csv.main['PM25'][location] 
-    
-    if location == "Malmö":
-        rain_data = csv.main['rain']["Malmö"]
-        wind_data = csv.main['wind']["Malmö"]
-        
-    if location == "Vavihill":
-         rain_data = csv.main['rain']["Hörby"]
-         wind_data = csv.main['wind']["Hörby"]
-
-
-    blocking_list = read.find_blocking(pressure_data, rain_data, 
-                                     pressure_limit=press_lim, 
-                                     duration_limit=dur_lim, 
-                                     rain_limit=rain_lim)
-
-    read.plot_period(PM_data, wind_data, rain_data, pressure_data,
-                       blocking_list,
-                       start_time='2001-01-01', 
-                       end_time='2001-12-31',
-                       wind_plot=False,
-                       locationsave=location,
-                       save=imsave)
-
-
-if not info: print('1. The period plots are done')
 
 ###############################################################################
 
@@ -91,14 +53,15 @@ read.plot_blockingsdays_by_year(blocking_list, typ="all", save=imsave)
 
 
 
-if not info: print('2. The frequency plots are done')
+if not info: print('1. The frequency plots are done')
 
 
 ###########################################################
 
 """
-Here we make the mean plots
+Here we make the period plot
 """
+
 
 pressure_data = csv.main['pressure']
 temp_data = csv.main['temperature'] 
@@ -116,6 +79,50 @@ blocking_list_Vavihill = read.find_blocking(pressure_data, rain_data_Vavihill,
                                        rain_limit=rain_lim,
                                        info=info)
 
+
+PM_data_Malmö   = csv.main['PM25']['Malmö'] 
+rain_data_Malmö = csv.main['rain']["Malmö"]
+wind_data_Malmö = csv.main['wind']["Malmö"]
+
+blocking_list_Malmö = read.find_blocking(pressure_data, rain_data_Malmö, 
+                                       pressure_limit=press_lim, 
+                                       duration_limit=dur_lim, 
+                                       rain_limit=rain_lim,
+                                       info=info)
+
+
+blocking_list_Malmö, blocking_list_Vavihill = read.date_calibrate_blockinglists(
+    blocking_list_Malmö, 
+    blocking_list_Vavihill, 
+    timediff)
+
+
+read.plot_period(PM_data_Vavihill, wind_data_Vavihill, rain_data_Vavihill, 
+                 pressure_data, blocking_list_Vavihill,
+                 start_time='2001-01-01', 
+                 end_time='2001-12-31',
+                 wind_plot=False,
+                 locationsave="Vavihill",
+                 save=imsave)
+
+read.plot_period(PM_data_Malmö, wind_data_Malmö, rain_data_Malmö, 
+                 pressure_data, blocking_list_Malmö,
+                 start_time='2001-01-01', 
+                 end_time='2001-12-31',
+                 wind_plot=False,
+                 locationsave="Malmö",
+                 save=imsave)
+
+if not info: print('2. The period plots are done')
+
+
+
+##############################################################################
+
+
+"""
+Here we make the mean plots
+"""
     
 totdata_list_Vavihill, totdata_list_dates_Vavihill = read.array_blocking_list(
                                                   PM_data_Vavihill, 
@@ -133,16 +140,6 @@ pm_sigma_Vavihill = np.nanstd(np.array(PM_without_blocking_Vavihill['pm2.5']))
 
 if info: print("*** Malmö *** ")
 
-
-PM_data_Malmö   = csv.main['PM25']['Malmö'] 
-rain_data_Malmö = csv.main['rain']["Malmö"]
-wind_data_Malmö = csv.main['wind']["Malmö"]
-
-blocking_list_Malmö = read.find_blocking(pressure_data, rain_data_Malmö, 
-                                       pressure_limit=press_lim, 
-                                       duration_limit=dur_lim, 
-                                       rain_limit=rain_lim,
-                                       info=info)
 
 totdata_list_Malmö, totdata_list_dates_Malmö = read.array_blocking_list(
                                                   PM_data_Malmö, 
