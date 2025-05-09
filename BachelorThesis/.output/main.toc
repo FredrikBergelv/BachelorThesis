@@ -18,6 +18,6 @@
 \contentsline {section}{\numberline {4}Discussion}{17}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Why an Increase Occurs After 8-13 Days for Stronger High-Pressure Systems}{17}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Particle Advection Versus Local Emissions}{17}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Differences Between the Urban and Rural Location}{18}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.3}Differences Between the Urban and Rural Locations}{18}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Conclusion}{19}{section.5}%
 \contentsline {section}{\numberline {6}Outlook}{19}{section.6}%

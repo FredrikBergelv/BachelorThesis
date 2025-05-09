@@ -94,7 +94,7 @@ blocking_list_Malmö = read.find_blocking(pressure_data, rain_data_Malmö,
 blocking_list_Malmö, blocking_list_Vavihill = read.date_calibrate_blockinglists(
     blocking_list_Malmö, 
     blocking_list_Vavihill, 
-    timediff)
+    timediff, info=info)
 
 
 read.plot_period(PM_data_Vavihill, wind_data_Vavihill, rain_data_Vavihill, 
