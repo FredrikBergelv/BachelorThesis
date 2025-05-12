@@ -5,11 +5,16 @@ The style file: unsrt.bst
 A level-1 auxiliary file: Textfiles/0.Abstract.aux
 A level-1 auxiliary file: Other/acknowledgments.aux
 A level-1 auxiliary file: Other/Abriviations.aux
+A level-1 auxiliary file: Textfiles/1.Introduction.aux
+A level-1 auxiliary file: Textfiles/3.Method.aux
+A level-1 auxiliary file: Textfiles/4.Result.aux
+A level-1 auxiliary file: Textfiles/5.Discussion.aux
+A level-1 auxiliary file: Textfiles/6.Conclusion.aux
 A level-1 auxiliary file: Textfiles/Appendix.aux
 Database file #1: Other/References.bib
 You've used 23 entries,
             1791 wiz_defined-function locations,
-            599 strings with 9087 characters,
+            604 strings with 9211 characters,
 and the built_in function-call counts, 4531 in all, are:
 = -- 363
 > -- 245

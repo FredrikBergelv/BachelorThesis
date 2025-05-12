@@ -460,7 +460,7 @@ def date_calibrate_blockinglists(blocking1, blocking2, timediff, info):
         datelist_Vavihill[i] = pd.to_datetime(start)  
 
     # Define time window (24 hours)
-    time_window = pd.Timedelta('48 hours')
+    time_window = pd.Timedelta(timediff)
 
     # Initialize sets to keep track of matched indices
     matched_malmo = set()
@@ -1438,7 +1438,7 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     ax23 = fig.add_subplot(gs[2, 1])  
     ax24 = fig.add_subplot(gs[3, 1])  
     
-    tau11, slope11 = mk.original_test(mean1[0], 0.05)[4], mk.original_test(mean1[0], 0.05)[7]
+    #tau11, slope11 = mk.original_test(mean1[0], 0.05)[4], mk.original_test(mean1[0], 0.05)[7]
     tau12, slope12 = mk.original_test(mean1[1], 0.05)[4], mk.original_test(mean1[1], 0.05)[7]
     tau13, slope13 = mk.original_test(mean1[2], 0.05)[4], mk.original_test(mean1[2], 0.05)[7]
     tau14, slope14 = mk.original_test(mean1[3], 0.05)[4], mk.original_test(mean1[3], 0.05)[7]
@@ -1446,6 +1446,7 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     tau22, slope22 = mk.original_test(mean2[1], 0.05)[4], mk.original_test(mean2[1], 0.05)[7]
     tau23, slope23 = mk.original_test(mean2[2], 0.05)[4], mk.original_test(mean2[2], 0.05)[7]
     tau24, slope24 = mk.original_test(mean2[3], 0.05)[4], mk.original_test(mean2[3], 0.05)[7]
+    
 
     if info:
         first_nine_days = mean1[2][:9*24]
@@ -1463,7 +1464,8 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     ax24.text(0.95, 0.95, "(h)", transform=ax24.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
     
     ax11.set_title('Direction: ' + labels[0])  # Setting the title for the first subplot
-    ax11.plot(t, mean1[0], label=f'{place1}, $\\tau={tau11:.2f}$, sen-slope={slope11:.1e}', color=colors[0])  # Plot the mean1 for place1
+    #ax11.plot(t, mean1[0], label=f'{place1}, $\\tau={tau11:.2f}$, sen-slope={slope11:.1e}', color=colors[0])  # Plot the mean1 for place1
+    ax11.plot(t, mean1[0], label=f'{place1}, $\\tau$=NaN, sen-slope=NaN', color=colors[0])  # Plot the mean1 for place1
     ax11.plot(t, pm_mean1 + t * 0, label='Mean during no blocking', c='gray')  # Plot the mean during no blocking
     ax11.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax11.fill_between(t, mean1[0] + sigma1[0], mean1[0] - sigma1[0], alpha=0.4, color=colors[0])  # Confidence interval for place1
