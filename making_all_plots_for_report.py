@@ -13,13 +13,15 @@ import read_datafiles as read
 import csv_data as csv
 import time
 import warnings
+
 warnings.simplefilter("ignore", category=RuntimeWarning)
 warnings.simplefilter("ignore", category=SyntaxWarning)
 warnings.simplefilter("ignore", category=UserWarning)
 
+plt.close('all')
 
 info   = False          #<-------- CHANGE IF YOU WANT
-imsave = False          # Can be pdf, png, False
+imsave = 'png'         # Can be pdf, png, False
 
 press_lim   = 1014   # This is the pressure limit for classifying high pressure
 dur_lim     = 5      # Minimum number of days for blocking
@@ -27,7 +29,7 @@ rain_lim    = 0.5    # Horly max rain rate
 mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
 daystoplot  = 14     # How long periods should the plots display
 pm_coverege = 0.85   # How much PM2.5 coverge must the periods have
-timediff = pd.Timedelta('48 hours') # This determines how far away two differnet blocking can be 
+timediff    = '5 hours' # This determines how far away two differnet blocking can be 
 
 
 start_time = time.time()

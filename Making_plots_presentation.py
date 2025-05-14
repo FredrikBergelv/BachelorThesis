@@ -2393,7 +2393,7 @@ rain_lim    = 0.5    # Horly max rain rate
 mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
 daystoplot  = 14     # How long periods should the plots display
 pm_coverege = 0.85   # How much PM2.5 coverge must the periods have
-timediff = pd.Timedelta('48 hours') # This determines how far away two differnet blocking can be 
+timediff = '5 hours' # This determines how far away two differnet blocking can be 
 
 
 start_time = time.time()

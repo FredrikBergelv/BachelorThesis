@@ -7,10 +7,10 @@
 
 \includepdf{Other/titlepage.pdf} 
 
-\clearpage
-\thispagestyle{empty}
-\text{}
-\newpage
+
+\input{Other/empty.tex}
+
+%\include{Other/acknowledgments.tex}
 
 \pagestyle{fancyFront}
 \pagenumbering{roman}
@@ -18,9 +18,9 @@
 
 \include{Textfiles/0.Abstract.tex}
 
-\include{Other/acknowledgments.tex}
+\input{Other/empty.tex}
 
-\include{Other/Abriviations.tex}
+\include{Other/acknowledgments.tex}
 
 \tableofcontents 
 
@@ -31,13 +31,14 @@
 \setcounter{page}{1}
 
 
-\include{Textfiles/1.Introduction.tex}
+\input{Textfiles/1.Introduction.tex}
 \input{Textfiles/2.Background.tex}
-\include{Textfiles/3.Method.tex}
-\include{Textfiles/4.Result.tex}
-\include{Textfiles/5.Discussion.tex}
-\include{Textfiles/6.Conclusion.tex}
+\input{Textfiles/3.Method.tex}
+\input{Textfiles/4.Result.tex}
+\input{Textfiles/5.Discussion.tex}
+\input{Textfiles/6.Conclusion.tex}
 \input{Textfiles/7.Outlook.tex}
+%\input{Other/acknowledgments.tex}
 
 \newpage
 

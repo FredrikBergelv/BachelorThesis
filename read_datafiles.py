@@ -1423,7 +1423,7 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     
     #create subfgure
     scalingfactor = 1.1
-    fig = plt.figure(figsize=(9*scalingfactor, 9*scalingfactor), constrained_layout=True)  
+    fig = plt.figure(figsize=(9*scalingfactor, 7.8*scalingfactor), constrained_layout=True)  
     fig.suptitle(r'Mean concentration of PM$_{{2.5}}$',
                  fontsize=13, fontname='serif', x=0.5,)
     gs = gridspec.GridSpec(4, 2, height_ratios=[1, 1, 1, 1])  
@@ -1577,6 +1577,7 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     ax22.set_xlim(0,daystoplot)
     ax23.set_xlim(0,daystoplot)
     ax24.set_xlim(0,daystoplot)
+    
 
     
     fig.tight_layout()
@@ -1644,7 +1645,7 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
         
     #create subfgure
     scalingfactor = 1.1
-    fig = plt.figure(figsize=(9*scalingfactor, 9*scalingfactor), constrained_layout=True)
+    fig = plt.figure(figsize=(9*scalingfactor, 7.8*scalingfactor), constrained_layout=True)
     fig.suptitle(r'Mean concentration of PM$_{{2.5}}$',
                      fontsize=13, fontname='serif', x=0.5,)
     gs = gridspec.GridSpec(4, 2, height_ratios=[1, 1, 1, 1])  
@@ -1857,7 +1858,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
     
     #create subfgure
     scalingfactor = 1.1
-    fig = plt.figure(figsize=(9*scalingfactor, 9*3/4*scalingfactor), constrained_layout=True)  
+    fig = plt.figure(figsize=(9*scalingfactor, 7.8*3/4*scalingfactor), constrained_layout=True)  
     fig.suptitle(r'Mean concentration of PM$_{{2.5}}$',
                  fontsize=13, fontname='serif', x=0.5,)
     gs = gridspec.GridSpec(3, 2, height_ratios=[1, 1, 1])  
@@ -2258,11 +2259,22 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax1.legend(loc="center left")
         ax2.legend(loc="upper left")
         ax3.legend(loc="upper left")
-        ax4.legend(loc="lower left")
+        ax4.legend(loc="center left")
         ax5.legend(loc="upper left")
         ax6.legend(loc="lower left")
         ax7.legend(loc="lower left")
         ax8.legend(loc="lower left")
+        
+        ax1.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax2.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax3.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax4.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax5.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax6.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax7.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+
+
+
                             
         plt.suptitle("Number of Blocking Days Per Year ", fontsize=12, fontname='serif', x=0.5)
         # Adjust layout for better spacing
