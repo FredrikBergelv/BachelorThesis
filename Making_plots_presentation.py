@@ -2255,14 +2255,23 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax8.set_yticks(np.arange(0, max(total), 20), minor=True)  # Set minor ticks every 20 units
         ax8.grid(True, which="both", linestyle='--', alpha=0.6) # Apply grid for both major and minor ticks
         
-        ax1.legend(loc="center left")
+        ax1.legend(loc="upper left")
         ax2.legend(loc="upper left")
         ax3.legend(loc="upper left")
-        ax4.legend(loc="lower left")
+        ax4.legend(loc="upper left")
         ax5.legend(loc="upper left")
-        ax6.legend(loc="lower left")
-        ax7.legend(loc="lower left")
+        ax6.legend(loc="upper left")
+        ax7.legend(loc="upper left")
         ax8.legend(loc="lower left")
+        
+        ax1.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax2.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax3.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax4.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax5.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax6.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        ax7.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+
                             
         plt.suptitle("Number of Blocking Days Per Year ", fontsize=12, fontname='serif', x=0.5)
         # Adjust layout for better spacing

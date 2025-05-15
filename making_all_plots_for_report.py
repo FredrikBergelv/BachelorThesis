@@ -137,6 +137,8 @@ totdata_list_Vavihill, totdata_list_dates_Vavihill = read.array_blocking_list(
 block_datafile_Vavihill = pd.concat(blocking_list_Vavihill, ignore_index=True)
 PM_without_blocking_Vavihill = PM_data_Vavihill[~PM_data_Vavihill['datetime_start'].isin(block_datafile_Vavihill['datetime'])]
 
+
+
 pm_mean_Vavihill= np.nanmean(np.array(PM_without_blocking_Vavihill['pm2.5']))
 pm_sigma_Vavihill = np.nanstd(np.array(PM_without_blocking_Vavihill['pm2.5']))
 
