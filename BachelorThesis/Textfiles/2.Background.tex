@@ -11,9 +11,13 @@ A high-pressure blocking period refers to a prolonged anticyclone characterized 
 Recurring anticyclones can be classified into Hess and Brezowsky macrocirculation types, such as the Fennoscandian High (HFA), the Southeast Anticyclone (SEA), and the Central European High (HM) \cite{bartholyEuropeanCycloneTrack2006}. HFA is centred on the Fennoscandinavian Peninsula (Norway, Sweden, Finland, and western parts of Russia) and is a recurring anticyclone during the winter. This anticyclone is known for blocking air masses from the Atlantic, causing colder periods in the region. The SEA is a recurring anticyclone with its geographical center in southeastern Europe (the Balkans and western Türkiye). This anticyclone is most frequent during the summer months and is associated with heat waves. The HM is centred in central Europe (Germany, Poland, the Czech Republic) and occurs during both the summer and winter months. The center of these anticyclones can be seen in \autoref{fig:map}. 
 
 To explain the air movement during an anticyclone the Navier-Stokes equation can be used,
-\begin{equation} \frac{\partial \vec{v}}{\partial t} + (\vec{v} \cdot \nabla)\vec{v} = \vec{g} - \frac{\nabla p}{\rho} - 2\vec{\Omega} \times \vec{v}. \label{eq:NavierStokes} \end{equation}
+\begin{equation} 
+    \frac{\partial \vec{v}}{\partial t} + (\vec{v} \cdot \nabla)\vec{v} = \vec{g} - \frac{\nabla p}{\rho} - 2\left(\vec{\Omega} \times \vec{v}\right). \label{eq:NavierStokes} 
+\end{equation}
 The first term in \autoref{eq:NavierStokes} corresponds to the local acceleration of the air, the second term corresponds to the convective acceleration of the air, the third term is simply the gravitational acceleration, the fourth term describes the force from the pressure gradient and the last term describes the Coriolis force. Since the aim is to examine the stable solution of this equation, we can assume that the local acceleration is zero. The weather system is a large scale system with the size of hundreds of kilometres, the speed is in the tens of meters per second and the Coriolis term is in the order of \SI{0.5e-4}{\per\s}. Using this information one can observe that the size of the convection term is negligible in comparison to the Coriolis term. Lastly, one can assume the wind to be in the horizontal plane since vertical movement is a lot slower, providing a definition of the wind vector as $\vec{v}=(v_x,v_y,0)$. The Coriolis term can be approximated by considering only the vertical component as $\vec{\Omega}=(0,0,\Omega_z)$, since the horizontal components are negligible and Earth's rotation primarily projects along the vertical axis, causing deflections in the horizontal plane. The Navier-Stokes equation is thus simplified in the case of a stable large scale weather systems to
-\begin{equation} 0 = - \frac{\nabla p}{\rho} - 2{\vec{\Omega}} \times \vec{v}, \label{eq:NavierStokes2} \end{equation}
+\begin{equation} 
+    0 = - \frac{\nabla p}{\rho} - 2{\vec{\Omega}} \times \vec{v}, \label{eq:NavierStokes2} 
+\end{equation}
 where the gravity is neglected since it lies in the vertical plane while the wind lies in the horizontal plane. Solving for the horizontal velocity components from this equation one obtains the solution
 \begin{equation} v_x=-\frac{1}{2\rho\Omega_z}\frac{\partial p}{\partial y}\text{ and }v_y=\frac{1}{2\rho\Omega_z}\frac{\partial p}{\partial x}. 
 \end{equation}
@@ -22,6 +26,8 @@ Examining the vorticity of the horizontal wind, one obtains
     (\nabla \times \vec{v})_z  = \frac{1}{2\Omega_z\rho}\nabla^2p,
 \end{equation} 
 where the definition of the anticyclone (the pressure is strongest in the center) implies that $\nabla^2p$ is negative. Since $\nabla^2p$ is negative the vorticity is also negative, implying that the anticyclone rotates clockwise in the Northern Hemisphere. Since anticyclones exhibit winds rotating clockwise around their center, the winds from HFA, SEA, and HM tend to blow toward southern Sweden from the south, east and west, as can be seen in \autoref{fig:map}. The transport of airborne pollutants, such as ozone, can occur via these winds \cite{oteroImpactAtmosphericBlocking2022}. Consequently, it can be hypothesized that other airborne aerosols, such as \PM, should also be transported through these wind patterns.
+
+\vspace{1cm}
 
 \begin{figure}[H]
     \centering

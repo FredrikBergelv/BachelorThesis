@@ -8,7 +8,7 @@
 \contentsline {subsubsection}{\numberline {2.1.2}The Meteorological Data and Measurements}{6}{subsubsection.2.1.2}%
 \contentsline {subsection}{\numberline {2.2}The Identification of High-Pressure Blocking Events}{7}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}The Data Analysis}{8}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Statistical Evaluation: The Mann–Kendall Test and Sen's Slope}{9}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.4}Statistical Evaluation: The Mann-Kendall Test and Sen's Slope}{9}{subsection.2.4}%
 \contentsline {section}{\numberline {3}Results}{10}{section.3}%
 \contentsline {subsection}{\numberline {3.1}The Change in Aerosol Concentrations}{10}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}The Change in Aerosol Concentrations Depending on Wind Direction}{11}{subsubsection.3.1.1}%
