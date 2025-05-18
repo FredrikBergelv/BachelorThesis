@@ -46,7 +46,7 @@ where $C$ is the number of concordant pairs and $D$ is the number of discordant 
 
 Sen's slope is a method, often used together with the Mann-Kendall test, of performing linear regression on the data. If a monotonic increase is shown by the Mann-Kendall $\tau$, Sen's slope provides an estimate of the magnitude of that increase. The method differs from the least squares method because it uses the median to calculate the slope. This ensures that outliers, which are common in weather data, do not affect the results. Sen's slope is calculated as 
 \begin{equation}
-    S_{i} = \frac{C_{i+1} - C_i}{t_{i+1} - t_i} \quad \text{Sen's slope} = \text{median}(S_{i}),
+    S_{i} = \frac{\rho_{i+1} - \rho_i}{t_{i+1} - t_i} \quad \text{Sen's slope} = \text{median}(S_{i}),
     \label{eq:Senslope}
 \end{equation}
-where $i$ represents the indices, $C$ represents the concentration of \PM, and $t$ represents time. The program used for the Mann-Kendall test was the \texttt{pymannkendall} package in Python \cite{hussainmd.PyMannKendallPythonPackage2019}.
+where $i$ represents the indices, $\rho$ represents the concentration of \PM, and $t$ represents time. The program used for the Mann-Kendall test was the \texttt{pymannkendall} package in Python \cite{hussainmd.PyMannKendallPythonPackage2019}.
