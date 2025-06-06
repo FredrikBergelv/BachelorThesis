@@ -21,7 +21,7 @@ warnings.simplefilter("ignore", category=UserWarning)
 plt.close('all')
 
 info   = False          #<-------- CHANGE IF YOU WANT
-imsave = 'png'         # Can be pdf, png, False
+imsave = "png"         # Can be pdf, png, False
 
 press_lim   = 1014   # This is the pressure limit for classifying high pressure
 dur_lim     = 5      # Minimum number of days for blocking
@@ -167,6 +167,15 @@ read.plot_mean(totdata_list1=totdata_list_Vavihill, totdata_list2=totdata_list_M
                pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
                pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö, 
                save=imsave)
+
+read.plot_mean_after(pm_data1=PM_data_Vavihill, blocking_list1=blocking_list_Vavihill, 
+                     pm_data2=PM_data_Malmö, blocking_list2=blocking_list_Malmö,
+                     daystoplot=daystoplot, minpoints=mindatasets, 
+                     place1='Vavihill', place2='Malmö', 
+                     pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
+                     pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö, 
+                     save=imsave)
+
     
 if info: print(" \n ")
     
@@ -223,3 +232,9 @@ if not info: print('3. The mean plots are now done')
 if imsave: plt.close('all')
     
 if not info: print(f"Elapsed time: {time.time() - start_time:.0f} seconds")
+
+
+
+
+
+

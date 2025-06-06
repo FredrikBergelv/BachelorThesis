@@ -4,46 +4,48 @@ The top-level auxiliary file: main.aux
 The style file: unsrt.bst
 A level-1 auxiliary file: Textfiles/0.Abstract.aux
 A level-1 auxiliary file: Other/acknowledgments.aux
-A level-1 auxiliary file: Textfiles/Appendix.aux
 Database file #1: Other/References.bib
-You've used 23 entries,
+Warning--empty author in FormationSubsidenceInversions
+Warning--empty year in FormationSubsidenceInversions
+You've used 27 entries,
             1791 wiz_defined-function locations,
-            598 strings with 9065 characters,
-and the built_in function-call counts, 4531 in all, are:
-= -- 363
-> -- 245
+            616 strings with 9577 characters,
+and the built_in function-call counts, 4999 in all, are:
+= -- 395
+> -- 258
 < -- 0
-+ -- 93
-- -- 70
-* -- 299
-:= -- 738
-add.period$ -- 64
-call.type$ -- 23
-change.case$ -- 22
++ -- 100
+- -- 73
+* -- 314
+:= -- 802
+add.period$ -- 72
+call.type$ -- 27
+change.case$ -- 26
 chr.to.int$ -- 0
-cite$ -- 23
-duplicate$ -- 160
-empty$ -- 473
-format.name$ -- 70
-if$ -- 984
+cite$ -- 29
+duplicate$ -- 183
+empty$ -- 541
+format.name$ -- 73
+if$ -- 1092
 int.to.chr$ -- 0
-int.to.str$ -- 23
-missing$ -- 12
-newline$ -- 113
-num.names$ -- 23
-pop$ -- 91
+int.to.str$ -- 27
+missing$ -- 13
+newline$ -- 129
+num.names$ -- 26
+pop$ -- 113
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 78
+skip$ -- 98
 stack$ -- 0
 substring$ -- 242
-swap$ -- 23
+swap$ -- 27
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 41
-width$ -- 25
-write$ -- 232
+warning$ -- 2
+while$ -- 44
+width$ -- 29
+write$ -- 263
+(There were 2 warnings)

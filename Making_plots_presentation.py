@@ -15,6 +15,7 @@ import matplotlib.gridspec as gridspec
 import re
 import pymannkendall as mk
 
+figscaler = 0.85
 
 
 """
@@ -356,7 +357,7 @@ def yearly_histogram(data, datatype, location=False, save=False):
     if save=="pdf":
         plt.savefig(f"Presentation/Figures/yearly_{datatype}_{location}.pdf")
     if save=="png":
-        plt.savefig(f"Presentation/Figures/yearly_{datatype}_{location}.png", dpi=400)
+        plt.savefig(f"Presentation/Figures/yearly_{datatype}_{location}.png", dpi=900)
     plt.show()
 
 """
@@ -659,7 +660,7 @@ def array_extra_period(PM_data, wind_data, temp_data, rain_data, pressure_data,
         if save=="pdf":
             plt.savefig(f"Presentation/Figures/plot_{start_time}_to_{end_time}.pdf")
         if save=="pdf":
-                plt.savefig(f"Presentation/Figures/plot_{start_time}_to_{end_time}.png", dpi=400)
+                plt.savefig(f"Presentation/Figures/plot_{start_time}_to_{end_time}.png", dpi=900)
         plt.show()
     
     return array # Return list of all the datafiles
@@ -857,7 +858,7 @@ def plot_blocking_array(array, array_title=False, extrainfo=True, save=False):
         if save=="pdf":
             plt.savefig(f"Presentation/Figures/{array_title}.pdf")
         if save=="png":
-            plt.savefig(f"Presentation/Figures/{array_title}.png", dpi=400)
+            plt.savefig(f"Presentation/Figures/{array_title}.png", dpi=900)
         plt.show()
 
 
@@ -983,7 +984,7 @@ def plot_period(PM_data, wind_data, rain_data, pressure_data,
     if save=="pdf":
         plt.savefig(f'Presentation/Figures/{locationsave}_plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.pdf')
     if save=="png":
-        plt.savefig(f'Presentation/Figures/{locationsave}_plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.png', dpi=400)
+        plt.savefig(f'Presentation/Figures/{locationsave}_plot_{start_time.strftime("%Y%m%d")}_{end_time.strftime("%Y%m%d")}.png', dpi=900)
     
     plt.show()       
 
@@ -1078,7 +1079,7 @@ def sort_wind_dir(totdata_list, upperlim=False, lowerlim=False, pie=False, save=
         if save=="pdf":
             plt.savefig("Presentation/Figures/PieChart.pdf", bbox_inches="tight")
         if save=="png":
-             plt.savefig("Presentation/Figures/PieChart.png", dpi=400, bbox_inches="tight")
+             plt.savefig("Presentation/Figures/PieChart.png", dpi=900, bbox_inches="tight")
         plt.show()
         
     # Print Summary
@@ -1163,7 +1164,7 @@ def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
         if save=="pdf":
             plt.savefig("Presentation/Figures/PieChart.pdf", bbox_inches="tight")
         if save=="png":
-             plt.savefig("Presentation/Figures/PieChart.png", dpi=400, bbox_inches="tight")
+             plt.savefig("Presentation/Figures/PieChart.png", dpi=900, bbox_inches="tight")
         plt.show()
         
     # Print Summary
@@ -1222,7 +1223,7 @@ def sort_pressure(totdata_list, pie=False, save=False, pieinfo=False, limits=[10
         if save=="pdf":
             plt.savefig("Presentation/Figures/PieChart.pdf", bbox_inches="tight")
         if save=="png":
-             plt.savefig("Presentation/Figures/PieChart.png", dpi=400, bbox_inches="tight")
+             plt.savefig("Presentation/Figures/PieChart.png", dpi=900, bbox_inches="tight")
         plt.show()
         
     # Print summary in a single line with explicit pressure thresholds
@@ -1363,7 +1364,7 @@ def plot_mean(totdata_list1, totdata_list2,
     if save=="pdf":
         plt.savefig("Presentation/Figures/Meanplot.pdf")
     if save=="png":
-        plt.savefig("Presentation/Figures/Meanplot.png", dpi=400)
+        plt.savefig("Presentation/Figures/Meanplot.png", dpi=900)
         
     plt.show() 
     
@@ -1422,7 +1423,7 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     t = np.arange(timelen) / 24  # Time axis in days   
     
     #create subfgure
-    scalingfactor = 1.1
+    scalingfactor = 0.85
     fig = plt.figure(figsize=(14*scalingfactor, 9*scalingfactor), constrained_layout=True)  
     fig.suptitle(r'Mean concentration of PM$_{{2.5}}$',
                  fontsize=13, fontname='serif', x=0.5,)
@@ -1584,7 +1585,7 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     if save=="pdf":
         plt.savefig("Presentation/Figures/Meanplot_dir.pdf")
     if save=="png":
-        plt.savefig("Presentation/Figures/Meanplot_dir.png", dpi=400)
+        plt.savefig("Presentation/Figures/Meanplot_dir.png", dpi=900)
         
     plt.show()
 
@@ -1643,8 +1644,8 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
     t = np.arange(timelen) / 24  # Time axis in days   
         
     #create subfgure
-    scalingfactor = 1.1
-    fig = plt.figure(figsize=(14*scalingfactor, 9*scalingfactor), constrained_layout=True)
+    scalingfactor = 0.85
+    fig = plt.figure(figsize=(9*scalingfactor, 14*scalingfactor), constrained_layout=True)
     fig.suptitle(r'Mean concentration of PM$_{{2.5}}$',
                      fontsize=13, fontname='serif', x=0.5,)
     gs = gridspec.GridSpec(4, 2, height_ratios=[1, 1, 1, 1])  
@@ -1798,7 +1799,7 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
     if save=="pdf":
             plt.savefig("Presentation/Figures/Meanplot_seasonal.pdf")
     if save=="png":
-            plt.savefig("Presentation/Figures/Meanplot_seasonal.png", dpi=400)
+            plt.savefig("Presentation/Figures/Meanplot_seasonal.png", dpi=900)
             
     plt.show()
 
@@ -1856,7 +1857,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
     t = np.arange(timelen) / 24  # Time axis in days   
     
     #create subfgure
-    scalingfactor = 1.1
+    scalingfactor = 0.85
     fig = plt.figure(figsize=(14*scalingfactor, 9*3/4*scalingfactor), constrained_layout=True)  
     fig.suptitle(r'Mean concentration of PM$_{{2.5}}$',
                  fontsize=13, fontname='serif', x=0.5,)
@@ -1976,7 +1977,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
     if save=="pdf":
             plt.savefig("Presentation/Figures/Meanplot_pressure.pdf")
     if save=="png":
-            plt.savefig("Presentation/Figures/Meanplot_pressure.png", dpi=400)    
+            plt.savefig("Presentation/Figures/Meanplot_pressure.png", dpi=900)    
 
     plt.show()
 
@@ -2142,20 +2143,22 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         
     if typ == "all":
         # Create a figure
-        fig = plt.figure(figsize=(14, 9))
-
-        # Create a GridSpec for the layout
-        gs = gridspec.GridSpec(5, 2, height_ratios=[1, 1, 1, 1, 1])  # The last row is twice as tall
+        scalingfactor = 0.65
+        fig = plt.figure(figsize=(18*scalingfactor, 9*scalingfactor), constrained_layout=True)
+        gs = gridspec.GridSpec(4, 3, width_ratios=[1, 1, 1.5], figure=fig)
 
         # Add subplots to the grid
-        ax1 = fig.add_subplot(gs[0, 0])  # First column, first row
-        ax2 = fig.add_subplot(gs[1, 0])  # First column, second row
-        ax3 = fig.add_subplot(gs[2, 0])  # First column, third row
-        ax4 = fig.add_subplot(gs[3, 0])  # First column, third row
-        ax5 = fig.add_subplot(gs[0, 1])  # Second column, first row
-        ax6 = fig.add_subplot(gs[1, 1])  # Second column, second row
+        ax4 = fig.add_subplot(gs[3, 0])  # First column, fourth row
+        ax1 = fig.add_subplot(gs[0, 0], sharex=ax4)  # First column, first row
+        ax2 = fig.add_subplot(gs[1, 0], sharex=ax4)  # First column, second row
+        ax3 = fig.add_subplot(gs[2, 0], sharex=ax4)  # First column, third row
+        
         ax7 = fig.add_subplot(gs[2, 1])  # Second column, third row
-        ax8 = fig.add_subplot(gs[4, :])  # Fourth row, spanning all columns
+        ax5 = fig.add_subplot(gs[0, 1], sharex=ax7)  # Second column, first row
+        ax6 = fig.add_subplot(gs[1, 1], sharex=ax7)  # Second column, second row
+        
+        ax8 = fig.add_subplot(gs[:, 2])  # All rows, first column
+
         
         # Add subplot labels (a), (b), (c), (d)
         ax1.text(0.95, 0.95, "(a)", transform=ax1.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
@@ -2189,7 +2192,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         # Plot the data for the first set of plots (seasons)
         ax1.plot(years, winter, label=infostrings["winter"], color='b', linestyle='-', marker='s')
         ax1.set_title("Winter")
-        ax1.set_xlabel("Year")
         ax1.set_ylabel("Days")
         ax1.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax1.grid(True, axis='both', linestyle='--', alpha=0.6)
@@ -2197,7 +2199,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         
         ax2.plot(years, spring, label=infostrings["spring"], color='g', linestyle='-', marker='s')
         ax2.set_title("Spring")
-        ax2.set_xlabel("Year")
         ax2.set_ylabel("Days")
         ax2.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax2.grid(True, axis='both', linestyle='--', alpha=0.6)
@@ -2205,7 +2206,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         
         ax3.plot(years, summer, label=infostrings["summer"], color='r', linestyle='-', marker='s')
         ax3.set_title("Summer")
-        ax3.set_xlabel("Year")
         ax3.set_ylabel("Days")
         ax3.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax3.grid(True, axis='both', linestyle='--', alpha=0.6)
@@ -2216,13 +2216,13 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax4.set_xlabel("Year")
         ax4.set_ylabel("Days")
         ax4.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax4.set_xticklabels(years[::12], rotation=45)  # Rotate tick labels by 45 degrees
         ax4.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax4.set_yticks(np.arange(0, max(autumn), 20))
 
         # Plot the data for the second set of plots (strength)
         ax5.plot(years, weak, label=infostrings["weak"], color='b', linestyle='-', marker='s')
         ax5.set_title("Weak")
-        ax5.set_xlabel("Year")
         ax5.set_ylabel("Days")
         ax5.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax5.grid(True, axis='both', linestyle='--', alpha=0.6)
@@ -2230,7 +2230,6 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
 
         ax6.plot(years, medium, label=infostrings["medium"], color='g', linestyle='-', marker='s')
         ax6.set_title("Medium")
-        ax6.set_xlabel("Year")
         ax6.set_ylabel("Days")
         ax6.set_xticks(years[::12])  # Show every tenth year on the x-axis
         ax6.grid(True, axis='both', linestyle='--', alpha=0.6)
@@ -2241,6 +2240,7 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax7.set_xlabel("Year")
         ax7.set_ylabel("Days")
         ax7.set_xticks(years[::12])  # Show every tenth year on the x-axis
+        ax7.set_xticklabels(years[::12], rotation=45)  # Rotate tick labels by 45 degrees
         ax7.grid(True, axis='both', linestyle='--', alpha=0.6)
         ax7.set_yticks(np.arange(0, max(strong), 20))
 
@@ -2250,7 +2250,7 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax8.set_xlabel("Year")
         ax8.set_ylabel("Days")
         ax8.set_xticks(years[::4])  # Show every fourth year on the x-axis
-        ax8.set_xticklabels(years[::4], rotation=45)  # Rotate the tick labels
+        ax8.set_xticklabels([str(year) if i % 2 == 0 else '' for i, year in enumerate(years[::4])], rotation=45)
         ax8.set_yticks(np.arange(0, max(total), 40))  # Set major ticks every 40 units
         ax8.set_yticks(np.arange(0, max(total), 20), minor=True)  # Set minor ticks every 20 units
         ax8.grid(True, which="both", linestyle='--', alpha=0.6) # Apply grid for both major and minor ticks
@@ -2271,18 +2271,34 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
         ax5.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
         ax6.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
         ax7.set_yticks(np.arange(0, 81, 40))  # Set major ticks every 40 units
+        
+        plt.setp(ax1.get_xticklabels(), visible=False)
+        plt.setp(ax2.get_xticklabels(), visible=False)
+        plt.setp(ax3.get_xticklabels(), visible=False)
+        
+        plt.setp(ax5.get_xticklabels(), visible=False)
+        plt.setp(ax6.get_xticklabels(), visible=False)
 
-                            
         plt.suptitle("Number of Blocking Days Per Year ", fontsize=12, fontname='serif', x=0.5)
         # Adjust layout for better spacing
-        plt.tight_layout()
+        plt.tight_layout(rect=[0, 0, 1, 0.95])  # leave space at top for suptitle
+        plt.subplots_adjust(
+        left=0.06,     # a bit more margin on the left
+        right=0.985,   # extra room on the right
+        top=0.90,      # more space at the top for the suptitle
+        bottom=0.12,   # still a clean bottom margin
+        wspace=0.4,    # more horizontal space between columns
+        hspace=0.6     # more vertical space between rows
+        )
+        plt.suptitle("Number of Blocking Days Per Year", fontsize=16, fontname='serif', x=0.5, y=0.999)
+
         plt.show()
 
      # Save the plot if needed
     if save == "pdf":
             plt.savefig(f"Presentation/Figures/blocking_days_per_year_{typ}.pdf")
     if save == "png":
-             plt.savefig(f"Presentation/Figures/blocking_days_per_year_{typ}.png", dpi=400)
+             plt.savefig(f"Presentation/Figures/blocking_days_per_year_{typ}.png", dpi=900)
         
         # Display the plot
     plt.show()
@@ -2376,10 +2392,11 @@ def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
         plt.tight_layout()
         plt.show()
         
+        
     if save=="pdf":
         plt.savefig("Presentation/Figures/BlockingsPerYear.pdf")
     if save=="png":
-        plt.savefig("Presentation/Figures/BlockingsPerYear.png", dpi=400)
+        plt.savefig("Presentation/Figures/BlockingsPerYear.png", dpi=900)
         
     plt.show()
     
@@ -2394,7 +2411,7 @@ warnings.simplefilter("ignore", category=UserWarning)
 
 
 info   = False          #<-------- CHANGE IF YOU WANT
-imsave = "png"          # Can be pdf, png, False
+imsave = False          # Can be pdf, png, False
 
 press_lim   = 1014   # This is the pressure limit for classifying high pressure
 dur_lim     = 5      # Minimum number of days for blocking
@@ -2595,3 +2612,310 @@ if imsave: plt.close('all')
     
 if not info: print(f"Elapsed time: {time.time() - start_time:.0f} seconds")
 
+#%%
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+def plot_mean_after_blocking(pm_data, blocking_list, pm_mean, pm_std,
+                             days_after=14, minpoints=8, location="", 
+                             label='PM2.5', save=False):
+    """
+    Plot mean and std PM2.5 concentrations starting from the END of each blocking event,
+    forward for `days_after` days, ensuring hourly continuity even if data is missing.
+
+    Parameters:
+    - pm_data: DataFrame with ['datetime_start', 'pm2.5'] columns.
+    - blocking_list: List of DataFrames with blocking events (with 'end_date' or 'datetime').
+    - pm_mean: Background mean to plot.
+    - pm_std: Background std to plot.
+    - days_after: Number of days to look forward.
+    - minpoints: Min overlapping values required per time point.
+    - location: For plot title and filename.
+    - label: Label for the pollutant.
+    - save: 'pdf', 'png', or False.
+    """
+    hours_after = days_after * 24
+    pm_array = np.full((len(blocking_list), hours_after), np.nan)
+
+    for i, block_df in enumerate(blocking_list):
+        # Determine the end of the blocking period
+        if 'end_date' in block_df.columns:
+            end_time = block_df['end_date'].iloc[0]
+        else:
+            end_time = block_df['datetime'].max()
+
+        # Construct full hourly time range
+        time_range = pd.date_range(start=end_time, periods=hours_after, freq='H')
+
+        # Filter and set datetime index
+        mask = (pm_data['datetime_start'] >= end_time) & (pm_data['datetime_start'] < end_time + pd.Timedelta(days=days_after))
+        pm_segment = pm_data.loc[mask].copy()
+        pm_segment.set_index('datetime_start', inplace=True)
+
+        # Reindex to ensure continuous hourly data
+        reindexed_pm = pm_segment.reindex(time_range)['pm2.5'].values
+
+        # Fill into pm_array
+        pm_array[i, :] = reindexed_pm[:hours_after]
+
+    # Compute mean/std across events
+    mean_pm = np.nanmean(pm_array, axis=0)
+    std_pm = np.nanstd(pm_array, axis=0)
+    valid_counts = np.sum(~np.isnan(pm_array), axis=0)
+
+    # Invalidate low-count values
+    mean_pm[valid_counts < minpoints] = np.nan
+    std_pm[valid_counts < minpoints] = np.nan
+
+    # Plotting
+    time_axis = np.arange(hours_after) / 24
+
+    plt.figure(figsize=(5, 5))
+    plt.plot(time_axis, mean_pm, color='green', label=f'Mean {label}')
+    plt.fill_between(time_axis, mean_pm - std_pm, mean_pm + std_pm, color='green', alpha=0.3)
+
+    plt.plot(time_axis, pm_mean + time_axis * 0, c='gray', label='Background Mean')
+    plt.fill_between(time_axis,
+                     pm_mean + pm_std,
+                     pm_mean - pm_std,
+                     alpha=0.4, color='gray')
+
+    plt.axhline(25, color='red', linestyle='--', label='EU annual mean limit (25 µg/m³)')
+    plt.xlabel('Days after end of blocking event')
+    plt.ylabel(f'{label} [µg/m³]')
+    plt.title(f'{label} after blocking events ({location})')
+    plt.legend()
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.xlim(0, days_after)
+    plt.ylim(0, 41)
+
+    # Save if requested
+    if save == 'pdf':
+        plt.savefig(f'Presentation/Figures/mean_after_blocking({location}).pdf')
+    elif save == 'png':
+        plt.savefig(f'Presentation/Figures/mean_after_blocking({location}).png', dpi=900)
+
+    plt.show()
+
+plot_mean_after_blocking(pm_data=PM_data_Vavihill, blocking_list=blocking_list_Vavihill,
+                         pm_mean=pm_mean_Vavihill, pm_std=pm_sigma_Vavihill,
+                         days_after=14, minpoints=8, label='PM2.5 Vavihill',
+                         location="Vavihill", save="png")
+
+plot_mean_after_blocking(pm_data=PM_data_Malmö, blocking_list=blocking_list_Malmö,
+                         pm_mean=pm_mean_Malmö, pm_std=pm_sigma_Malmö,
+                         days_after=14, minpoints=8, label='PM2.5 Malmö',
+                         location="Malmö", save="png")
+
+#%%%
+
+def plot_other_mean(totdata_list1, totdata_list2, 
+              daystoplot, minpoints=8, place1='', place2='',
+              pm_mean1=False, pm_sigma1=False, pm_mean2=False, pm_sigma2=False,
+              save=False):
+    """
+    This function takes the mean of the PM2.5 concentration for each hour.
+    You must specify how many days you wish to plot, you can add a wind title, 
+    the number of datasets needed, plot info, etc.
+    """
+    timelen = int(24 * daystoplot)  # Initial length in hours
+
+    # Create an array to store all the PM2.5 values
+    PM_array1 = np.full((len(totdata_list1), timelen), np.nan)
+    PM_array2 = np.full((len(totdata_list2), timelen), np.nan)
+
+    
+    # Populate the PM_array with data
+    for i, array in enumerate(totdata_list1):
+        valid_len = min(len(array[2]), timelen)  # Take the minimum to avoid index errors
+        PM_array1[i, :valid_len] = array[2][:valid_len]  # Fill available values
+        
+    for i, array in enumerate(totdata_list2):
+         valid_len = min(len(array[2]), timelen)  # Take the minimum to avoid index errors
+         PM_array2[i, :valid_len] = array[2][:valid_len]  # Fill available values
+      
+    # Compute mean and standard deviation, ignoring NaNs
+    mean1, sigma1 = np.nanmean(PM_array1, axis=0), np.nanstd(PM_array1, axis=0)
+    mean2, sigma2 = np.nanmean(PM_array2, axis=0), np.nanstd(PM_array2, axis=0)
+
+    t = np.arange(timelen) / 24  # Time axis in days   
+    
+    # Below we check the number of data points
+    valid_counts_per_hour1 = np.sum(~np.isnan(PM_array1), axis=0)
+    valid_counts_per_hour2 = np.sum(~np.isnan(PM_array2), axis=0)
+    
+    #create subfgure
+    fig = plt.figure(figsize=(12, 6), constrained_layout=True)  
+    fig.suptitle(r'Mean concentration of PM$_{{2.5}}$, with fixed number of events',
+                 fontsize=13, fontname='serif', x=0.5,)
+    gs = gridspec.GridSpec(2, 2, height_ratios=[1.4, 1])  # Top row is twice as tall
+    
+    # Create subplots using GridSpec
+    ax1 = fig.add_subplot(gs[0, 0])  # Large top-left plot
+    ax2 = fig.add_subplot(gs[0, 1])  # Large top-right plot
+    ax3 = fig.add_subplot(gs[1, 0])  # Smaller bottom-left plot
+    ax4 = fig.add_subplot(gs[1, 1])  # Smaller bottom-right plot
+    
+    tau1, slope1 = mk.original_test(mean1, 0.05)[4], mk.original_test(mean1, 0.05)[7]
+    tau2, slope2 = mk.original_test(mean2, 0.05)[4], mk.original_test(mean2, 0.05)[7]
+    
+    # Add subplot labels (a), (b), (c), (d)
+    ax1.text(0.95, 0.95, "(a)", transform=ax1.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
+    ax2.text(0.95, 0.95, "(b)", transform=ax2.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
+    ax3.text(0.95, 0.95, "(c)", transform=ax3.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
+    ax4.text(0.95, 0.95, "(d)", transform=ax4.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
+    
+    # Plotting for ax1
+    for i, points in enumerate(valid_counts_per_hour1):
+        if points < minpoints:
+            mean1[i] = np.nan
+            sigma1[i] = np.nan
+                
+    ax1.plot(t, mean1, label=f'{place1}, $\\tau={tau1:.2f}$, sen-slope={slope1:.1e}', c='green')
+    ax1.plot(t, pm_mean1 + t * 0, label='Mean during no blocking', c='gray')
+    ax1.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray') 
+    ax1.fill_between(t, mean1 + sigma1, mean1 - sigma1, alpha=0.4, color='green')
+    ax1.plot(t, t * 0 + 25, label='EU annual mean limit', c='r', linestyle='--')
+    ax1.set_xlabel('Time from start of blocking [days]')
+    ax1.set_ylabel('PM2.5 [µg/m³]')
+    ax1.set_ylim(0, 40)
+    ax1.grid(True, axis='both', linestyle='--', alpha=0.6)
+    ax1.legend()
+    
+    # Plotting for ax3
+    for i, points in enumerate(valid_counts_per_hour2):
+        if points < minpoints:
+            mean2[i] = np.nan
+            sigma2[i] = np.nan
+    
+    ax2.plot(t, mean2, label=f'{place2}, $\\tau={tau2:.2f}$, sen-slope={slope2:.1e}', c='green')
+    ax2.plot(t, t * 0 + 25, c='r', linestyle='--')
+    ax2.plot(t, pm_mean2 + t * 0, c='gray')
+    ax2.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')
+    ax2.fill_between(t, mean2 + sigma2, mean2 - sigma2, alpha=0.4, color='green')
+    ax2.set_xlabel('Time from start of blocking [days]')
+    ax2.set_ylabel('PM$_{{2.5}}$ [µg/m³]')
+    ax2.set_ylim(0, 40)
+    ax2.grid(True, axis='both', linestyle='--', alpha=0.6)
+    ax2.legend()
+
+    
+    # Plotting for ax2
+    maxval = max(max(valid_counts_per_hour1), max(valid_counts_per_hour2))
+    ax3.plot(t, valid_counts_per_hour1, label=f'{place1}')
+    #ax3.set_title(f'Number of datasets at {place1}', fontsize=13, fontname='serif', x=0.5)
+    ax3.set_xlabel('Time from start of blocking [days]')
+    ax3.set_ylabel('Number of events')
+    ax3.set_yticks(np.arange(0, 201, 50))
+    ax3.grid(True, axis='both', linestyle='--', alpha=0.6)
+    ax3.legend(loc='upper left')
+    
+    
+    # Plotting for ax4
+    ax4.plot(t, valid_counts_per_hour2, label=f'{place2} ')
+    #ax4.set_title(f'Number of datasets at {place2}', fontsize=13, fontname='serif', x=0.5)
+    ax4.set_xlabel('Time from start of blocking [days]')
+    ax4.set_ylabel('Number of events')
+    ax4.set_yticks(np.arange(0, 201, 50))
+    ax4.grid(True, axis='both', linestyle='--', alpha=0.6)
+    ax4.legend(loc='center left')
+    
+    ax1.set_xlim(0,daystoplot)
+    ax2.set_xlim(0,daystoplot)
+    ax3.set_xlim(0,daystoplot)
+    ax4.set_xlim(0,daystoplot)
+
+    
+    fig.tight_layout()
+    fig.show()
+    
+    if save=="pdf":
+        plt.savefig("Presentation/Figures/Meanplot_(fixed number_of_events).pdf")
+    if save=="png":
+        plt.savefig("Presentation/Figures/Meanplot_(fixed number_of_events).png", dpi=900)
+        
+    plt.show() 
+
+
+info   = False          #<-------- CHANGE IF YOU WANT
+imsave = "png"          # Can be pdf, png, False
+
+days = 10
+
+press_lim   = 1014   # This is the pressure limit for classifying high pressure
+dur_lim     = days      # Minimum number of days for blocking
+rain_lim    = 0.5    # Horly max rain rate
+mindatasets = 8      # Minimum allowed of dattsets allowed when taking std and mean
+daystoplot  = days     # How long periods should the plots display
+pm_coverege = 0.85   # How much PM2.5 coverge must the periods have
+timediff = '5 hours' # This determines how far away two differnet blocking can be 
+
+
+start_time = time.time()
+
+
+
+
+blocking_list_Vavihill = find_blocking(pressure_data, rain_data_Vavihill, 
+                                       pressure_limit=press_lim, 
+                                       duration_limit=dur_lim, 
+                                       rain_limit=rain_lim,
+                                       info=info)
+
+
+
+blocking_list_Malmö = find_blocking(pressure_data, rain_data_Malmö, 
+                                       pressure_limit=press_lim, 
+                                       duration_limit=dur_lim, 
+                                       rain_limit=rain_lim,
+                                       info=info)
+
+
+blocking_list_Malmö, blocking_list_Vavihill = date_calibrate_blockinglists(
+    blocking_list_Malmö, 
+    blocking_list_Vavihill, 
+    timediff, info=info)
+
+
+
+    
+totdata_list_Vavihill, totdata_list_dates_Vavihill = array_blocking_list(
+                                                  PM_data_Vavihill, 
+                                                  wind_data_Vavihill, 
+                                                  rain_data_Vavihill, 
+                                                  blocking_list_Vavihill, 
+                                                  cover=pm_coverege, 
+                                                  info=info)
+
+block_datafile_Vavihill = pd.concat(blocking_list_Vavihill, ignore_index=True)
+PM_without_blocking_Vavihill = PM_data_Vavihill[~PM_data_Vavihill['datetime_start'].isin(block_datafile_Vavihill['datetime'])]
+
+pm_mean_Vavihill= np.nanmean(np.array(PM_without_blocking_Vavihill['pm2.5']))
+pm_sigma_Vavihill = np.nanstd(np.array(PM_without_blocking_Vavihill['pm2.5']))
+
+
+
+totdata_list_Malmö, totdata_list_dates_Malmö = array_blocking_list(
+                                                  PM_data_Malmö, 
+                                                  wind_data_Malmö, 
+                                                  rain_data_Malmö, 
+                                                  blocking_list_Malmö, 
+                                                  cover=pm_coverege, 
+                                                  info=info)
+    
+
+block_datafile_Malmö = pd.concat(blocking_list_Malmö, ignore_index=True)
+PM_without_blocking_Malmlö = PM_data_Malmö[~PM_data_Malmö['datetime_start'].isin(block_datafile_Malmö['datetime'])]
+
+pm_mean_Malmö = np.nanmean(np.array(PM_without_blocking_Malmlö['pm2.5']))
+pm_sigma_Malmö = np.nanstd(np.array(PM_without_blocking_Malmlö['pm2.5']))
+
+
+plot_other_mean(totdata_list1=totdata_list_Vavihill, totdata_list2=totdata_list_Malmö,
+               daystoplot=daystoplot, minpoints=mindatasets, 
+               place1='Vavihill', place2='Malmö', 
+               pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
+               pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö, 
+               save=imsave)
