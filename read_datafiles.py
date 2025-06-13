@@ -1112,7 +1112,6 @@ def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
     
     # Loop through the ziped arraylists to sort by season d
     for array, date_str in zip(totdata_list, totdata_list_dates):
-        
         matches = re.findall(r"(\d{4})-(\d{2})-(\d{2})", date_str)
         start_month = int(matches[0][1])  # Extract the month from the first date
         end_month = int(matches[1][1])    # Extract the month from the second date
@@ -1133,6 +1132,7 @@ def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
                 personalized_totdata_list.append(array)
             
     # Pie Chart Visualization
+    if pie:
         lenWinter = len(winter_totdata_list) 
         lenSpring = len(spring_totdata_list)
         lenSummer = len(summer_totdata_list)
@@ -1145,7 +1145,6 @@ def sort_season(totdata_list, totdata_list_dates, pie=False, save=False,
         partSummer = (lenSummer) / totlen
         partAutumn = (lenAutumn) / totlen
         
-    if pie:
         # Prepare data for the pie chart
         sizes = [partWinter, partSpring, partSummer, partAutumn]
         labels = ["Winter", "Spring", "Summer", "Autumn"]
@@ -1288,8 +1287,18 @@ def plot_mean(totdata_list1, totdata_list2,
     ax3 = fig.add_subplot(gs[1, 0])  # Smaller bottom-left plot
     ax4 = fig.add_subplot(gs[1, 1])  # Smaller bottom-right plot
     
-    tau1, slope1 = mk.original_test(mean1, 0.05)[4], mk.original_test(mean1, 0.05)[7]
-    tau2, slope2 = mk.original_test(mean2, 0.05)[4], mk.original_test(mean2, 0.05)[7]
+    def safe_mk(data):
+        if len(data) == 0:
+            return "NaN", "NaN"
+        try:
+            result = mk.original_test(data, 0.05)
+            return f"{result[4]:.2f}", f"{result[7]:.1e}"
+        except ZeroDivisionError:
+            return "NaN", "NaN"
+
+    # Executing Mann-Kendall tests safely
+    tau1, slope1 = safe_mk(mean1)
+    tau2, slope2 = safe_mk(mean2)
     
     # Add subplot labels (a), (b), (c), (d)
     ax1.text(0.95, 0.95, "(a)", transform=ax1.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
@@ -1303,7 +1312,7 @@ def plot_mean(totdata_list1, totdata_list2,
             mean1[i] = np.nan
             sigma1[i] = np.nan
                 
-    ax1.plot(t, mean1, label=f'{place1}, $\\tau={tau1:.2f}$, sen-slope={slope1:.1e}', c='C0')
+    ax1.plot(t, mean1, label=f'{place1}, $\\tau$={tau1}, sen-slope={slope1}', c='C0')
     ax1.plot(t, pm_mean1 + t * 0, label='Mean during no blocking', c='gray')
     ax1.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray') 
     ax1.fill_between(t, mean1 + sigma1, mean1 - sigma1, alpha=0.4, color='C0')
@@ -1320,7 +1329,7 @@ def plot_mean(totdata_list1, totdata_list2,
             mean2[i] = np.nan
             sigma2[i] = np.nan
     
-    ax2.plot(t, mean2, label=f'{place2}, $\\tau={tau2:.2f}$, sen-slope={slope2:.1e}', c='C0')
+    ax2.plot(t, mean2, label=f'{place2}, $\\tau$={tau2}, sen-slope={slope2}', c='C0')
     ax2.plot(t, t * 0 + 25, c='r', linestyle='--')
     ax2.plot(t, pm_mean2 + t * 0, c='gray')
     ax2.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')
@@ -1589,7 +1598,7 @@ def plot_mean_w_after(totdata_list1, totdata_list2,
             mean1[i] = np.nan
             sigma1[i] = np.nan
                 
-    ax1.plot(t, mean1, label=f'{place1}, $\\tau={tau1:.2f}$, sen-slope={slope1:.1e}', c='C0')
+    ax1.plot(t, mean1, label=f'{place1}, $\\tau$={tau1}, sen-slope={slope1:.1e}', c='C0')
     ax1.plot(t, pm_mean1 + t * 0, label='Mean during no blocking', c='gray')
     ax1.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray') 
     ax1.fill_between(t, mean1 + sigma1, mean1 - sigma1, alpha=0.4, color='C0')
@@ -1606,7 +1615,7 @@ def plot_mean_w_after(totdata_list1, totdata_list2,
             mean2[i] = np.nan
             sigma2[i] = np.nan
     
-    ax2.plot(t, mean2, label=f'{place2}, $\\tau={tau2:.2f}$, sen-slope={slope2:.1e}', c='C0')
+    ax2.plot(t, mean2, label=f'{place2}, $\\tau$={tau2}, sen-slope={slope2:.1e}', c='C0')
     ax2.plot(t, t * 0 + 25, c='r', linestyle='--')
     ax2.plot(t, pm_mean2 + t * 0, c='gray')
     ax2.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')
@@ -1682,10 +1691,58 @@ def plot_mean_w_after(totdata_list1, totdata_list2,
         
     plt.show() 
     
-def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,  
-                  minpoints=8, place1='', place2='', save=False,
-                  pm_mean1=False, pm_sigma1=False, pm_mean2=False, pm_sigma2=False, 
-                  info=False,
+
+def sigma_dir_mean(blocking_list1, PM_data1, wind_data1, sort=0.5):
+    """
+    Calculates the mean and standard deviation (sigma) of PM2.5 concentrations
+    when there is no blocking, sorted by wind direction categories: NE, SE, W, and Turning.
+
+    Returns:
+    Dictionary with mean and sigma values for each wind direction category.
+    """
+    # Combine blocking events
+    block_datafile = pd.concat(blocking_list1, ignore_index=True)
+
+    # Filter PM2.5 data for non-blocking periods
+    PM_without_blocking = PM_data1[~PM_data1['datetime_start'].isin(block_datafile['datetime'])]
+
+    # Merge with wind data on datetime
+    merged_data = pd.merge(PM_without_blocking, wind_data1, how='inner', left_on='datetime_start', right_on='datetime')
+
+    # Replace wind direction with NaN where wind speed is 0 or direction is 0
+    merged_data.loc[merged_data['speed'] == 0, 'dir'] = np.nan
+    merged_data.loc[merged_data['dir'] == 0, 'dir'] = np.nan
+
+    # Classify wind direction
+    def classify_direction(degrees):
+        if pd.isna(degrees):
+            return 'Turning'
+        elif (degrees > 310) or (degrees < 70):
+            return 'NE'
+        elif 70 < degrees < 190:
+            return 'SE'
+        elif 190 < degrees < 310:
+            return 'W'
+        else:
+            return 'Turning'
+
+    merged_data['wind_sector'] = merged_data['dir'].apply(classify_direction)
+
+    results = {}
+    for sector in ['NE', 'SE', 'W', 'Turning']:
+        sector_data = merged_data[merged_data['wind_sector'] == sector]['pm2.5']
+        results[sector] = {
+            'mean': np.nanmean(sector_data),
+            'sigma': np.nanstd(sector_data),
+            'count': len(sector_data)
+        }
+
+    return results
+
+
+def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot, 
+                  no_blocking_data1, no_blocking_data2,
+                  minpoints=8, place1='', place2='', save=False, info=False,
                   labels=["NE (310° to 70°)", "SE (70° to 190°)", "W (190° to 310°)", "No Specific"]):
     
     """
@@ -1753,15 +1810,25 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     ax23 = fig.add_subplot(gs[2, 1])  
     ax24 = fig.add_subplot(gs[3, 1])  
     
-    #tau11, slope11 = mk.original_test(mean1[0], 0.05)[4], mk.original_test(mean1[0], 0.05)[7]
-    tau12, slope12 = mk.original_test(mean1[1], 0.05)[4], mk.original_test(mean1[1], 0.05)[7]
-    tau13, slope13 = mk.original_test(mean1[2], 0.05)[4], mk.original_test(mean1[2], 0.05)[7]
-    tau14, slope14 = mk.original_test(mean1[3], 0.05)[4], mk.original_test(mean1[3], 0.05)[7]
-    tau21, slope21 = mk.original_test(mean2[0], 0.05)[4], mk.original_test(mean2[0], 0.05)[7]
-    tau22, slope22 = mk.original_test(mean2[1], 0.05)[4], mk.original_test(mean2[1], 0.05)[7]
-    tau23, slope23 = mk.original_test(mean2[2], 0.05)[4], mk.original_test(mean2[2], 0.05)[7]
-    tau24, slope24 = mk.original_test(mean2[3], 0.05)[4], mk.original_test(mean2[3], 0.05)[7]
     
+    def safe_mk(data):
+        if len(data) == 0:
+            return "NaN", "NaN"
+        try:
+            result = mk.original_test(data, 0.05)
+            return f"{result[4]:.2f}", f"{result[7]:.1e}"
+        except ZeroDivisionError:
+            return "NaN", "NaN"
+
+    # Executing Mann-Kendall tests safely
+    tau11, slope11 = safe_mk(mean1[0])
+    tau12, slope12 = safe_mk(mean1[1])
+    tau13, slope13 = safe_mk(mean1[2])
+    tau14, slope14 = safe_mk(mean1[3])
+    tau21, slope21 = safe_mk(mean2[0])
+    tau22, slope22 = safe_mk(mean2[1])
+    tau23, slope23 = safe_mk(mean2[2])
+    tau24, slope24 = safe_mk(mean2[3])
 
     if info:
         first_nine_days = mean1[2][:9*24]
@@ -1779,10 +1846,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     ax24.text(0.95, 0.95, "(h)", transform=ax24.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
     
     ax11.set_title('Direction: ' + labels[0])  # Setting the title for the first subplot
-    #ax11.plot(t, mean1[0], label=f'{place1}, $\\tau={tau11:.2f}$, sen-slope={slope11:.1e}', color=colors[0])  # Plot the mean1 for place1
-    ax11.plot(t, mean1[0], label=f'{place1}, $\\tau$=NaN, sen-slope=NaN', color=colors[0])  # Plot the mean1 for place1
-    ax11.plot(t, pm_mean1 + t * 0, label='Mean during no blocking', c='gray')  # Plot the mean during no blocking
-    ax11.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax11.plot(t, mean1[0], label=f'{place1}, $\\tau$={tau11}, sen-slope={slope11}', color=colors[0])  # Plot the mean1 for place1
+    ax11.plot(t, no_blocking_data1['NE']['mean'] + t * 0, label='Mean during no blocking', c='gray')  # Plot the mean during no blocking
+    ax11.fill_between(t, no_blocking_data1['NE']['mean'] + t * 0 + no_blocking_data1['NE']['sigma'], 
+                      no_blocking_data1['NE']['mean'] + t * 0 - no_blocking_data1['NE']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax11.fill_between(t, mean1[0] + sigma1[0], mean1[0] - sigma1[0], alpha=0.4, color=colors[0])  # Confidence interval for place1
     ax11.plot(t, t * 0 + 25, label='EU annual mean limit', c='r', linestyle='--')  # Plot the EU annual mean limit
     ax11.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -1792,9 +1859,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
     ax11.set_xticklabels([])
     
     ax12.set_title('Direction: ' + labels[1])  # Setting the title for the first subplot
-    ax12.plot(t, mean1[1], label=f'{place1}, $\\tau={tau12:.2f}$, sen-slope={slope12:.1e}', color=colors[1])  # Plot the mean1 for place1
-    ax12.plot(t, pm_mean1 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax12.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax12.plot(t, mean1[1], label=f'{place1}, $\\tau$={tau12}, sen-slope={slope12}', color=colors[1])  # Plot the mean1 for place1
+    ax12.plot(t, no_blocking_data1['SE']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax12.fill_between(t, no_blocking_data1['SE']['mean'] + t * 0 + no_blocking_data1['SE']['sigma'], 
+                      no_blocking_data1['SE']['mean'] + t * 0 - no_blocking_data1['SE']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax12.fill_between(t, mean1[1] + sigma1[1], mean1[1] - sigma1[1], alpha=0.4, color=colors[1])  # Confidence interval for place1
     ax12.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax12.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -1805,9 +1873,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
 
     
     ax13.set_title('Direction: ' + labels[2])  # Setting the title for the first subplot
-    ax13.plot(t, mean1[2], label=f'{place1}, $\\tau={tau13:.2f}$, sen-slope={slope13:.1e}', color=colors[2])  # Plot the mean1 for place1
-    ax13.plot(t, pm_mean1 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax13.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax13.plot(t, mean1[2], label=f'{place1}, $\\tau$={tau13}, sen-slope={slope13}', color=colors[2])  # Plot the mean1 for place1
+    ax13.plot(t, no_blocking_data1['W']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax13.fill_between(t, no_blocking_data1['W']['mean'] + t * 0 + no_blocking_data1['W']['sigma'], 
+                      no_blocking_data1['W']['mean'] + t * 0 - no_blocking_data1['W']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax13.fill_between(t, mean1[2] + sigma1[2], mean1[2] - sigma1[2], alpha=0.4, color=colors[2])  # Confidence interval for place1
     ax13.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax13.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -1818,9 +1887,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
 
     
     ax14.set_title('Direction: ' + labels[3])  # Setting the title for the first subplot
-    ax14.plot(t, mean1[3], label=f'{place1}, $\\tau={tau14:.2f}$, sen-slope={slope14:.1e}', color=colors[3])  # Plot the mean1 for place1
-    ax14.plot(t, pm_mean1 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax14.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax14.plot(t, mean1[3], label=f'{place1}, $\\tau$={tau14}, sen-slope={slope14}', color=colors[3])  # Plot the mean1 for place1
+    ax14.plot(t, no_blocking_data1['Turning']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax14.fill_between(t, no_blocking_data1['Turning']['mean'] + t * 0 + no_blocking_data1['Turning']['sigma'], 
+                      no_blocking_data1['Turning']['mean'] + t * 0 - no_blocking_data1['Turning']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax14.fill_between(t, mean1[3] + sigma1[3], mean1[3] - sigma1[3], alpha=0.4, color=colors[3])  # Confidence interval for place1
     ax14.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax14.set_xlabel('Time from start of blocking [days]')  # X-axis label
@@ -1832,9 +1902,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
 
     
     ax21.set_title('Direction: ' + labels[0])  # Setting the title for the first subplot
-    ax21.plot(t, mean2[0], label=f'{place2}, $\\tau={tau21:.2f}$, sen-slope={slope21:.1e}', color=colors[0])  # Plot the mean2 for place1
-    ax21.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax21.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax21.plot(t, mean2[0], label=f'{place2}, $\\tau$={tau21}, sen-slope={slope21}', color=colors[0])  # Plot the mean2 for place1
+    ax21.plot(t, no_blocking_data2['NE']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax21.fill_between(t, no_blocking_data2['NE']['mean'] + t * 0 + no_blocking_data2['NE']['sigma'], 
+                      no_blocking_data2['NE']['mean'] + t * 0 - no_blocking_data2['NE']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax21.fill_between(t, mean2[0] + sigma2[0], mean2[0] - sigma2[0], alpha=0.4, color=colors[0])  # Confidence interval for place1
     ax21.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax21.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -1845,9 +1916,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
 
     
     ax22.set_title('Direction: ' + labels[1])  # Setting the title for the first subplot
-    ax22.plot(t, mean2[1], label=f'{place2}, $\\tau={tau22:.2f}$, sen-slope={slope22:.1e}', color=colors[1])  # Plot the mean2 for place1
-    ax22.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax22.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax22.plot(t, mean2[1], label=f'{place2}, $\\tau$={tau22}, sen-slope={slope22}', color=colors[1])  # Plot the mean2 for place1
+    ax22.plot(t, no_blocking_data2['SE']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax22.fill_between(t, no_blocking_data2['SE']['mean'] + t * 0 + no_blocking_data2['SE']['sigma'], 
+                      no_blocking_data2['SE']['mean'] + t * 0 - no_blocking_data2['SE']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax22.fill_between(t, mean2[1] + sigma2[1], mean2[1] - sigma2[1], alpha=0.4, color=colors[1])  # Confidence interval for place1
     ax22.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax22.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -1858,9 +1930,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
 
     
     ax23.set_title('Direction: ' + labels[2])  # Setting the title for the first subplot
-    ax23.plot(t, mean2[2], label=f'{place2}, $\\tau={tau23:.2f}$, sen-slope={slope23:.1e}', color=colors[2])  # Plot the mean2 for place1
-    ax23.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax23.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax23.plot(t, mean2[2], label=f'{place2}, $\\tau$={tau23}, sen-slope={slope23}', color=colors[2])  # Plot the mean2 for place1
+    ax23.plot(t, no_blocking_data2['W']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax23.fill_between(t, no_blocking_data2['W']['mean'] + t * 0 + no_blocking_data2['W']['sigma'], 
+                      no_blocking_data2['W']['mean'] + t * 0 - no_blocking_data2['W']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax23.fill_between(t, mean2[2] + sigma2[2], mean2[2] - sigma2[2], alpha=0.4, color=colors[2])  # Confidence interval for place1
     ax23.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax23.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -1871,9 +1944,10 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
 
     
     ax24.set_title('Direction: ' + labels[3])  # Setting the title for the first subplot
-    ax24.plot(t, mean2[3], label=f'{place2}, $\\tau={tau24:.2f}$, sen-slope={slope24:.1e}', color=colors[3])  # Plot the mean2 for place1
-    ax24.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax24.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax24.plot(t, mean2[3], label=f'{place2}, $\\tau$={tau24}, sen-slope={slope24}', color=colors[3])  # Plot the mean2 for place1
+    ax24.plot(t, no_blocking_data2['Turning']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax24.fill_between(t, no_blocking_data2['Turning']['mean'] + t * 0 + no_blocking_data2['Turning']['sigma'], 
+                      no_blocking_data2['Turning']['mean'] + t * 0 - no_blocking_data2['Turning']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax24.fill_between(t, mean2[3] + sigma2[3], mean2[3] - sigma2[3], alpha=0.4, color=colors[3])  # Confidence interval for place1
     ax24.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax24.set_xlabel('Time from start of blocking [days]')  # X-axis label
@@ -1904,11 +1978,51 @@ def plot_dir_mean(dir_totdata_list1, dir_totdata_list2, daystoplot,
         
     plt.show()
 
-def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplot,  
-                  minpoints=8, place1='', place2='', save=False,
-                  pm_mean1=False, pm_sigma1=False, pm_mean2=False, pm_sigma2=False,
-                  labels=["Winter", "Spring", "Summer", "Autumn"]):
-    
+def sigma_seasonal_mean(blocking_list1, PM_data1):
+    """
+    Calculates the mean and standard deviation (sigma) of PM2.5 concentrations
+    when there is no blocking, sorted by season: winter, spring, summer, autumn.
+
+    Returns:
+    Dictionary with mean and sigma values for each season.
+    """
+    # Combine blocking events
+    block_datafile = pd.concat(blocking_list1, ignore_index=True)
+
+    # Filter PM2.5 data for non-blocking periods
+    PM_without_blocking = PM_data1[~PM_data1['datetime_start'].isin(block_datafile['datetime'])].copy()
+
+    # Ensure datetime is datetime type
+    PM_without_blocking['datetime_start'] = pd.to_datetime(PM_without_blocking['datetime_start'])
+
+    # Assign season based on month
+    def get_season(month):
+        if month in [12, 1, 2]:
+            return 'winter'
+        elif month in [3, 4, 5]:
+            return 'spring'
+        elif month in [6, 7, 8]:
+            return 'summer'
+        elif month in [9, 10, 11]:
+            return 'autumn'
+
+    PM_without_blocking['season'] = PM_without_blocking['datetime_start'].dt.month.apply(get_season)
+
+    results = {}
+    for season in ['winter', 'spring', 'summer', 'autumn']:
+        season_data = PM_without_blocking[PM_without_blocking['season'] == season]['pm2.5']
+        results[season] = {
+            'mean': np.nanmean(season_data),
+            'sigma': np.nanstd(season_data),
+            'count': len(season_data)
+        }
+
+    return results
+
+def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplot,
+                       no_blocking_data1, no_blocking_data2, 
+                       minpoints=8, place1='', place2='', save=False,
+                       labels=["Winter", "Spring", "Summer", "Autumn"]):
     """
     This function takes the mean of the PM2.5 concentration for each hour 
     and plots it separately for each season category in subplots.
@@ -1975,15 +2089,24 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
     ax23 = fig.add_subplot(gs[2, 1])  
     ax24 = fig.add_subplot(gs[3, 1])  
     
-    tau11, slope11 = mk.original_test(mean1[0], 0.05)[4], mk.original_test(mean1[0], 0.05)[7]
-    tau12, slope12 = mk.original_test(mean1[1], 0.05)[4], mk.original_test(mean1[1], 0.05)[7]
-    tau13, slope13 = mk.original_test(mean1[2], 0.05)[4], mk.original_test(mean1[2], 0.05)[7]
-    tau14, slope14 = mk.original_test(mean1[3], 0.05)[4], mk.original_test(mean1[3], 0.05)[7]
-    tau21, slope21 = mk.original_test(mean2[0], 0.05)[4], mk.original_test(mean2[0], 0.05)[7]
-    tau22, slope22 = mk.original_test(mean2[1], 0.05)[4], mk.original_test(mean2[1], 0.05)[7]
-    tau23, slope23 = mk.original_test(mean2[2], 0.05)[4], mk.original_test(mean2[2], 0.05)[7]
-    tau24, slope24 = mk.original_test(mean2[3], 0.05)[4], mk.original_test(mean2[3], 0.05)[7]
+    def safe_mk(data):
+        if len(data) == 0:
+            return "NaN", "NaN"
+        try:
+            result = mk.original_test(data, 0.05)
+            return f"{result[4]:.2f}", f"{result[7]:.1e}"
+        except ZeroDivisionError:
+            return "NaN", "NaN"
 
+    # Executing Mann-Kendall tests safely
+    tau11, slope11 = safe_mk(mean1[0])
+    tau12, slope12 = safe_mk(mean1[1])
+    tau13, slope13 = safe_mk(mean1[2])
+    tau14, slope14 = safe_mk(mean1[3])
+    tau21, slope21 = safe_mk(mean2[0])
+    tau22, slope22 = safe_mk(mean2[1])
+    tau23, slope23 = safe_mk(mean2[2])
+    tau24, slope24 = safe_mk(mean2[3])
     
        # Add subplot labels (a), (b), (c), (d)
     ax11.text(0.95, 0.95, "(a)", transform=ax11.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
@@ -1996,9 +2119,10 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
     ax24.text(0.95, 0.95, "(h)", transform=ax24.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
     
     ax11.set_title(labels[0])  # Setting the title for the first subplot
-    ax11.plot(t, mean1[0], label=f'{place1}, $\\tau={tau11:.2f}$, sen-slope={slope11:.1e}', color=colors[0])  # Plot the mean1 for place1
-    ax11.plot(t, pm_mean1 + t * 0, label='Mean during no blocking', c='gray')  # Plot the mean during no blocking
-    ax11.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax11.plot(t, mean1[0], label=f'{place1}, $\\tau$={tau11}, sen-slope={slope11}', color=colors[0])  # Plot the mean1 for place1
+    ax11.plot(t, no_blocking_data1['winter']['mean'] + t * 0, label='Mean during no blocking', c='gray')  # Plot the mean during no blocking
+    ax11.fill_between(t, no_blocking_data1['winter']['mean'] + t * 0 + no_blocking_data1['winter']['sigma'], 
+                      no_blocking_data1['winter']['mean'] + t * 0 - no_blocking_data1['winter']['mean'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax11.fill_between(t, mean1[0] + sigma1[0], mean1[0] - sigma1[0], alpha=0.4, color=colors[0])  # Confidence interval for place1
     ax11.plot(t, t * 0 + 25, label='EU annual mean limit', c='r', linestyle='--')  # Plot the EU annual mean limit
     ax11.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -2008,9 +2132,10 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
     ax11.set_xticklabels([])
         
     ax12.set_title(labels[1])  # Setting the title for the first subplot
-    ax12.plot(t, mean1[1], label=f'{place1}, $\\tau={tau12:.2f}$, sen-slope={slope12:.1e}', color=colors[1])  # Plot the mean1 for place1
-    ax12.plot(t, pm_mean1 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax12.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax12.plot(t, mean1[1], label=f'{place1}, $\\tau$={tau12}, sen-slope={slope12}', color=colors[1])  # Plot the mean1 for place1
+    ax12.plot(t, no_blocking_data1['spring']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax12.fill_between(t, no_blocking_data1['spring']['mean'] + t * 0 + no_blocking_data1['spring']['sigma'], 
+                      no_blocking_data1['spring']['mean'] + t * 0 - no_blocking_data1['spring']['mean'], alpha=0.4, color='gray')  # Confidence interval for no blocking    
     ax12.fill_between(t, mean1[1] + sigma1[1], mean1[1] - sigma1[1], alpha=0.4, color=colors[1])  # Confidence interval for place1
     ax12.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax12.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -2021,9 +2146,10 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
 
         
     ax13.set_title(labels[2])  # Setting the title for the first subplot
-    ax13.plot(t, mean1[2], label=f'{place1}, $\\tau={tau13:.2f}$, sen-slope={slope13:.1e}', color=colors[2])  # Plot the mean1 for place1
-    ax13.plot(t, pm_mean1 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax13.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax13.plot(t, mean1[2], label=f'{place1}, $\\tau$={tau13}, sen-slope={slope13}', color=colors[2])  # Plot the mean1 for place1
+    ax13.plot(t, no_blocking_data1['summer']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax13.fill_between(t, no_blocking_data1['summer']['mean'] + t * 0 + no_blocking_data1['summer']['sigma'], 
+                      no_blocking_data1['summer']['mean'] + t * 0 - no_blocking_data1['summer']['mean'], alpha=0.4, color='gray')  # Confidence interval for no blocking    
     ax13.fill_between(t, mean1[2] + sigma1[2], mean1[2] - sigma1[2], alpha=0.4, color=colors[2])  # Confidence interval for place1
     ax13.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax13.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -2034,9 +2160,10 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
 
         
     ax14.set_title(labels[3])  # Setting the title for the first subplot
-    ax14.plot(t, mean1[3], label=f'{place1}, $\\tau={tau14:.2f}$, sen-slope={slope14:.1e}', color=colors[3])  # Plot the mean1 for place1
-    ax14.plot(t, pm_mean1 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax14.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax14.plot(t, mean1[3], label=f'{place1}, $\\tau$={tau14}, sen-slope={slope14}', color=colors[3])  # Plot the mean1 for place1
+    ax14.plot(t, no_blocking_data1['autumn']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax14.fill_between(t, no_blocking_data1['autumn']['mean'] + t * 0 + no_blocking_data1['autumn']['sigma'], 
+                      no_blocking_data1['autumn']['mean'] + t * 0 - no_blocking_data1['autumn']['mean'], alpha=0.4, color='gray')  # Confidence interval for no blocking    
     ax14.fill_between(t, mean1[3] + sigma1[3], mean1[3] - sigma1[3], alpha=0.4, color=colors[3])  # Confidence interval for place1
     ax14.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax14.set_xlabel('Time from start of blocking [days]')  # X-axis label
@@ -2048,9 +2175,10 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
 
         
     ax21.set_title(labels[0])  # Setting the title for the first subplot
-    ax21.plot(t, mean2[0], label=f'{place2}, $\\tau={tau21:.2f}$, sen-slope={slope21:.1e}', color=colors[0])  # Plot the mean2 for place1
-    ax21.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax21.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax21.plot(t, mean2[0], label=f'{place2}, $\\tau$={tau21}, sen-slope={slope21}', color=colors[0])  # Plot the mean2 for place1
+    ax21.plot(t, no_blocking_data2['winter']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax21.fill_between(t, no_blocking_data2['winter']['mean'] + t * 0 + no_blocking_data2['winter']['sigma'], 
+                      no_blocking_data2['winter']['mean'] + t * 0 - no_blocking_data2['winter']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax21.fill_between(t, mean2[0] + sigma2[0], mean2[0] - sigma2[0], alpha=0.4, color=colors[0])  # Confidence interval for place1
     ax21.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax21.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -2061,9 +2189,10 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
 
         
     ax22.set_title(labels[1])  # Setting the title for the first subplot
-    ax22.plot(t, mean2[1], label=f'{place2}, $\\tau={tau22:.2f}$, sen-slope={slope22:.1e}', color=colors[1])  # Plot the mean2 for place1
-    ax22.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax22.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax22.plot(t, mean2[1], label=f'{place2}, $\\tau$={tau22}, sen-slope={slope22}', color=colors[1])  # Plot the mean2 for place1
+    ax22.plot(t, no_blocking_data2['spring']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax22.fill_between(t, no_blocking_data2['spring']['mean'] + t * 0 + no_blocking_data2['spring']['sigma'], 
+                      no_blocking_data2['spring']['mean'] + t * 0 - no_blocking_data2['spring']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking    
     ax22.fill_between(t, mean2[1] + sigma2[1], mean2[1] - sigma2[1], alpha=0.4, color=colors[1])  # Confidence interval for place1
     ax22.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax22.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -2074,9 +2203,10 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
 
         
     ax23.set_title(labels[2])  # Setting the title for the first subplot
-    ax23.plot(t, mean2[2], label=f'{place2}, $\\tau={tau23:.2f}$, sen-slope={slope23:.1e}', color=colors[2])  # Plot the mean2 for place1
-    ax23.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax23.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax23.plot(t, mean2[2], label=f'{place2}, $\\tau$={tau23}, sen-slope={slope23}', color=colors[2])  # Plot the mean2 for place1
+    ax23.plot(t, no_blocking_data2['summer']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax23.fill_between(t, no_blocking_data2['summer']['mean'] + t * 0 + no_blocking_data2['summer']['sigma'], 
+                      no_blocking_data2['summer']['mean'] + t * 0 - no_blocking_data2['summer']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking    
     ax23.fill_between(t, mean2[2] + sigma2[2], mean2[2] - sigma2[2], alpha=0.4, color=colors[2])  # Confidence interval for place1
     ax23.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax23.set_ylabel('PM$_{{2.5}}$ [µg/m³]')  # Y-axis label
@@ -2087,9 +2217,10 @@ def plot_seasonal_mean(seasonal_totdata_list1, seasonal_totdata_list2, daystoplo
 
         
     ax24.set_title(labels[3])  # Setting the title for the first subplot
-    ax24.plot(t, mean2[3], label=f'{place2}, $\\tau={tau24:.2f}$, sen-slope={slope24:.1e}', color=colors[3])  # Plot the mean2 for place1
-    ax24.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
-    ax24.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
+    ax24.plot(t, mean2[3], label=f'{place2}, $\\tau$={tau24}, sen-slope={slope24}', color=colors[3])  # Plot the mean2 for place1
+    ax24.plot(t, no_blocking_data2['autumn']['mean'] + t * 0, c='gray')  # Plot the mean during no blocking
+    ax24.fill_between(t, no_blocking_data2['autumn']['mean'] + t * 0 + no_blocking_data2['autumn']['sigma'], 
+                      no_blocking_data2['autumn']['mean'] + t * 0 - no_blocking_data2['autumn']['sigma'], alpha=0.4, color='gray')  # Confidence interval for no blocking    
     ax24.fill_between(t, mean2[3] + sigma2[3], mean2[3] - sigma2[3], alpha=0.4, color=colors[3])  # Confidence interval for place1
     ax24.plot(t, t * 0 + 25, c='r', linestyle='--')  # Plot the EU annual mean limit
     ax24.set_xlabel('Time from start of blocking [days]')  # X-axis label
@@ -2186,12 +2317,22 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
     ax22 = fig.add_subplot(gs[1, 1])  
     ax23 = fig.add_subplot(gs[2, 1])  
     
-    tau11, slope11 = mk.original_test(mean1[0], 0.05)[4], mk.original_test(mean1[0], 0.05)[7]
-    tau12, slope12 = mk.original_test(mean1[1], 0.05)[4], mk.original_test(mean1[1], 0.05)[7]
-    tau13, slope13 = mk.original_test(mean1[2], 0.05)[4], mk.original_test(mean1[2], 0.05)[7]
-    tau21, slope21 = mk.original_test(mean2[0], 0.05)[4], mk.original_test(mean2[0], 0.05)[7]
-    tau22, slope22 = mk.original_test(mean2[1], 0.05)[4], mk.original_test(mean2[1], 0.05)[7]
-    tau23, slope23 = mk.original_test(mean2[2], 0.05)[4], mk.original_test(mean2[2], 0.05)[7]
+    def safe_mk(data):
+        if len(data) == 0:
+            return "NaN", "NaN"
+        try:
+            result = mk.original_test(data, 0.05)
+            return f"{result[4]:.2f}", f"{result[7]:.1e}"
+        except ZeroDivisionError:
+            return "NaN", "NaN"
+
+    # Executing Mann-Kendall tests safely
+    tau11, slope11 = safe_mk(mean1[0])
+    tau12, slope12 = safe_mk(mean1[1])
+    tau13, slope13 = safe_mk(mean1[2])
+    tau21, slope21 = safe_mk(mean2[0])
+    tau22, slope22 = safe_mk(mean2[1])
+    tau23, slope23 = safe_mk(mean2[2])
     
     # Add subplot labels (a), (b), (c), (d)
     ax11.text(0.95, 0.95, "(a)", transform=ax11.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
@@ -2202,7 +2343,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
     ax23.text(0.95, 0.95, "(f)", transform=ax23.transAxes, fontsize=12, fontname='serif', ha='right', va='top')
     
     ax11.set_title(labels[0])  # Setting the title for the first subplot
-    ax11.plot(t, mean1[0], label=f'{place1}, $\\tau={tau11:.2f}$, sen-slope={slope11:.1e}', color=colors[0])  # Plot the mean1 for place1
+    ax11.plot(t, mean1[0], label=f'{place1}, $\\tau$={tau11}, sen-slope={slope11}', color=colors[0])  # Plot the mean1 for place1
     ax11.plot(t, pm_mean1 + t * 0, label='Mean during no blocking', c='gray')  # Plot the mean during no blocking
     ax11.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax11.fill_between(t, mean1[0] + sigma1[0], mean1[0] - sigma1[0], alpha=0.4, color=colors[0])  # Confidence interval for place1
@@ -2214,7 +2355,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
     ax11.set_xticklabels([])
     
     ax12.set_title(labels[1])  # Setting the title for the first subplot
-    ax12.plot(t, mean1[1], label=f'{place1}, $\\tau={tau12:.2f}$, sen-slope={slope12:.1e}', color=colors[1])  # Plot the mean1 for place1
+    ax12.plot(t, mean1[1], label=f'{place1}, $\\tau$={tau12}, sen-slope={slope12}', color=colors[1])  # Plot the mean1 for place1
     ax12.plot(t, pm_mean1 + t * 0, c='gray')  # Plot the mean during no blocking
     ax12.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax12.fill_between(t, mean1[1] + sigma1[1], mean1[1] - sigma1[1], alpha=0.4, color=colors[1])  # Confidence interval for place1
@@ -2227,7 +2368,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
 
     
     ax13.set_title(labels[2])  # Setting the title for the first subplot
-    ax13.plot(t, mean1[2], label=f'{place1}, $\\tau={tau13:.2f}$, sen-slope={slope13:.1e}', color=colors[2])  # Plot the mean1 for place1
+    ax13.plot(t, mean1[2], label=f'{place1}, $\\tau$={tau13}, sen-slope={slope13}', color=colors[2])  # Plot the mean1 for place1
     ax13.plot(t, pm_mean1 + t * 0, c='gray')  # Plot the mean during no blocking
     ax13.fill_between(t, pm_mean1 + t * 0 + pm_sigma1, pm_mean1 + t * 0 - pm_sigma1, alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax13.fill_between(t, mean1[2] + sigma1[2], mean1[2] - sigma1[2], alpha=0.4, color=colors[2])  # Confidence interval for place1
@@ -2241,7 +2382,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
 
     
     ax21.set_title(labels[0])  # Setting the title for the first subplot
-    ax21.plot(t, mean2[0], label=f'{place2}, $\\tau={tau21:.2f}$, sen-slope={slope21:.1e}', color=colors[0])  # Plot the mean2 for place1
+    ax21.plot(t, mean2[0], label=f'{place2}, $\\tau$={tau21}, sen-slope={slope21}', color=colors[0])  # Plot the mean2 for place1
     ax21.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
     ax21.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax21.fill_between(t, mean2[0] + sigma2[0], mean2[0] - sigma2[0], alpha=0.4, color=colors[0])  # Confidence interval for place1
@@ -2254,7 +2395,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
 
     
     ax22.set_title(labels[1])  # Setting the title for the first subplot
-    ax22.plot(t, mean2[1], label=f'{place2}, $\\tau={tau22:.2f}$, sen-slope={slope22:.1e}', color=colors[1])  # Plot the mean2 for place1
+    ax22.plot(t, mean2[1], label=f'{place2}, $\\tau$={tau22}, sen-slope={slope22}', color=colors[1])  # Plot the mean2 for place1
     ax22.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
     ax22.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax22.fill_between(t, mean2[1] + sigma2[1], mean2[1] - sigma2[1], alpha=0.4, color=colors[1])  # Confidence interval for place1
@@ -2267,7 +2408,7 @@ def plot_pressure_mean(pressure_totdata_list1, pressure_totdata_list2, daystoplo
 
     
     ax23.set_title(labels[2])  # Setting the title for the first subplot
-    ax23.plot(t, mean2[2], label=f'{place2}, $\\tau={tau23:.2f}$, sen-slope={slope23:.1e}', color=colors[2])  # Plot the mean2 for place1
+    ax23.plot(t, mean2[2], label=f'{place2}, $\\tau$={tau23}, sen-slope={slope23}', color=colors[2])  # Plot the mean2 for place1
     ax23.plot(t, pm_mean2 + t * 0, c='gray')  # Plot the mean during no blocking
     ax23.fill_between(t, pm_mean2 + t * 0 + pm_sigma2, pm_mean2 + t * 0 - pm_sigma2, alpha=0.4, color='gray')  # Confidence interval for no blocking
     ax23.fill_between(t, mean2[2] + sigma2[2], mean2[2] - sigma2[2], alpha=0.4, color=colors[2])  # Confidence interval for place1
@@ -2499,7 +2640,7 @@ def plot_blockingsdays_by_year(block_list, typ, save=False):
             
             # Check if p-value is below 0.05 and format the string accordingly
             if p_value < 0.05:
-                infostrings[season] = f"p={p_value:.1e}, $\\tau={tau:.2f}$, sen-slope={slope:.1e}"
+                infostrings[season] = f"p={p_value:.1e}, $\\tau$={tau}, sen-slope={slope:.1e}"
             else:
                 infostrings[season] = f"p={p_value:.3f} $\\nless$ 0.05"
                                                                                       
@@ -2690,10 +2831,10 @@ def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
         fig, ax = plt.subplots(figsize=(9*scalar, 5*scalar))
 
         # Line plots for total blockings and long blockings
-        ax.plot(t, total_blockings, label=f'Total Blockings, p={ptot:.1e}, $\\tau={tautot:.2f}$, sen-slope={slopetot:.1e}', color='black', linestyle='-', marker='s', alpha=0.9)
+        ax.plot(t, total_blockings, label=f'Total Blockings, p={ptot:.1e}, $\\tau$={tautot}, sen-slope={slopetot:.1e}', color='black', linestyle='-', marker='s', alpha=0.9)
         
-        ax.plot(t, lim1_blockings_per_year, label=f'Blockings > {lim1} Days, p={p1:.1e}, $\\tau={tau1:.2f}$, sen-slope={slope1:.1e}', color='green', linestyle='-', marker='o', alpha=0.9)
-        ax.plot(t, lim2_blockings_per_year, label=f'Blockings > {lim2} Days, p={p2:.1e}, $\\tau={tau2:.2f}$, sen-slope={slope2:.1e}', color='red', linestyle='-', marker='^', alpha=0.9)
+        ax.plot(t, lim1_blockings_per_year, label=f'Blockings > {lim1} Days, p={p1:.1e}, $\\tau$={tau1}, sen-slope={slope1:.1e}', color='green', linestyle='-', marker='o', alpha=0.9)
+        ax.plot(t, lim2_blockings_per_year, label=f'Blockings > {lim2} Days, p={p2:.1e}, $\\tau$={tau2}, sen-slope={slope2:.1e}', color='red', linestyle='-', marker='^', alpha=0.9)
         # Labels and title
         ax.set_xlabel('Year', fontsize=12)
         ax.set_ylabel('Number of events', fontsize=12)
@@ -2715,4 +2856,5 @@ def plot_blockings_by_year(block_list, lim1, lim2, Histogram=False, save=False):
         plt.savefig("BachelorThesis/Figures/BlockingsPerYear.png", dpi=400)
         
     plt.show()
+
 

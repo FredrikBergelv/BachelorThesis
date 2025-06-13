@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  6 JUN 2025 12:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.25)  6 JUN 2025 12:46
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1214,9 +1214,7 @@ Underfull \hbox (badness 2050) in paragraph at lines 120--123
 []\T1/ptm/m/n/10 GEONOR, Inc.  T-200B Se-ries All Weather Gauge.  https://www.geonor.com/t-200b-all-weather-
  []
 
-) (./Textfiles/Appendix.tex [24]) [25] [26
-
-] 
+) (./Textfiles/Appendix.tex [24]) [25] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (.output/main.aux (.output/Textfiles/0.Abstract.aux) (.output/Other/acknowledgments.aux))
  ***********
@@ -1227,18 +1225,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 518E5E7ABBF0AB82221F19F893C24466;4759.
  ) 
 Here is how much of TeX's memory you used:
- 33912 strings out of 474222
- 663635 string characters out of 5748732
+ 33911 strings out of 474222
+ 663628 string characters out of 5748732
  1943975 words of memory out of 5000000
  55439 multiletter control sequences out of 15000+600000
  608642 words of font info for 102 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,96p,2478b,1064s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on .output/main.pdf (32 pages, 10244455 bytes).
+Output written on .output/main.pdf (31 pages, 10244273 bytes).
 PDF statistics:
- 593 PDF objects out of 1000 (max. 8388607)
- 459 compressed objects within 5 object streams
- 99 named destinations out of 1000 (max. 500000)
+ 589 PDF objects out of 1000 (max. 8388607)
+ 456 compressed objects within 5 object streams
+ 98 named destinations out of 1000 (max. 500000)
  281 words of extra memory for PDF output out of 10000 (max. 10000000)
 

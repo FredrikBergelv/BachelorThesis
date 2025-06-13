@@ -21,7 +21,7 @@ warnings.simplefilter("ignore", category=UserWarning)
 plt.close('all')
 
 info   = False          #<-------- CHANGE IF YOU WANT
-imsave = "png"         # Can be pdf, png, False
+imsave = False         # Can be pdf, png, False
 
 press_lim   = 1014   # This is the pressure limit for classifying high pressure
 dur_lim     = 5      # Minimum number of days for blocking
@@ -94,9 +94,9 @@ blocking_list_Malmö = read.find_blocking(pressure_data, rain_data_Malmö,
 
 
 blocking_list_Malmö, blocking_list_Vavihill = read.date_calibrate_blockinglists(
-    blocking_list_Malmö, 
-    blocking_list_Vavihill, 
-    timediff, info=info)
+                                                blocking_list_Malmö, 
+                                                blocking_list_Vavihill, 
+                                                timediff, info=info)
 
 
 read.plot_period(PM_data_Vavihill, wind_data_Vavihill, rain_data_Vavihill, 
@@ -184,10 +184,11 @@ dir_totdata_list_Malmö = read.sort_wind_dir(totdata_list_Malmö, pieinfo=info)
 
     
 if info: print(" \n ")
-    
+
 seasonal_totdata_list_Vavihill = read.sort_season(totdata_list_Vavihill, 
                                                   totdata_list_dates_Vavihill, 
                                                   pieinfo=info)
+
 seasonal_totdata_list_Malmö = read.sort_season(totdata_list_Malmö, 
                                                totdata_list_dates_Malmö, 
                                                pieinfo=info)
@@ -199,14 +200,23 @@ pressure_totdata_list_Malmö = read.sort_pressure(totdata_list_Malmö, pieinfo=i
 if info: print(" \n ")
 
 
+dir_grey_area1 = read.sigma_dir_mean(blocking_list1=blocking_list_Vavihill, 
+                              PM_data1=PM_data_Vavihill, 
+                              wind_data1=wind_data_Vavihill)
+
+dir_grey_area2 = read.sigma_dir_mean(blocking_list1=blocking_list_Malmö, 
+                              PM_data1=PM_data_Malmö, 
+                              wind_data1=wind_data_Malmö)
+
+
+
 read.plot_dir_mean(dir_totdata_list1=dir_totdata_list_Vavihill, 
                    dir_totdata_list2=dir_totdata_list_Malmö, 
-                   daystoplot=daystoplot,  
+                   daystoplot=daystoplot,
+                   no_blocking_data1=dir_grey_area1,
+                   no_blocking_data2=dir_grey_area2,
                    minpoints=8,
-                   place1='Vavihill', place2='Malmö', save=imsave,
-                   pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
-                   pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö)
-
+                   place1='Vavihill', place2='Malmö', save=imsave)
 
 
 read.plot_pressure_mean(pressure_totdata_list1=pressure_totdata_list_Vavihill, 
@@ -218,23 +228,25 @@ read.plot_pressure_mean(pressure_totdata_list1=pressure_totdata_list_Vavihill,
                         pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö)
 
 
-read.plot_seasonal_mean(seasonal_totdata_list1=seasonal_totdata_list_Vavihill, 
-                        seasonal_totdata_list2=seasonal_totdata_list_Malmö, 
-                        daystoplot=daystoplot,  
-                        minpoints=8,
-                        place1='Vavihill', place2='Malmö', save=imsave,
-                        pm_mean1=pm_mean_Vavihill, pm_sigma1=pm_sigma_Vavihill,
-                        pm_mean2=pm_mean_Malmö, pm_sigma2=pm_sigma_Malmö)
-    
+seasonal_grey_area1 = read.sigma_seasonal_mean(blocking_list1=blocking_list_Vavihill, 
+                                          PM_data1=PM_data_Vavihill)
 
+seasonal_grey_area2 = read.sigma_seasonal_mean(blocking_list1=blocking_list_Malmö, 
+                                          PM_data1=PM_data_Malmö)
+
+
+
+read.plot_seasonal_mean(seasonal_totdata_list1=seasonal_totdata_list_Vavihill, 
+                   seasonal_totdata_list2=seasonal_totdata_list_Malmö, 
+                   daystoplot=daystoplot,
+                   no_blocking_data1=seasonal_grey_area1,
+                   no_blocking_data2=seasonal_grey_area2,
+                   minpoints=8,
+                   place1='Vavihill', place2='Malmö', save=imsave)
 if not info: print('3. The mean plots are now done')
 
 if imsave: plt.close('all')
     
 if not info: print(f"Elapsed time: {time.time() - start_time:.0f} seconds")
-
-
-
-
 
 
